@@ -1,0 +1,96 @@
+<!Doctype html>
+<html>
+	<head>
+		<title> welcome </title>
+		<link href="css/bootstrap.css" rel="stylesheet" />
+		<link href="css/bootstrap-theme.css" rel="stylesheet" />
+	</head>
+	<style>
+		.navbar {
+		margin-bottom: 0;
+		background-color: #191919;
+		z-index: 9999;
+		border: 0;
+		font-size: 12px !important;
+		line-height: 1.42857143 !important;
+		letter-spacing: 4px;
+		border-radius: 0;
+		}
+		.navbar li a, .navbar .navbar-brand {
+		color: #fff !important;	
+		}
+		.navbar-nav li a:hover, .navbar-nav li.active a {
+		color: #191919 !important;
+		background-color: #fff !important;
+		}
+		.navbar-default .navbar-toggle {
+		border-color: transparent;
+		color: #fff !important;
+		}
+		.jumbotron {
+		padding: 100px;
+		padding-top:200px;
+		}
+		#test{ position: absolute;
+		width: 100%;
+		height: 100%;
+		}
+		#logindiv{
+		padding-left:30px;
+		padding-right:30px;
+		}
+		.btn{
+		background-color: #4CAF50;
+		color:#f2f2f2;
+		text-align:center;
+		width:100%;
+		}
+		form {
+		padding: 40px 10px 20px 40px;
+		background-color: #a9a9aa;
+		}
+	</style>
+	<body class="row">
+		<nav class="navbar navbar-inverse  navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">P.M.S</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#contact">Sign in</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="jumbotron" id="test"></div>
+		<div class="jumbotron" id="first">
+			<div class = "row">
+				<div class="col-lg-4 col-md-4 col-sm-0"></div>
+				<form class="col-lg-4 col-md-4 col-sm-12">
+					<!--span class="glyphicon glyphicon-user"></span-->
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon2">
+						<span class="input-group-addon" id="basic-addon2">@iseosystems.com</span>
+					</div>
+					<br>
+					<input type="password" class="form-control" placeholder="Password"><br>
+					<div id="logindiv"><input type="submit" align="center" class="btn" value="Log In"></div>
+				</form>
+			</div>
+		</div>
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>	
+		<script>
+			var a = $("#test").height();
+			$("#first").height(a-20);
+			$("#test").hide();
+		</script>
+	</body>
+</html>
+
