@@ -96,7 +96,7 @@
 		function loadAddEmployees(a){
 			var obj = JSON.parse(a);
 			s='';
-			//alert(Object.keys(obj).length);
+			
 			modalAddEmp = obj;
 			for ( i in obj ) {
 				s = s+ "<tr>"+ "<th>"+ obj[i].fields + "</th>"+"</tr>";
