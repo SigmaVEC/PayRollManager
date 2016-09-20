@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<title>Admin View</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="css/bootstrap-theme.css"/>
 		<script src="js/jquery.js"></script>
@@ -46,14 +47,14 @@
 						</div>
 						<button id="btnCreateInAddSection" class="btn btn-warning">Create Feilds</button-->
 						<div class="panel panel-default">
-				  			<div class="panel-heading">Add Employee <span class="glyphicon glyphicon-plus add" id="addNewEmpIcon"></span></div>
+				  			<div class="panel-heading">Add Employee <span class="glyphicon glyphicon-plus add" id="addNewEmpIcon"></span> </div>
 							<table class="table" id="tableAddEmp">
 							</table>
 						</div>
 					</div>
 					<div id="viewSection" class="section"><br>
 						<div class="panel panel-default">
-				  			<div class="panel-heading">Employees</div>
+				  			<div class="panel-heading">Employees <span class="glyphicon glyphicon-minus add" id="deleteEmpIcon"></span></div>
 								<table class="table table-striped" id="empTable">
 									<thead>
 								      		<tr>
@@ -216,6 +217,7 @@
 			float: right;
 			font-size:20px;
 			color:#666;
+			cursor: pointer;
 		}
 		#settings:hover{
 			color:#59F;
@@ -229,12 +231,14 @@
 			float: right;
 			font-size:20px;
 			color:#666;
+			cursor:pointer;
 		}
 		.add:hover{
 			color:#59F;
 		}
 	</style>
 	<script>
+		var count=1;
 		var th = $("#test").height();
 		var toph = $("#top").height();
 		$("#test").hide();
@@ -320,11 +324,25 @@
 			s = '<tr>';
 			obj = modalAddEmp;
 			for ( i in obj ) {
-				s = s + '<td><input type="text" name="'+ obj[i].fields + '"</td>';
+				s = s + '<td><input type="text" name="'+ obj[i].fields+count+ ' "placeholder="'+ obj[i].fields+' ' +count+ '"</td>';
 			}	
 			s = s + "</tr>";
 			$("#tableAddEmp").append(s);
+			count++;
 		});
+		
+		$("#deleteEmpIcon").on("click",function(){
+		
+			if(count>1){
+				//remove code
+				//count--;
+				}
+			else {
+				alert("No Employees to remove");
+				}
+			
+		});
+		
 		function loadPayRoll(a){
 			var p1 = JSON.parse(a);
 			s1 = "";
@@ -347,6 +365,8 @@
 			$("#tablePayRoll").html(h1 + s1);
 		}
 		$("#generalTab").trigger("click");
+		
+		
 	</script>
 	
 </html>
