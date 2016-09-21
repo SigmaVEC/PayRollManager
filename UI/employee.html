@@ -27,8 +27,7 @@
 					</div>
 					<div id="payment"  class="section"><br>
 						<div class="panel panel-default">
-				  			<div class="panel-heading">Payment </div>
-							<table class="table" id="paymenttable">
+				  			<table class="table" id="paymenttable">
 							</table>
 						</div>
 					</div>
@@ -41,6 +40,7 @@
 	<style>
 		#panel{
 			background-color:#f1f1f1;
+			cursor: pointer; 
 		}
 		#test{ 
 			position: absolute;
@@ -89,11 +89,12 @@
 			$("#"+$(this).attr("section")).show();
 			$(this).addClass("active");
 		});
-		loadAddEmployees('[{"fields":"Name"},{"fields":"Father Name"},{"fields":"Dob"},{"fields":"Shift"},{"fields":"No of Days Present"}]');
-		
+		loadEmployeeDetails('[{"fields":"Name"},{"fields":"Father Name"},{"fields":"Dob"},{"fields":"Shift"},{"fields":"No of Days Present"}]');
+		loadPay('[{"fields":"Basic pay"},{"fields":"DA"},{"fields":"HRA"},{"fields":"PF"},{"fields":"Net Pay"}]');
+
 		
 		var modalAddEmp ;
-		function loadAddEmployees(a){
+		function loadEmployeeDetails(a){
 			var obj = JSON.parse(a);
 			s='';
 			
@@ -105,7 +106,17 @@
 			$("#tableAddEmp").html(s);
 		}
 
-		
+		function loadPay(a){
+			var obj = JSON.parse(a);
+			s='';
+			
+			modalAddEmp = obj;
+			for ( i in obj ) {
+				s = s+ "<tr>"+ "<th>"+ obj[i].fields + "</th>"+"</tr>";
+			}
+			
+			$("#paymenttable").html(s);
+		}
 		
 		
 		$("#generalTab").trigger("click");
