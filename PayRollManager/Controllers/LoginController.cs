@@ -16,17 +16,13 @@ namespace PayRollManager.Controllers {
 
         };
 
-        public String Authenticate(String id, String password) {
-            var res = d.FirstOrDefault((p) => p.id == id);
-            if (res == null) {
-                return "User ID is invalid";
+        public IHttpActionResult GetById(String id, String password) {
+            var res = d.FirstOrDefault((p) => (p.id == id && p.password == password));
+
+            if (res != null) {
+                return Ok(res);
             } else {
-                String pass = res.password;
-                if (pass.Equals(password)) {
-                    return "Authentication Successful";
-                } else {
-                    return "Password is invalid";
-                }
+                return NotFound();
             }
         }
     }
