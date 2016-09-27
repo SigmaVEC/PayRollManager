@@ -10,6 +10,14 @@
 	<body>
 		<div id="top">
 			<span id="logo">P.M.S</span>
+			 <button type="button" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
+                    User <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu menu" role="menu">
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Edit Details</a></li>
+                    <li><a href="#">Sign out</a></li>
+                </ul>
 		</div>
 		<div id="test"></div>
 		<div class="container-fluid">
@@ -217,6 +225,14 @@
 			margin-top: 90px;
 			margin-left: 45%;
 		}
+		
+		.menu{
+			position: static;
+			float: right;
+			margin-top: 7px;
+			margin-right: 7px;
+			}
+		
 		.add{
 			position: static;
 			float: right;
