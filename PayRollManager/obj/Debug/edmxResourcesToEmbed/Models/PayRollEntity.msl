@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PayRollManagerModelStoreContainer" CdmEntityContainer="PayRollManager">
+    <EntitySetMapping Name="Company_Details">
+      <EntityTypeMapping TypeName="PayRollManagerModel.Company_Details">
+        <MappingFragment StoreEntitySet="Company_Details">
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+          <ScalarProperty Name="DOL" ColumnName="DOL" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Company_Salary">
+      <EntityTypeMapping TypeName="PayRollManagerModel.Company_Salary">
+        <MappingFragment StoreEntitySet="Company_Salary">
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
+          <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />
+          <ScalarProperty Name="AdjustmentType" ColumnName="AdjustmentType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

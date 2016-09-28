@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PayRollManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Company_Details">
+    <Key>
+      <PropertyRef Name="CompanyName" />
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DOJ" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DOL" Type="DateTime" Precision="0" />
+    <Property Name="IsAdmin" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Company_Salary">
+    <Key>
+      <PropertyRef Name="CompanyName" />
+      <PropertyRef Name="EmployeeId" />
+      <PropertyRef Name="AdjustmentName" />
+    </Key>
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdjustmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AdjustmentValue" Type="Double" />
+    <Property Name="AdjustmentType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="PayRollManager" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Company_Details" EntityType="Self.Company_Details" />
+    <EntitySet Name="Company_Salary" EntityType="Self.Company_Salary" />
+  </EntityContainer>
+</Schema>
