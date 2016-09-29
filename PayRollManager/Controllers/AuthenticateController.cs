@@ -14,12 +14,18 @@ namespace PayRollManager.Controllers {
     public class AuthenticateController : ApiController {
         private PayRollManagerEntities db = new PayRollManagerEntities();
 
-        // POST: api/Authenticate
-        [ResponseType(typeof(Company_Details))]
+        // GET: api/Authenticate
+        [ResponseType(typeof(Employee_Info))]
         [HttpGet]
-        public IHttpActionResult Auth(String companyName, String id, String password) {
-            var res = db.Company_Details.FirstOrDefaultAsync((p) => (p.CompanyName == companyName && p.EmployeeId == id && p.Password == password));
-            return Ok(res.Result);
+        public IHttpActionResult Auth(int companyId, String employeeId, String password) {
+            var company = db.Company_Info.FirstOrDefaultAsync((p) => (p.CompanyId == companyId));
+
+            if(company.Result != null) {
+                var employee = db.Employee_Info.FirstOrDefaultAsync((p) => (p.EmployeeId == employeeId && p.Password == password));
+                return Ok(employee.Result);
+            } else {
+                return Ok(company.Result);
+            }
         }
     }
 }

@@ -5,12 +5,19 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PayRollManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Company_Details">
+        <EntityType Name="Company_Info">
           <Key>
-            <PropertyRef Name="CompanyName" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="CompanyName" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee_Info">
+          <Key>
+            <PropertyRef Name="CompanyId" />
             <PropertyRef Name="EmployeeId" />
           </Key>
-          <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="EmployeeName" Type="text" Nullable="false" />
           <Property Name="DOJ" Type="date" Nullable="false" />
@@ -18,33 +25,41 @@
           <Property Name="IsAdmin" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Company_Salary">
+        <EntityType Name="Employee_Salary">
           <Key>
-            <PropertyRef Name="CompanyName" />
+            <PropertyRef Name="CompanyId" />
             <PropertyRef Name="EmployeeId" />
             <PropertyRef Name="AdjustmentName" />
           </Key>
-          <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="AdjustmentName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AdjustmentValue" Type="float" />
           <Property Name="AdjustmentType" Type="char" MaxLength="3" />
         </EntityType>
         <EntityContainer Name="PayRollManagerModelStoreContainer">
-          <EntitySet Name="Company_Details" EntityType="Self.Company_Details" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Company_Salary" EntityType="Self.Company_Salary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company_Info" EntityType="Self.Company_Info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee_Info" EntityType="Self.Employee_Info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee_Salary" EntityType="Self.Employee_Salary" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PayRollManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Company_Details">
+        <EntityType Name="Company_Info">
           <Key>
-            <PropertyRef Name="CompanyName" />
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee_Info">
+          <Key>
+            <PropertyRef Name="CompanyId" />
             <PropertyRef Name="EmployeeId" />
           </Key>
-          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DOJ" Type="DateTime" Nullable="false" Precision="0" />
@@ -52,21 +67,22 @@
           <Property Name="IsAdmin" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Company_Salary">
+        <EntityType Name="Employee_Salary">
           <Key>
-            <PropertyRef Name="CompanyName" />
+            <PropertyRef Name="CompanyId" />
             <PropertyRef Name="EmployeeId" />
             <PropertyRef Name="AdjustmentName" />
           </Key>
-          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdjustmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdjustmentValue" Type="Double" />
           <Property Name="AdjustmentType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityContainer Name="PayRollManagerEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Company_Details" EntityType="Self.Company_Details" />
-          <EntitySet Name="Company_Salary" EntityType="Self.Company_Salary" />
+          <EntitySet Name="Company_Info" EntityType="Self.Company_Info" />
+          <EntitySet Name="Employee_Info" EntityType="Self.Employee_Info" />
+          <EntitySet Name="Employee_Salary" EntityType="Self.Employee_Salary" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -74,10 +90,18 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PayRollManagerModelStoreContainer" CdmEntityContainer="PayRollManagerEntities">
-          <EntitySetMapping Name="Company_Details">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Company_Details">
-              <MappingFragment StoreEntitySet="Company_Details">
+          <EntitySetMapping Name="Company_Info">
+            <EntityTypeMapping TypeName="PayRollManagerModel.Company_Info">
+              <MappingFragment StoreEntitySet="Company_Info">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee_Info">
+            <EntityTypeMapping TypeName="PayRollManagerModel.Employee_Info">
+              <MappingFragment StoreEntitySet="Employee_Info">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
                 <ScalarProperty Name="DOJ" ColumnName="DOJ" />
@@ -87,10 +111,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Company_Salary">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Company_Salary">
-              <MappingFragment StoreEntitySet="Company_Salary">
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <EntitySetMapping Name="Employee_Salary">
+            <EntityTypeMapping TypeName="PayRollManagerModel.Employee_Salary">
+              <MappingFragment StoreEntitySet="Employee_Salary">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
                 <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />

@@ -1,10 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="PayRollManagerModelStoreContainer" CdmEntityContainer="PayRollManagerEntities">
-    <EntitySetMapping Name="Company_Details">
-      <EntityTypeMapping TypeName="PayRollManagerModel.Company_Details">
-        <MappingFragment StoreEntitySet="Company_Details">
+    <EntitySetMapping Name="Company_Info">
+      <EntityTypeMapping TypeName="PayRollManagerModel.Company_Info">
+        <MappingFragment StoreEntitySet="Company_Info">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
           <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee_Info">
+      <EntityTypeMapping TypeName="PayRollManagerModel.Employee_Info">
+        <MappingFragment StoreEntitySet="Employee_Info">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
           <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
           <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
           <ScalarProperty Name="DOJ" ColumnName="DOJ" />
@@ -14,10 +22,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Company_Salary">
-      <EntityTypeMapping TypeName="PayRollManagerModel.Company_Salary">
-        <MappingFragment StoreEntitySet="Company_Salary">
-          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+    <EntitySetMapping Name="Employee_Salary">
+      <EntityTypeMapping TypeName="PayRollManagerModel.Employee_Salary">
+        <MappingFragment StoreEntitySet="Employee_Salary">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
           <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
           <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
           <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />

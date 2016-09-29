@@ -25,7 +25,8 @@ namespace PayRollManager.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Company_Details> Company_Details { get; set; }
-        public virtual DbSet<Company_Salary> Company_Salary { get; set; }
+        public virtual DbSet<Company_Info> Company_Info { get; set; }
+        public virtual DbSet<Employee_Info> Employee_Info { get; set; }
+        public virtual DbSet<Employee_Salary> Employee_Salary { get; set; }
     }
 }

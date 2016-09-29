@@ -12,14 +12,9 @@ namespace PayRollManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Company_Details
+    public partial class Company_Info
     {
+        public int CompanyId { get; set; }
         public string CompanyName { get; set; }
-        public string EmployeeId { get; set; }
-        public string EmployeeName { get; set; }
-        public System.DateTime DOJ { get; set; }
-        public Nullable<System.DateTime> DOL { get; set; }
-        public string IsAdmin { get; set; }
-        public string Password { get; set; }
     }
 }
