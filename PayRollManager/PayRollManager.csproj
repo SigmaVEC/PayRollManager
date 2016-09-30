@@ -180,6 +180,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AddCompanyController.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\EmployeeViewController.cs" />
     <Compile Include="Controllers\ListCompaniesController.cs" />

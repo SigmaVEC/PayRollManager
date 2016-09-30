@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 using PayRollManager.Models;
 using System.Security.Cryptography;
 using System.Web;
@@ -17,7 +16,6 @@ namespace PayRollManager.Controllers {
         private PayRollManagerEntities db = new PayRollManagerEntities();
 
         // GET: api/Authenticate
-        [ResponseType(typeof(Session_Tokens))]
         [HttpGet]
         public IHttpActionResult Auth(int companyId, String employeeId, String password) {
             var company = db.Company_Info.FirstOrDefault((p) => (p.CompanyId == companyId));

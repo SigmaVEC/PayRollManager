@@ -18,7 +18,7 @@ namespace PayRollManager.Controllers {
 
             if(session != null) {
                 var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId));
-                EmployeeViewModel reply = new EmployeeViewModel {
+                var reply = new EmployeeViewModel {
                     id = employee.EmployeeId,
                     name = employee.EmployeeName,
                     doj = employee.DOJ,
