@@ -181,6 +181,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
+    <Compile Include="Controllers\EmployeeViewController.cs" />
     <Compile Include="Controllers\ListCompaniesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -188,6 +189,7 @@
     <Compile Include="Models\Company_Info.cs">
       <DependentUpon>PayRollModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\Employee_Info.cs">
       <DependentUpon>PayRollModel.tt</DependentUpon>
     </Compile>
