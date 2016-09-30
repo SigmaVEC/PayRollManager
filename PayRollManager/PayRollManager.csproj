@@ -211,6 +211,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PayRollModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Session_Tokens.cs">
+      <DependentUpon>PayRollModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

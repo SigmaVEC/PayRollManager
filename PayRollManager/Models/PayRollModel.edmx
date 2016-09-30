@@ -35,12 +35,21 @@
           <Property Name="EmployeeId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="AdjustmentName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AdjustmentValue" Type="float" />
-          <Property Name="AdjustmentType" Type="char" MaxLength="3" />
+          <Property Name="AdjustmentType" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Session_Tokens">
+          <Key>
+            <PropertyRef Name="SessionToken" />
+          </Key>
+          <Property Name="SessionToken" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PayRollManagerModelStoreContainer">
           <EntitySet Name="Company_Info" EntityType="Self.Company_Info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Info" EntityType="Self.Employee_Info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee_Salary" EntityType="Self.Employee_Salary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Session_Tokens" EntityType="Self.Session_Tokens" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -77,12 +86,21 @@
           <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdjustmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AdjustmentValue" Type="Double" />
-          <Property Name="AdjustmentType" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="AdjustmentType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Session_Tokens">
+          <Key>
+            <PropertyRef Name="SessionToken" />
+          </Key>
+          <Property Name="SessionToken" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PayRollManagerEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Company_Info" EntityType="Self.Company_Info" />
           <EntitySet Name="Employee_Info" EntityType="Self.Employee_Info" />
           <EntitySet Name="Employee_Salary" EntityType="Self.Employee_Salary" />
+          <EntitySet Name="Session_Tokens" EntityType="Self.Session_Tokens" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -119,6 +137,15 @@
                 <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
                 <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />
                 <ScalarProperty Name="AdjustmentType" ColumnName="AdjustmentType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Session_Tokens">
+            <EntityTypeMapping TypeName="PayRollManagerModel.Session_Tokens">
+              <MappingFragment StoreEntitySet="Session_Tokens">
+                <ScalarProperty Name="SessionToken" ColumnName="SessionToken" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

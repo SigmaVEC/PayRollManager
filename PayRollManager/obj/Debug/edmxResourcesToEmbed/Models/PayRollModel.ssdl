@@ -30,11 +30,20 @@
     <Property Name="EmployeeId" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="AdjustmentName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="AdjustmentValue" Type="float" />
-    <Property Name="AdjustmentType" Type="char" MaxLength="3" />
+    <Property Name="AdjustmentType" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="Session_Tokens">
+    <Key>
+      <PropertyRef Name="SessionToken" />
+    </Key>
+    <Property Name="SessionToken" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>
   <EntityContainer Name="PayRollManagerModelStoreContainer">
     <EntitySet Name="Company_Info" EntityType="Self.Company_Info" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employee_Info" EntityType="Self.Employee_Info" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employee_Salary" EntityType="Self.Employee_Salary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Session_Tokens" EntityType="Self.Session_Tokens" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>
