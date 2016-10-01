@@ -45,10 +45,10 @@ namespace PayRollManager.Controllers {
                     var session = db.Session_Tokens.FirstOrDefault((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId));
                     return Ok(session);
                 } else {
-                    return Ok(employee);
+                    return Ok(new ErrorMessage { message = "Employee ID and/or Password invalid"});
                 }
             } else {
-                return Ok(company);
+                return Ok(new ErrorMessage { message = "Company ID invalid" });
             }
         }
     }

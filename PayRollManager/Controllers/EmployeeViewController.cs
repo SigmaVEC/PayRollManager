@@ -27,7 +27,7 @@ namespace PayRollManager.Controllers {
 
                 return Ok(reply);
             } else {
-                return Ok(session);
+                return Ok(new ErrorMessage { message = "Session Token is invalid" });
             }
         }
     }

@@ -30,13 +30,13 @@ namespace PayRollManager.Controllers {
 
                         return Ok(db.Company_Info.FirstOrDefault((p) => (p.CompanyId == company.CompanyId)));
                     } else {
-                        return Ok(employee);
+                        return Ok(new ErrorMessage { message = "You do not have permission to perform this operation" });
                     }
                 } else {
-                    return Ok(companyName);
+                    return Ok(new ErrorMessage { message = "Company Name is empty" });
                 }
             } else {
-                return Ok(session);
+                return Ok(new ErrorMessage { message = "Session Token is invalid" });
             }
         }
     }
