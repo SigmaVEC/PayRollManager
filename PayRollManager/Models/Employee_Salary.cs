@@ -17,7 +17,7 @@ namespace PayRollManager.Models
         public int CompanyId { get; set; }
         public string EmployeeId { get; set; }
         public string AdjustmentName { get; set; }
-        public Nullable<double> AdjustmentValue { get; set; }
+        public double AdjustmentValue { get; set; }
         public string AdjustmentType { get; set; }
     }
 }

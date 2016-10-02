@@ -13,7 +13,10 @@ namespace PayRollManager.Controllers {
         // GET: api/ListCompanies
         [HttpGet]
         public IHttpActionResult List() {
-            return Ok(db.Company_Info);
+            return Ok(new Message {
+                data = db.Company_Info.ToArray(),
+                message = "Success"
+            });
         }
     }
 }

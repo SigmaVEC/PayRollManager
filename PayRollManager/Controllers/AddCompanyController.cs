@@ -17,26 +17,38 @@ namespace PayRollManager.Controllers {
 
             if (session != null) {
                 if(companyName != null) {
-                    var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId));
+                    var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId && p.IsAdmin == "y"));
 
-                    if (employee.IsAdmin.Equals("y")) {
+                    if (employee != null) {
                         var companyId = db.Company_Info.Max(p => p.CompanyId) + 1;
                         var company = new Company_Info {
                             CompanyId = companyId,
                             CompanyName = companyName
                         };
                         db.Company_Info.Add(company);
-                        db.SaveChanges();
-
-                        return Ok(db.Company_Info.FirstOrDefault((p) => (p.CompanyId == company.CompanyId)));
+                        db.SaveChangesAsync();
+                        
+                        return Ok(new Message {
+                            data = null,
+                            message = "Success"
+                        });
                     } else {
-                        return Ok(new ErrorMessage { message = "You do not have permission to perform this operation" });
+                        return Ok(new Message {
+                            data = null,
+                            message = "You do not have permission to perform this operation"
+                        });
                     }
                 } else {
-                    return Ok(new ErrorMessage { message = "Company Name is empty" });
+                    return Ok(new Message {
+                        data = null,
+                        message = "Company Name is empty"
+                    });
                 }
             } else {
-                return Ok(new ErrorMessage { message = "Session Token is invalid" });
+                return Ok(new Message {
+                    data = null,
+                    message = "Session Token is invalid"
+                });
             }
         }
     }

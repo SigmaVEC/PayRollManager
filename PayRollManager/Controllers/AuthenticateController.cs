@@ -21,7 +21,7 @@ namespace PayRollManager.Controllers {
             var company = db.Company_Info.FirstOrDefault((p) => (p.CompanyId == companyId));
 
             if(company != null) {
-                var employee = db.Employee_Info.FirstOrDefault((p) => (p.EmployeeId == employeeId && p.Password == password));
+                var employee = db.Employee_Info.FirstOrDefault((p) => (p.EmployeeId == employeeId && p.Password == password && p.DOL == null));
 
                 if(employee != null) {
                     var prevToken = db.Session_Tokens.FirstOrDefault((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId));
@@ -43,12 +43,21 @@ namespace PayRollManager.Controllers {
                     db.SaveChanges();
 
                     var session = db.Session_Tokens.FirstOrDefault((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId));
-                    return Ok(session);
+                    return Ok(new Message {
+                        data = session,
+                        message = "Success"
+                    });
                 } else {
-                    return Ok(new ErrorMessage { message = "Employee ID and/or Password invalid"});
+                    return Ok(new Message {
+                        data = null,
+                        message = "Employee ID and/or Password invalid"
+                    });
                 }
             } else {
-                return Ok(new ErrorMessage { message = "Company ID invalid" });
+                return Ok(new Message {
+                    data = null,
+                    message = "Company ID invalid"
+                });
             }
         }
     }

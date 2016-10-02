@@ -185,6 +185,8 @@
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\EmployeeViewController.cs" />
     <Compile Include="Controllers\ListCompaniesController.cs" />
+    <Compile Include="Controllers\RemoveCompanyController.cs" />
+    <Compile Include="Controllers\RemoveEmployeeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,6 +194,7 @@
       <DependentUpon>PayRollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmployeeDataModel.cs" />
+    <Compile Include="Models\EmployeeRemoveModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\Employee_Info.cs">
       <DependentUpon>PayRollModel.tt</DependentUpon>
@@ -199,7 +202,7 @@
     <Compile Include="Models\Employee_Salary.cs">
       <DependentUpon>PayRollModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ErrorMessage.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\PayRollModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

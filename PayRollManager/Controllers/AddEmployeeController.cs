@@ -13,48 +13,69 @@ namespace PayRollManager.Controllers {
 
         // GET: api/AddEmployee
         [HttpGet]
-        public IHttpActionResult AddCompany(String token, String newEmployeeJson) {
+        public IHttpActionResult AddEmployee(String token, String employeeJson) {
             var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token));
 
             if (session != null) {
-                var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId));
+                var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId && p.IsAdmin == "y"));
 
-                if (employee.IsAdmin.Equals("y")) {
+                if (employee != null) {
                     try {
-                        var newEmployee = new JavaScriptSerializer().Deserialize<EmployeeDataModel>(newEmployeeJson);
-                        var e = new Employee_Info {
-                            CompanyId = newEmployee.companyId,
-                            EmployeeId = newEmployee.employeeId,
-                            EmployeeName = newEmployee.name,
-                            DOJ = newEmployee.doj,
-                            DOL = null,
-                            IsAdmin = newEmployee.isAdmin,
-                            Password = newEmployee.password
-                        };
-                        db.Employee_Info.Add(e);
-                        db.SaveChanges();
+                        var newEmployee = new JavaScriptSerializer().Deserialize<EmployeeDataModel>(employeeJson);
+                        var dbEmployee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == newEmployee.companyId && p.EmployeeId == newEmployee.employeeId));
 
-                        foreach (var i in newEmployee.salary) {
-                            var s = new Employee_Salary {
+                        if(dbEmployee == null) {
+                            var e = new Employee_Info {
                                 CompanyId = newEmployee.companyId,
                                 EmployeeId = newEmployee.employeeId,
-                                AdjustmentName = i.name,
-                                AdjustmentType = i.type,
-                                AdjustmentValue = i.value
+                                EmployeeName = newEmployee.name,
+                                DOJ = newEmployee.date,
+                                DOL = null,
+                                IsAdmin = newEmployee.isAdmin,
+                                Password = newEmployee.password
                             };
-                            db.Employee_Salary.Add(s);
-                            db.SaveChanges();
-                        }
+                            db.Employee_Info.Add(e);
+                            db.SaveChangesAsync();
 
-                        return Ok(newEmployee);
+                            for (int i = 0; i < newEmployee.salary.Length; i++) {
+                                var s = new Employee_Salary {
+                                    CompanyId = newEmployee.companyId,
+                                    EmployeeId = newEmployee.employeeId,
+                                    AdjustmentName = newEmployee.salary[i].name,
+                                    AdjustmentType = newEmployee.salary[i].type,
+                                    AdjustmentValue = newEmployee.salary[i].value
+                                };
+                                db.Employee_Salary.Add(s);
+                            }
+                            db.SaveChangesAsync();
+
+                            return Ok(new Message {
+                                data = null,
+                                message = "Success"
+                            });
+                        } else {
+                            return Ok(new Message {
+                                data = null,
+                                message = "Employee already exists"
+                            });
+                        }
                     } catch(System.ArgumentException) {
-                        return Ok(new ErrorMessage { message = "JSON format is invalid" });
+                        return Ok(new Message {
+                            data = null,
+                            message = "JSON format is invalid"
+                        });
                     }
                 } else {
-                    return Ok(new ErrorMessage { message = "You do not have permission to perform this operation" });
+                    return Ok(new Message {
+                        data= null,
+                        message = "You do not have permission to perform this operation"
+                    });
                 }
             } else {
-                return Ok(new ErrorMessage { message = "Session Token is invalid" });
+                return Ok(new Message {
+                    data = null,
+                    message = "Session Token is invalid"
+                });
             }
         }
     }

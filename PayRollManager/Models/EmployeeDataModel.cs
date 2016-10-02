@@ -8,7 +8,7 @@ namespace PayRollManager.Models {
         public int companyId { get; set; }
         public string employeeId { get; set; }
         public string name { get; set; }
-        public System.DateTime doj { get; set; }
+        public System.DateTime date { get; set; }
         public string isAdmin { get; set; }
         public string password { get; set; }
         public SalaryDataModel[] salary { get; set; }

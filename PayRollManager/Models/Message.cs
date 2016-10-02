@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 
 namespace PayRollManager.Models {
-    public class ErrorMessage {
+    public class Message {
+        public Object data { get; set; }
         public String message { get; set; }
     }
 }

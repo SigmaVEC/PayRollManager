@@ -8,6 +8,6 @@ namespace PayRollManager.Models {
         public String id { get; set; }
         public String name { get; set; }
         public DateTime doj { get; set; }
-        public Employee_Salary[] salary { get; set; }
+        public SalaryDataModel[] salary { get; set; }
     }
 }
