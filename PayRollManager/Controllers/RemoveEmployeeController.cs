@@ -26,7 +26,6 @@ namespace PayRollManager.Controllers {
 
                         if (dbEmployee != null) {
                             dbEmployee.DOL = leftEmployee.dol;
-                            db.SaveChangesAsync();
                             var employeeSession = db.Session_Tokens.FirstOrDefault((p) => (p.EmployeeId == dbEmployee.EmployeeId && p.CompanyId == dbEmployee.CompanyId));
 
                             if(employeeSession != null) {

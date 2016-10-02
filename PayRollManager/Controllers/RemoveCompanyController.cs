@@ -21,19 +21,16 @@ namespace PayRollManager.Controllers {
                 if (employee != null) {
                     var company = db.Company_Info.FirstOrDefault((p) => (p.CompanyId == companyId));
                     db.Company_Info.Remove(company);
-                    db.SaveChangesAsync();
 
                     var companyEmployees = db.Employee_Info.Where((p) => (p.CompanyId == companyId));
                     foreach(var i in companyEmployees) {
                         db.Employee_Info.Remove(i);
                     }
-                    db.SaveChangesAsync();
 
                     var companySalaries = db.Employee_Salary.Where((p) => (p.CompanyId == companyId));
                     foreach (var i in companySalaries) {
                         db.Employee_Salary.Remove(i);
                     }
-                    db.SaveChangesAsync();
 
                     var companySessions = db.Session_Tokens.Where((p) => (p.CompanyId == companyId));
                     foreach (var i in companySessions) {

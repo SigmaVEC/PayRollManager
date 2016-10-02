@@ -24,7 +24,7 @@ namespace PayRollManager.Controllers {
                         var newEmployee = new JavaScriptSerializer().Deserialize<EmployeeDataModel>(employeeJson);
                         var dbEmployee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == newEmployee.companyId && p.EmployeeId == newEmployee.employeeId));
 
-                        if(dbEmployee == null) {
+                        if (dbEmployee == null) {
                             var e = new Employee_Info {
                                 CompanyId = newEmployee.companyId,
                                 EmployeeId = newEmployee.employeeId,
@@ -35,7 +35,6 @@ namespace PayRollManager.Controllers {
                                 Password = newEmployee.password
                             };
                             db.Employee_Info.Add(e);
-                            db.SaveChangesAsync();
 
                             for (int i = 0; i < newEmployee.salary.Length; i++) {
                                 var s = new Employee_Salary {

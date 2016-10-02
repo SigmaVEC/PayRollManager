@@ -29,8 +29,8 @@
     <Property Name="CompanyId" Type="int" Nullable="false" />
     <Property Name="EmployeeId" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="AdjustmentName" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="AdjustmentValue" Type="float" />
-    <Property Name="AdjustmentType" Type="char" MaxLength="1" />
+    <Property Name="AdjustmentValue" Type="float" Nullable="false" />
+    <Property Name="AdjustmentType" Type="char" MaxLength="1" Nullable="false" />
   </EntityType>
   <EntityType Name="Session_Tokens">
     <Key>
