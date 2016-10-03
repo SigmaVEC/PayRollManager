@@ -266,16 +266,24 @@
 			$("#"+$(this).attr("section")).show();
 			$(this).addClass("active");
 		});
-		loadCompany('[{"name":"testCompany1"},{"name":"testCompany3"},{"name":"testCompany4"}]');
+		loadCompany();
 		loadGeneral('{"Employees count":"100","Date of Next Payment":"1-12-2016"}');
 		loadEmployees('[{"name":"sk","father name":"sekhar","DOB":"1-2-1996","Designation":"Director"},{"name":"none","father name":"nonedad","DOB":"1-4-1994","Designation":"Assistant"},{"name":"Mr X","father name":"Mr X dad","DOB":"1-2-2001","Designation":"Manager"}]');
 		loadAddEmployees('[{"fields":"name"},{"fields":"fatherName"},{"fields":"Dob"},{"fields":"BasicPay"}]');
-		function loadCompany(jsonCompanyList){
-			var obj = JSON.parse(jsonCompanyList);
-			var companyList="";
-			for( a in obj )
-				companyList = companyList +' <button type="button" class="list-group-item">'+obj[a].name+'</button> ';
-			$("#listTest").html(companyList);
+		function loadCompany() {
+		    $.get("api/listcompanies", {}, function (result) {
+		        // alert(result.message);
+		        if (result.message != "Success") {
+		            companyList =  ' <button type="button" class="list-group-item disabled">' + result.message + '</button> ';
+		            $("#listTest").html(companyList);
+		            return;
+		        }
+		        var obj = result.data;
+		        var companyList="";
+		        for( a in obj )
+		            companyList = companyList +' <button type="button" class="list-group-item">'+obj[a].CompanyName+'</button> ';
+		        $("#listTest").html(companyList);
+		    });
 		}
 		function loadGeneral(jsonGeneral) {
 			var p = JSON.parse(jsonGeneral);
@@ -370,7 +378,7 @@
 						if ( i==0 ){
 							h1 = h1 + "<th>" + key + "</th>";
 						}
-						console.log(key + " ->> " + p[key]); 
+						//console.log(key + " ->> " + p[key]); 
 						s1 = s1 + "<td>" + p[key] + "</td>";
 					}
 				}
@@ -381,7 +389,7 @@
 		}
 		$("#generalTab").trigger("click");
 		
-		
+		//alert(getCookie());
 	</script>
 	
 </html>

@@ -15,16 +15,16 @@
 			<div class="row">
 				<div class="col-lg-4 col-md-4 col-sm-0"></div>
 				<div class="col-lg-4 col-md-4 col-sm-12" id="formId">
-					<form action="sec.html">					
+					<div id="form">					
 						<!--span class="glyphicon glyphicon-user"></span-->
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon2">
+							<input type="text" class="form-control" id="uname" placeholder="Username" aria-describedby="basic-addon2">
 							<span class="input-group-addon" id="basic-addon2">@iseosystems.com</span>
 						</div>
 						<br>
-						<input type="password" class="form-control" placeholder="Password"><br>
-						<div id="logindiv"><input type="submit" align="center" class="btn" value="Log In"></div>
-					</form>
+						<input type="password" class="form-control" id="password" placeholder="Password"><br>
+						<div id="logindiv"><button id="btnLogin" align="center" class="btn" value="Log In">Log In</button></div>
+					</div>
 				<div>
 			</div>	
 		</div>
@@ -46,7 +46,7 @@
 			font-size: 30px;
 			font-weight: bold;
 		}
-		form {
+		#form {
 			background-color: #a9a9aa;
 			margin:0px;
 			padding:20px;
@@ -71,7 +71,25 @@
 		var h1 = th-toph-fh;
 		$("#test").hide();
 		$("#formId").height(th-toph);
-		$("form").css("margin-top",h1/2-40);
+		$("form").css("margin-top", h1 / 2 - 40);
+		$("#btnLogin").on("click", function () {
+		    var uname = $("#uname").val();
+		    var pass = $("#password").val();
+		    console.log(uname);
+		    //api/authenticate?companyid=1&employeeid=123&password=qwe
+		    $.get('/api/authenticate', { companyid: 1, employeeid: uname, password: pass }, function (result) {
+		        //alert(result.data.SessionToken);
+		        if (result.message == "Success") {
+		            setCookie(result.data.SessionToken)
+		            //alert(getCookie());
+		            window.location = "sec.html";
+		        } else {
+		            
+		        }
+		    });
+		});
+        //setCookie("valies")
+		//alert(getCookie());
 	</script>
 	
 </html>
