@@ -151,6 +151,7 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\flat-ui.css" />
+    <Content Include="css\style.css" />
     <Content Include="EfeildsAdd.html" />
     <Content Include="employee.html" />
     <Content Include="first.html" />
@@ -160,6 +161,7 @@
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\radiocheck.js" />
+    <Content Include="js\script.js" />
     <Content Include="Models\PayRollModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PayRollModel.edmx</DependentUpon>

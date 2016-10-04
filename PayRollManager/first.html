@@ -2,6 +2,7 @@
 	<head>
 		<link rel="stylesheet" href="css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="css/bootstrap-theme.css"/>
+        <link rel="stylesheet" href="css/style.css" />
 		<script src="js/jquery.js"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="js/script.js"></script>
@@ -81,15 +82,13 @@
 		        //alert(result.data.SessionToken);
 		        if (result.message == "Success") {
 		            setCookie(result.data.SessionToken)
-		            //alert(getCookie());
+		            setUserName(uname);
 		            window.location = "sec.html";
 		        } else {
-		            
+		            notify("Check username and password");
 		        }
 		    });
 		});
-        //setCookie("valies")
-		//alert(getCookie());
 	</script>
 	
 </html>
