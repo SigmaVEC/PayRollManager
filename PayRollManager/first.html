@@ -20,7 +20,18 @@
 						<!--span class="glyphicon glyphicon-user"></span-->
 						<div class="input-group">
 							<input type="text" class="form-control" id="uname" placeholder="Username" aria-describedby="basic-addon2">
-							<span class="input-group-addon" id="basic-addon2">@iseosystems.com</span>
+                            <div class="input-group-btn">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span id="cname">select</span>
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="listCompany">
+                                        <button type="button" class="list-group-item disabled">loading</button>
+                                    </ul>
+                                </div>
+                            </div>
 						</div>
 						<br>
 						<input type="password" class="form-control" id="password" placeholder="Password"><br>
@@ -70,6 +81,7 @@
 		var toph = $("#top").height();
 		var fh = $("form").height();
 		var h1 = th-toph-fh;
+		var cid = 0;
 		$("#test").hide();
 		$("#formId").height(th-toph);
 		$("form").css("margin-top", h1 / 2 - 40);
@@ -78,7 +90,7 @@
 		    var pass = $("#password").val();
 		    console.log(uname);
 		    //api/authenticate?companyid=1&employeeid=123&password=qwe
-		    $.get('/api/authenticate', { companyid: 1, employeeid: uname, password: pass }, function (result) {
+		    $.get('/api/authenticate', { companyid: cid, employeeid: uname, password: pass }, function (result) {
 		        //alert(result.data.SessionToken);
 		        if (result.message == "Success") {
 		            setCookie(result.data.SessionToken)
@@ -89,6 +101,24 @@
 		        }
 		    });
 		});
+		$.get("api/listcompanies", {}, function (result) {
+		    // alert(result.message);
+		    if (result.message != "Success") {
+		        companyList = ' <button type="button" class="list-group-item disabled">' + result.message + '</button> ';
+		        $("#listCompany").html(companyList);
+		        return;
+		    }
+		    var obj = result.data;
+		    var companyList = "";
+		    for (a in obj)
+		        companyList = companyList + ' <button type="button" cid="'+obj[a].CompanyId+'" class="list-group-item " onclick="companySelect(this)">' + obj[a].CompanyName + '</button> ';
+		    $("#listCompany").html(companyList);
+		});
+		function companySelect(a) {
+		    cid = a.getAttribute("cid");
+		    var n = a.innerHTML;
+		    $("#cname").html(n);
+		}
 	</script>
 	
 </html>

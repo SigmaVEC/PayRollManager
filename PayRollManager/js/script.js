@@ -45,4 +45,12 @@ document.write(`<div id="notification" class="container-fluid">
                 <div class="col-md-4" id="notificationArea"></div>
                 <div class="col-md-4"></div>
             </div>
-        </div>`);
+         </div>`);
+$.get("/api/employeeview", {token:getCookie("Token")}, function (result) {
+    // alert(result.message);
+    if (result.message != "Success" && !window.location.toString().includes("first.html")) {
+        //notify("Please Login");
+        window.location = "first.html";
+        return;
+    }
+});

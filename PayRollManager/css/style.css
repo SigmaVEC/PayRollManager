@@ -1,0 +1,17 @@
+﻿#notification{
+	height:28px;
+	position:fixed;
+	bottom:0%;
+	width:100%; 
+	display:none;
+	z-index:15;
+	opacity:0.8;
+}
+#notificationArea{
+	background-color:#222;
+	color:#FFF;
+	size:15px;
+	text-align: center;
+	border-radius: 10px 10px 0px 0px;
+	font-size: 20px;
+}
