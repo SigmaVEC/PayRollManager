@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PayRollManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PayRollManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Company_Info">
           <Key>
             <PropertyRef Name="CompanyId" />
@@ -42,6 +42,7 @@
             <PropertyRef Name="SessionToken" />
           </Key>
           <Property Name="SessionToken" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Timestamp" Type="date" Nullable="false" />
           <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
@@ -51,17 +52,22 @@
           <EntitySet Name="Employee_Salary" EntityType="Self.Employee_Salary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Session_Tokens" EntityType="Self.Session_Tokens" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PayRollManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PayRollManagerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Company_Info" EntityType="PayRollManagerModel.Company_Info" />
+          <EntitySet Name="Employee_Info" EntityType="PayRollManagerModel.Employee_Info" />
+          <EntitySet Name="Employee_Salary" EntityType="PayRollManagerModel.Employee_Salary" />
+          <EntitySet Name="Session_Tokens" EntityType="PayRollManagerModel.Session_Tokens" />
+        </EntityContainer>
         <EntityType Name="Company_Info">
           <Key>
             <PropertyRef Name="CompanyId" />
           </Key>
           <Property Name="CompanyId" Type="Int32" Nullable="false" />
-          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Employee_Info">
           <Key>
@@ -69,11 +75,11 @@
             <PropertyRef Name="EmployeeId" />
           </Key>
           <Property Name="CompanyId" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EmployeeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DOJ" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DOL" Type="DateTime" Precision="0" />
-          <Property Name="IsAdmin" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IsAdmin" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Employee_Salary">
@@ -83,25 +89,20 @@
             <PropertyRef Name="AdjustmentName" />
           </Key>
           <Property Name="CompanyId" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AdjustmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AdjustmentName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AdjustmentValue" Type="Double" Nullable="false" />
-          <Property Name="AdjustmentType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="AdjustmentType" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Session_Tokens">
           <Key>
             <PropertyRef Name="SessionToken" />
           </Key>
-          <Property Name="SessionToken" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SessionToken" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CompanyId" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="PayRollManagerEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Company_Info" EntityType="Self.Company_Info" />
-          <EntitySet Name="Employee_Info" EntityType="Self.Employee_Info" />
-          <EntitySet Name="Employee_Salary" EntityType="Self.Employee_Salary" />
-          <EntitySet Name="Session_Tokens" EntityType="Self.Session_Tokens" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -111,41 +112,42 @@
           <EntitySetMapping Name="Company_Info">
             <EntityTypeMapping TypeName="PayRollManagerModel.Company_Info">
               <MappingFragment StoreEntitySet="Company_Info">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee_Info">
             <EntityTypeMapping TypeName="PayRollManagerModel.Employee_Info">
               <MappingFragment StoreEntitySet="Employee_Info">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
-                <ScalarProperty Name="DOL" ColumnName="DOL" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="DOL" ColumnName="DOL" />
+                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee_Salary">
             <EntityTypeMapping TypeName="PayRollManagerModel.Employee_Salary">
               <MappingFragment StoreEntitySet="Employee_Salary">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
-                <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />
                 <ScalarProperty Name="AdjustmentType" ColumnName="AdjustmentType" />
+                <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />
+                <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Session_Tokens">
             <EntityTypeMapping TypeName="PayRollManagerModel.Session_Tokens">
               <MappingFragment StoreEntitySet="Session_Tokens">
-                <ScalarProperty Name="SessionToken" ColumnName="SessionToken" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="SessionToken" ColumnName="SessionToken" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

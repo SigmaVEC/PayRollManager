@@ -15,6 +15,7 @@ namespace PayRollManager.Models
     public partial class Session_Tokens
     {
         public string SessionToken { get; set; }
+        public System.DateTime Timestamp { get; set; }
         public int CompanyId { get; set; }
         public string EmployeeId { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using PayRollManager.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -14,14 +15,14 @@ namespace PayRollManager.Controllers {
         // GET: api/EmployeeView
         [HttpGet]
         public IHttpActionResult View(String token) {
-            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token));
+            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && ((DateTime.Now.Ticks - p.Timestamp.Ticks) / TimeSpan.TicksPerSecond < long.Parse(ConfigurationManager.AppSettings["tokenLifetime"]))));
 
             if(session != null) {
                 var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId));
                 var s = db.Employee_Salary.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId)).ToArray();
                 var salaryData = new List<SalaryDataModel>();
 
-                for(int i = 0; i < s.Length; i++) {
+                for (int i = 0; i < s.Length; i++) {
                     salaryData.Add(new SalaryDataModel {
                         name = s[i].AdjustmentName,
                         type = s[i].AdjustmentType,
@@ -51,7 +52,7 @@ namespace PayRollManager.Controllers {
         // GET: api/EmployeeView
         [HttpGet]
         public IHttpActionResult View(String token, int companyId) {
-            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token));
+            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && ((DateTime.Now.Ticks - p.Timestamp.Ticks) / TimeSpan.TicksPerSecond < long.Parse(ConfigurationManager.AppSettings["tokenLifetime"]))));
 
             if (session != null) {
                 var admin = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId && p.IsAdmin == "y"));
@@ -60,31 +61,38 @@ namespace PayRollManager.Controllers {
                     var employees = db.Employee_Info.Where((p) => (p.CompanyId == companyId)).ToArray();
                     var employeeData = new List<EmployeeViewModel>();
 
-                    for (int i = 0; i < employees.Length; i++) {
-                        var employee = employees[i];
-                        var s = db.Employee_Salary.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId)).ToArray();
-                        var salaryData = new List<SalaryDataModel>();
+                    if(employees.Length != 0) {
+                        for (int i = 0; i < employees.Length; i++) {
+                            var employee = employees[i];
+                            var s = db.Employee_Salary.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId)).ToArray();
+                            var salaryData = new List<SalaryDataModel>();
 
-                        for (int j = 0; j < s.Length; j++) {
-                            salaryData.Add(new SalaryDataModel {
-                                name = s[j].AdjustmentName,
-                                type = s[j].AdjustmentType,
-                                value = s[j].AdjustmentValue
+                            for (int j = 0; j < s.Length; j++) {
+                                salaryData.Add(new SalaryDataModel {
+                                    name = s[j].AdjustmentName,
+                                    type = s[j].AdjustmentType,
+                                    value = s[j].AdjustmentValue
+                                });
+                            }
+
+                            employeeData.Add(new EmployeeViewModel {
+                                id = employee.EmployeeId,
+                                name = employee.EmployeeName,
+                                doj = employee.DOJ,
+                                salary = salaryData.ToArray()
                             });
                         }
 
-                        employeeData.Add(new EmployeeViewModel {
-                            id = employee.EmployeeId,
-                            name = employee.EmployeeName,
-                            doj = employee.DOJ,
-                            salary = salaryData.ToArray()
+                        return Ok(new Message {
+                            data = employeeData.ToArray(),
+                            message = "Success"
+                        });
+                    } else {
+                        return Ok(new Message {
+                            data = null,
+                            message = "Company not found"
                         });
                     }
-
-                    return Ok(new Message {
-                        data = employeeData.ToArray(),
-                        message = "Success"
-                    });
                 } else {
                     return Ok(new Message {
                         data = null,
