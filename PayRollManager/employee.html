@@ -9,14 +9,20 @@
 	</head>
 	<body>
 		<div id="top">
-			<span id="logo">P.M.S</span>
+			<span id="logo">Pay Roll Manager</span>
+			<button type="button" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
+                    User <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu menu" role="menu">
+                    <li><a href="#">Sign out</a></li>
+                </ul>
 		</div>
 		<div id="test"></div>
 		<div class="container-fluid">
 			<div class="row">
 				
 				<div class="col-lg-9 col-md-9 col-sm-3">
-					<h1>Company 1</h1>
+					<h1>Company 1</h1>&nbsp;
 					<ul class="nav nav-tabs">
   						<li role="presentation" class="active" id="generalTab" section="generalSection"><a href="#">General</a></li>
   						<li role="presentation" id="addTab" section="payment"><a href="#">Payment</a></li>
@@ -38,6 +44,12 @@
 
 	</body>
 	<style>
+		.menu{
+			position: static;
+			float: right;
+			margin-top: 7px;
+			margin-right: 7px;
+			}
 		#panel{
 			background-color:#f1f1f1;
 			cursor: pointer; 
