@@ -47,5 +47,56 @@ namespace PayRollManager.Controllers {
                 });
             }
         }
+
+        // GET: api/EmployeeView
+        [HttpGet]
+        public IHttpActionResult View(String token, int companyId) {
+            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token));
+
+            if (session != null) {
+                var admin = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId && p.IsAdmin == "y"));
+
+                if (admin != null) {
+                    var employees = db.Employee_Info.Where((p) => (p.CompanyId == companyId)).ToArray();
+                    var employeeData = new List<EmployeeViewModel>();
+
+                    for (int i = 0; i < employees.Length; i++) {
+                        var employee = employees[i];
+                        var s = db.Employee_Salary.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId)).ToArray();
+                        var salaryData = new List<SalaryDataModel>();
+
+                        for (int j = 0; j < s.Length; j++) {
+                            salaryData.Add(new SalaryDataModel {
+                                name = s[j].AdjustmentName,
+                                type = s[j].AdjustmentType,
+                                value = s[j].AdjustmentValue
+                            });
+                        }
+
+                        employeeData.Add(new EmployeeViewModel {
+                            id = employee.EmployeeId,
+                            name = employee.EmployeeName,
+                            doj = employee.DOJ,
+                            salary = salaryData.ToArray()
+                        });
+                    }
+
+                    return Ok(new Message {
+                        data = employeeData.ToArray(),
+                        message = "Success"
+                    });
+                } else {
+                    return Ok(new Message {
+                        data = null,
+                        message = "You do not have permission to perform this operation"
+                    });
+                }
+            } else {
+                return Ok(new Message {
+                    data = null,
+                    message = "Session Token is invalid"
+                });
+            }
+        }
     }
 }
