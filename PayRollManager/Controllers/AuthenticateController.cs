@@ -36,6 +36,7 @@ namespace PayRollManager.Controllers {
                     rng.GetBytes(randBytes);
                     var token = new Session_Tokens {
                         SessionToken = HttpServerUtility.UrlTokenEncode(randBytes),
+                        Timestamp = DateTime.Now,                        
                         CompanyId = companyId,
                         EmployeeId = employeeId
                     };

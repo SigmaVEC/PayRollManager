@@ -1,6 +1,7 @@
 ﻿using PayRollManager.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,7 +15,7 @@ namespace PayRollManager.Controllers {
         // GET: api/AddEmployee
         [HttpGet]
         public IHttpActionResult AddEmployee(String token, String employeeJson) {
-            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token));
+            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && ((DateTime.Now.Ticks - p.Timestamp.Ticks) / TimeSpan.TicksPerSecond < long.Parse(ConfigurationManager.AppSettings["tokenLifetime"]))));
 
             if (session != null) {
                 var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId && p.IsAdmin == "y"));
