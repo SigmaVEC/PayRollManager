@@ -37,6 +37,7 @@
       <PropertyRef Name="SessionToken" />
     </Key>
     <Property Name="SessionToken" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Timestamp" Type="date" Nullable="false" />
     <Property Name="CompanyId" Type="int" Nullable="false" />
     <Property Name="EmployeeId" Type="varchar" MaxLength="20" Nullable="false" />
   </EntityType>

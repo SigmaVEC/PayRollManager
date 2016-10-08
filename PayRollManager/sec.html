@@ -284,7 +284,7 @@
 		        var obj = result.data;
 		        var companyList="";
 		        for( a in obj )
-		            companyList = companyList +' <button type="button" class="list-group-item">'+obj[a].CompanyName+'</button> ';
+		            companyList = companyList + ' <button type="button" onclick="companyClick(this)" cid="' + obj[a].CompanyId + '" class="list-group-item">' + obj[a].CompanyName + '</button> ';
 		        $("#listTest").html(companyList);
 		    });
 		}
@@ -369,7 +369,14 @@
 				}
 			
 		});
-		
+		function companyClick(a) {
+		    c = a.getAttribute("cid");
+		    $.get("/api/employeeview", { token: getCookie("Token"),CompanyId: c }, function (result) {
+		        // alert(result.message);
+		        arr = result.data;
+		        loadEmployees(JSON.stringify(arr));
+		    });
+		}
 		function loadPayRoll(a){
 			var p1 = JSON.parse(a);
 			s1 = "";
@@ -407,6 +414,7 @@
 		$("#username").html(getCookie("Uname"));
 		//validate();
         //alert($("#fsdfsdf"))
+
 	</script>
 	
 </html>

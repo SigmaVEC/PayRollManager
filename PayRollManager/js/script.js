@@ -39,13 +39,13 @@ function notify(s) {
     $("#notificationArea").html(s);
     $('#notification').slideDown(300).delay(3000).slideUp(300);
 }
-document.write(`<div id="notification" class="container-fluid">
+/*document.writeln(`<div id="notification" class="container-fluid">
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4" id="notificationArea"></div>
                 <div class="col-md-4"></div>
             </div>
-         </div>`);
+         </div>`);*/
 $.get("/api/employeeview", {token:getCookie("Token")}, function (result) {
     // alert(result.message);
     if (result.message != "Success" && !window.location.toString().includes("first.html")) {
