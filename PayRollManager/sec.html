@@ -59,6 +59,7 @@
 				  			<div class="panel-heading">Add Employee <span class="glyphicon glyphicon-plus add" id="addNewEmpIcon"></span> </div>
 							<table class="table" id="tableAddEmp">
 							</table>
+                            <button class="btn btn-default" id="btnAddNewEmpDone">Done</button>
 						</div>
 					</div>
 					<div id="viewSection" class="section"><br>
@@ -337,13 +338,26 @@
 			s = '<tr>';
 			obj = modalAddEmp;
 			for ( i in obj ) {
-				s = s + '<td><input type="text" name="'+ obj[i].fields+count+ ' "placeholder="'+ obj[i].fields+' ' +count+ '"</td>';
+				s = s + '<td><input type="text" id="'+ obj[i].fields+count+ '"placeholder="'+ obj[i].fields+' ' +count+ '"</td>';
 			}	
 			s = s + "</tr>";
 			$("#tableAddEmp").append(s);
 			count++;
 		});
-		
+		$("#btnAddNewEmpDone").on("click", function () {
+		    obj = modalAddEmp;
+		    empAddDone = {}
+		    j = 0;
+		    alert("#" + obj[0].fields + "1");
+		    if (document.getElementById("#" + obj[0].fields + "1")) {
+		        alert("#" + obj[i].fields + count);
+		        for (i in obj) {
+		            empAddDone[j].obj.fields = $("#" + obj[i].fields + count).val();
+		            j++;
+		        }
+		    }
+		    alert(JSON.stringify(empAddDone));
+		});
 		$("#deleteEmpIcon").on("click",function(){
 		
 			if(count>1){
@@ -391,7 +405,8 @@
 		    window.location = "first.html";
 		});
 		$("#username").html(getCookie("Uname"));
-		validate();
+		//validate();
+        //alert($("#fsdfsdf"))
 	</script>
 	
 </html>
