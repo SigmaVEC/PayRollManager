@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,7 +16,8 @@ namespace PayRollManager.Controllers {
         // GET: api/AddEmployee
         [HttpGet]
         public IHttpActionResult AddEmployee(String token, String employeeJson) {
-            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && ((DateTime.Now.Ticks - p.Timestamp.Ticks) / TimeSpan.TicksPerSecond < long.Parse(ConfigurationManager.AppSettings["tokenLifetime"]))));
+            var tokenLifetime = int.Parse(ConfigurationManager.AppSettings["tokenLifetime"]);
+            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && DbFunctions.DiffHours(DateTime.Now, p.Timestamp) < tokenLifetime));
 
             if (session != null) {
                 var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId && p.IsAdmin == "y"));
@@ -38,14 +40,21 @@ namespace PayRollManager.Controllers {
                             db.Employee_Info.Add(e);
 
                             for (int i = 0; i < newEmployee.salary.Length; i++) {
-                                var s = new Employee_Salary {
-                                    CompanyId = newEmployee.companyId,
-                                    EmployeeId = newEmployee.employeeId,
-                                    AdjustmentName = newEmployee.salary[i].name,
-                                    AdjustmentType = newEmployee.salary[i].type,
-                                    AdjustmentValue = newEmployee.salary[i].value
-                                };
-                                db.Employee_Salary.Add(s);
+                                if((newEmployee.salary[i].type == "#") || (newEmployee.salary[i].type == "%" && newEmployee.salary[i].value <= 100)) {
+                                    var s = new Employee_Salary {
+                                        CompanyId = newEmployee.companyId,
+                                        EmployeeId = newEmployee.employeeId,
+                                        AdjustmentName = newEmployee.salary[i].name,
+                                        AdjustmentType = newEmployee.salary[i].type,
+                                        AdjustmentValue = newEmployee.salary[i].value
+                                    };
+                                    db.Employee_Salary.Add(s);
+                                } else {
+                                    return Ok(new Message {
+                                        data = null,
+                                        message = "Salary data model contains invalid data"
+                                    });
+                                }
                             }
                             db.SaveChangesAsync();
 

@@ -15,9 +15,10 @@ namespace PayRollManager.Controllers {
         // GET: api/EmployeeView
         [HttpGet]
         public IHttpActionResult View(String token) {
-            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && ((DateTime.Now.Ticks - p.Timestamp.Ticks) / TimeSpan.TicksPerSecond < long.Parse(ConfigurationManager.AppSettings["tokenLifetime"]))));
+            var tokenLifetime = int.Parse(ConfigurationManager.AppSettings["tokenLifetime"]);
+            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && DbFunctions.DiffHours(DateTime.Now, p.Timestamp) < tokenLifetime));
 
-            if(session != null) {
+            if (session != null) {
                 var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId));
                 var s = db.Employee_Salary.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId)).ToArray();
                 var salaryData = new List<SalaryDataModel>();
@@ -52,7 +53,8 @@ namespace PayRollManager.Controllers {
         // GET: api/EmployeeView
         [HttpGet]
         public IHttpActionResult View(String token, int companyId) {
-            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && ((DateTime.Now.Ticks - p.Timestamp.Ticks) / TimeSpan.TicksPerSecond < long.Parse(ConfigurationManager.AppSettings["tokenLifetime"]))));
+            var tokenLifetime = int.Parse(ConfigurationManager.AppSettings["tokenLifetime"]);
+            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && DbFunctions.DiffHours(DateTime.Now, p.Timestamp) < tokenLifetime));
 
             if (session != null) {
                 var admin = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId && p.IsAdmin == "y"));
