@@ -38,6 +38,7 @@
 					&nbsp;<h1>Company 1</h1>&nbsp;
 					<ul class="nav nav-tabs">
   						<li role="presentation" class="active" id="generalTab" section="generalSection"><a href="#">General</a></li>
+  						<li role="presentation" id="EfieldTab" section="EfieldSection"><a href="#">Add Fields</a></li>
   						<li role="presentation" id="addTab" section="addSection"><a href="#">Add Employees</a></li>
   						<li role="presentation" id="viewTab" section="viewSection"><a href="#">View Employee</a></li>
 						<li role="presentation" id="payRollTab" section="payRollSection"><a href="#">PayRoll</a></li>
@@ -47,6 +48,34 @@
 						<p>Date Of Next Payment : 1 Oct 2016</p-->
 						<table id="generalTable" class="table table-bordered">
 						</table>
+					</div>
+					<div id="EfieldSection" class="section">
+					<div>
+						&nbsp;
+						<div class="row" id="outer">
+							<div class="panel panel-default">
+								<div class="panel-heading">Personal Info <span class="glyphicon glyphicon-plus add" id="addPersonal"></span></div>
+								<table class="table table-striped table-bordered" id="tablePersonal">
+									<tr class="inputGroupInfo">
+										<td><input type="text" class="form-control" placeholder="type 1" name="ptype1"/></td>
+									</tr>	
+								</table>
+							</div>
+						&nbsp;
+							<div class="panel panel-default">
+								<div class="panel-heading">Salary Info <span class="glyphicon glyphicon-plus add" id="addSalary"></span></div>
+								<table class="table table-striped table-bordered" id="tableSalary">
+									<tr class="inputGroupSalary" >
+										<td><input type="text" class="form-control" placeholder="type 1" name="stype1"/></td>
+										<td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercent" class="ispercent"/> ispercent</label> </td>
+										<td><label class="control-label"><input type="radio" value="addition" name="adjustment1" checked /> Addition </label></td> 
+										<td><label class="control-label"><input type="radio" value="redution" name="adjustment1"/> 	Reduction </label></td>
+									</tr>
+								</table>
+							</div>
+							<button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%"id="submit">Submit</button>
+						</div>
+						</div>
 					</div>
 					<div id="addSection"  class="section"><br>
 						<!--div class="alert alert-danger" role="alert">
@@ -59,7 +88,7 @@
 				  			<div class="panel-heading">Add Employee <span class="glyphicon glyphicon-plus add" id="addNewEmpIcon"></span> </div>
 							<table class="table" id="tableAddEmp">
 							</table>
-                            <button class="btn btn-default" id="btnAddNewEmpDone">Done</button>
+                          <button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%"id="esubmit">Submit</button>
 						</div>
 					</div>
 					<div id="viewSection" class="section"><br>
@@ -256,7 +285,7 @@
 		}
 	</style>
 	<script>
-		var count=1;
+		var ecount=1;
 		var th = $("#test").height();
 		var toph = $("#top").height();
 		$("#test").hide();
@@ -338,11 +367,11 @@
 			s = '<tr>';
 			obj = modalAddEmp;
 			for ( i in obj ) {
-				s = s + '<td><input type="text" id="'+ obj[i].fields+count+ '"placeholder="'+ obj[i].fields+' ' +count+ '"</td>';
+				s = s + '<td><input type="text"  class="form-control" id="'+ obj[i].fields+ecount+ '"placeholder="'+ obj[i].fields+' ' +ecount+ '"</td>';
 			}	
 			s = s + "</tr>";
 			$("#tableAddEmp").append(s);
-			count++;
+			ecount++;
 		});
 		$("#btnAddNewEmpDone").on("click", function () {
 		    obj = modalAddEmp;
@@ -416,5 +445,28 @@
         //alert($("#fsdfsdf"))
 
 	</script>
-	
+	<script>
+		var count=2;
+		var cnt=2;
+		var th = $("#test").height();
+		var toph = $("#top").height();
+		$("#test").hide();
+		$("#addPersonal").on("click", function(){
+			$("#tablePersonal").append('<tr id="per"'+cnt+'class="inputGroupInfo"><td><input type="text" class="form-control" placeholder="type '+cnt+'" name="ptype'+cnt+'"/></td></tr>');
+			cnt++;
+		});
+		$("#addSalary").on("click", function(){
+			
+			s=`<tr class="inputGroupSalary" id="sal"`+count+`>
+							<td><input type="text" class="form-control" placeholder="type `+count+`" name="stype`+count+`"/></td>
+							<td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercent`+count+`" class="ispercent"/> ispercent </label></td>
+							<td><label class="control-label"><input type="radio" value="addition" name="adjustment`+count+`" checked /> Addition</label> </td> 
+							<td><label class="control-label"><input type="radio" value="redution" name="adjustment`+count+`"/> 	Reduction </label></td>
+						</tr>`;
+			$("#tableSalary").append(s);
+			count++;
+		});
+		
+		$("#submit").on("click",function(){});
+	</script>
 </html>
