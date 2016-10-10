@@ -32,39 +32,51 @@ namespace PayRollManager.Controllers {
                             if(employeeInfo != null) {
                                 var s = db.Employee_Salary.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId)).ToArray();
                                 var salaryData = new List<SalaryDataModel>();
+                                var basicPay = s.FirstOrDefault((p) => (p.AdjustmentName == "Basic"));
 
-                                for (int j = 0; j < s.Length; j++) {
-                                    //TODO: Add % calculation from basic pay
-                                    if (Regex.IsMatch(s[j].AdjustmentName, @"Shift [0-9]+")) {
-                                        //TODO: Add code for checking shift exists
-                                        
-                                        var shiftNo = int.Parse(s[j].AdjustmentName.Split(' ')[1]);
+                                if(basicPay != null) {
+                                    for (int j = 0; j < s.Length; j++) {
+                                        if (Regex.IsMatch(s[j].AdjustmentName, @"Shift [0-9]+")) {
+                                            var shiftNo = int.Parse(s[j].AdjustmentName.Split(' ')[1]);
 
-                                        salaryData.Add(new SalaryDataModel {
-                                            name = s[j].AdjustmentName,
-                                            type = (s[j].AdjustmentValue >= 0) ? "+" : "-",
-                                            value = Math.Abs(s[j].AdjustmentValue) * empAttendance.shift[shiftNo - 1]
-                                        });
-                                    } else {
-                                        salaryData.Add(new SalaryDataModel {
-                                            name = s[j].AdjustmentName,
-                                            type = (s[j].AdjustmentValue >= 0) ? "+" : "-",
-                                            value = Math.Abs(s[j].AdjustmentValue)
-                                        });
+                                            if (shiftNo <= empAttendance.shift.Length) {
+                                                salaryData.Add(new SalaryDataModel {
+                                                    name = s[j].AdjustmentName,
+                                                    type = (s[j].AdjustmentValue >= 0) ? "+" : "-",
+                                                    value = (s[j].AdjustmentType == "#") ? Math.Abs(s[j].AdjustmentValue) * empAttendance.shift[shiftNo - 1] : Math.Abs(s[j].AdjustmentValue * basicPay.AdjustmentValue / 100) * empAttendance.shift[shiftNo - 1]
+                                                });
+                                            } else {
+                                                return Ok(new Message {
+                                                    data = null,
+                                                    message = "Shift length invalid"
+                                                });
+                                            }
+                                        } else {
+                                            salaryData.Add(new SalaryDataModel {
+                                                name = s[j].AdjustmentName,
+                                                type = (s[j].AdjustmentValue >= 0) ? "+" : "-",
+                                                value = (s[j].AdjustmentType == "#") ? Math.Abs(s[j].AdjustmentValue) : Math.Abs(s[j].AdjustmentValue * basicPay.AdjustmentValue / 100)
+                                            });
+                                        }
                                     }
+
+                                    employeeData.Add(new EmployeeViewModel {
+                                        id = employee.EmployeeId,
+                                        name = employee.EmployeeName,
+                                        doj = employee.DOJ,
+                                        salary = salaryData.ToArray()
+                                    });
+
+                                    return Ok(new Message {
+                                        data = employeeData,
+                                        message = "Success"
+                                    });
+                                } else {
+                                    return Ok(new Message {
+                                        data = null,
+                                        message = "Employee does not have a Basic Pay"
+                                    });
                                 }
-
-                                employeeData.Add(new EmployeeViewModel {
-                                    id = employee.EmployeeId,
-                                    name = employee.EmployeeName,
-                                    doj = employee.DOJ,
-                                    salary = salaryData.ToArray()
-                                });
-
-                                return Ok(new Message {
-                                    data = employeeData,
-                                    message = "Success"
-                                });
                             } else {
                                 return Ok(new Message {
                                     data = null,
