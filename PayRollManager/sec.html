@@ -10,8 +10,8 @@
 	</head>
 	<body>
 		<div id="top">
-			<span id="logo">Pay Roll Manager</span>
-			<button type="button" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
+			<span id="logo">Payroll Manager</span>
+			<button type="button" style="width:100px;height:40px;margin-right:50px" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
                     <span id="username">user</span> <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu menu" role="menu">
@@ -208,12 +208,13 @@
 			background-color:aqua;
 		}
 		#top{
-			height:50px;
+			height:80px;
 			background-color:#455a64;
 			padding-left:5%;
+			padding-top:15px;
 			color: #fff;
-			font-size: 30px;
-			font-weight: bold;
+			font-size: 34px;
+			
 		}
 		#newTestOuter{
 			padding-top:5%;
@@ -283,6 +284,9 @@
 		.add:hover{
 			color:#59F;
 		}
+		body{
+			font-family:'Segoe UI';
+		}
 	</style>
 	<script>
 		var ecount=1;
@@ -301,7 +305,7 @@
 		loadCompany();
 		loadGeneral('{"Employees count":"100","Date of Next Payment":"1-12-2016"}');
 		loadEmployees('[{"name":"sk","father name":"sekhar","DOB":"1-2-1996","Designation":"Director"},{"name":"none","father name":"nonedad","DOB":"1-4-1994","Designation":"Assistant"},{"name":"Mr X","father name":"Mr X dad","DOB":"1-2-2001","Designation":"Manager"}]');
-		loadAddEmployees('[{"fields":"name"},{"fields":"fatherName"},{"fields":"Dob"},{"fields":"BasicPay"}]');
+		loadAddEmployees('[{"fields":"Name"},{"fields":"FatherName"},{"fields":"Dob"},{"fields":"BasicPay"}]');
 		function loadCompany() {
 		    $.get("api/listcompanies", {}, function (result) {
 		        // alert(result.message);
