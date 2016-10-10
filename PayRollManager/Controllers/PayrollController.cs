@@ -14,7 +14,7 @@ namespace PayRollManager.Controllers {
 
         // GET: api/AddEmployee
         [HttpGet]
-        public IHttpActionResult AddEmployee(String token, String attendanceJson) {
+        public IHttpActionResult Calculate(String token, String attendanceJson) {
             var tokenLifetime = int.Parse(ConfigurationManager.AppSettings["tokenLifetime"]);
             var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && DbFunctions.DiffHours(DateTime.Now, p.Timestamp) < tokenLifetime));
 
