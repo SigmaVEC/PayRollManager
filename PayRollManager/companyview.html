@@ -9,8 +9,8 @@
 	</head>
 	<body>
 		<div id="top">
-			<span id="logo">Pay Roll Manager</span>
-			 <button type="button" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
+			<span id="logo">Payroll Manager</span>
+			<button type="button" style="width:100px;height:40px;margin-right:50px" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
                     User <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu menu" role="menu">
@@ -49,6 +49,7 @@
 				  			<div class="panel-heading">Add Employee <span class="glyphicon glyphicon-plus add" id="addNewEmpIcon"></span> </div>
 							<table class="table" id="tableAddEmp">
 							</table>
+							<button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%"id="esubmit">Submit</button>
 						</div>
 					</div>
 					<div id="viewSection" class="section"><br>
@@ -136,17 +137,7 @@
         					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           						<span aria-hidden="true">&times;</span>
    	     					</button>
-        					<h4 class="modal-title" id="myModalLabel">New Company</h4>
-      					</div>
-      					<div class="modal-body">
-      						<input type="text" class="form-control" placeholder="Company Name" id="cname"><br>
-						<input type="text" class="form-control" placeholder="IT Month" id="citmonths"><br>
-						<input type="text" class="form-control" placeholder="Shifts" id="cshifts"><br>
-						<input type="text" class="form-control" placeholder="Paid Leave" id="f"><br>
-						<input type="text" class="form-control" placeholder="Working Hours" id="g"><br>
-						<input type="text" class="form-control" placeholder="Number of Departments" id="h"><br>
-						<!--div id="ComapanyType">Type</div-->
-      					</div>
+        					
       					<div class="modal-footer">
         					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="newCompanyClose">Close</button>
         					<button type="button" class="btn btn-primary" id="btnCreateNew" onclick="newCompany()">Save changes</button>
@@ -167,12 +158,13 @@
 			background-color:aqua;
 		}
 		#top{
-			height:50px;
+			height:80px;
 			background-color:#455a64;
 			padding-left:5%;
+			padding-top:15px;
 			color: #fff;
 			font-size: 30px;
-			font-weight: bold;
+			
 		}
 		#newTestOuter{
 			padding-top:5%;
@@ -243,6 +235,9 @@
 		}
 		.add:hover{
 			color:#59F;
+		}
+		body{
+			font-family:'Segoe UI';
 		}
 	</style>
 	<script>
@@ -332,7 +327,7 @@
 			s = '<tr>';
 			obj = modalAddEmp;
 			for ( i in obj ) {
-				s = s + '<td><input type="text" name="'+ obj[i].fields+count+ ' "placeholder="'+ obj[i].fields+' ' +count+ '"</td>';
+				s = s + '<td><input type="text" class="form-control" id="'+ obj[i].fields+count+ ' "placeholder="'+ obj[i].fields+' ' +count+ '"</td>';
 			}	
 			s = s + "</tr>";
 			$("#tableAddEmp").append(s);

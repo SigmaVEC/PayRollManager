@@ -289,7 +289,7 @@
 		}
 	</style>
 	<script>
-		var ecount=1;
+		var ecount=1;//Add employee count
 		var th = $("#test").height();
 		var toph = $("#top").height();
 		$("#test").hide();
@@ -450,27 +450,29 @@
 
 	</script>
 	<script>
-		var count=2;
-		var cnt=2;
+		var count=2;//Salary field count
+		var cnt=2;//Personal field count
 		var th = $("#test").height();
 		var toph = $("#top").height();
 		$("#test").hide();
 		$("#addPersonal").on("click", function(){
-			$("#tablePersonal").append('<tr id="per"'+cnt+'class="inputGroupInfo"><td><input type="text" class="form-control" placeholder="type '+cnt+'" name="ptype'+cnt+'"/></td></tr>');
+			$("#tablePersonal").append('<tr id="per"'+cnt+'class="inputGroupInfo"><td><input type="text" class="form-control" placeholder="type '+cnt+'" id="ptype'+cnt+'"/></td></tr>');
 			cnt++;
 		});
 		$("#addSalary").on("click", function(){
 			
 			s=`<tr class="inputGroupSalary" id="sal"`+count+`>
-							<td><input type="text" class="form-control" placeholder="type `+count+`" name="stype`+count+`"/></td>
-							<td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercent`+count+`" class="ispercent"/> ispercent </label></td>
-							<td><label class="control-label"><input type="radio" value="addition" name="adjustment`+count+`" checked /> Addition</label> </td> 
-							<td><label class="control-label"><input type="radio" value="redution" name="adjustment`+count+`"/> 	Reduction </label></td>
+							<td><input type="text" class="form-control" placeholder="type `+count+`" id="stype`+count+`"/></td>
+							<td><label class="control-label"><input type="checkbox" value="isPercent" id="ispercent`+count+`" class="ispercent"/> ispercent </label></td>
+							<td><label class="control-label"><input type="radio" value="addition" id="adjustment`+count+`" checked /> Addition</label> </td> 
+							<td><label class="control-label"><input type="radio" value="redution" id="adjustment`+count+`"/> 	Reduction </label></td>
 						</tr>`;
 			$("#tableSalary").append(s);
 			count++;
 		});
 		
-		$("#esubmit").on("click",function(){});
+		$("#esubmit").on("click",function(){
+			
+			});
 	</script>
 </html>
