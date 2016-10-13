@@ -4,6 +4,17 @@
 		<title> welcome </title>
 		<link href="css/bootstrap.css" rel="stylesheet" />
 		<link href="css/bootstrap-theme.css" rel="stylesheet" />
+			<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+
+		<!-- Bootstrap core CSS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Material Design Bootstrap -->
+		<link href="css/mdb.min.css" rel="stylesheet">
+
+		<!-- Your custom styles (optional) -->
+		<link href="css/style.css" rel="stylesheet">
 	</head>
 	<style>
 		.navbar {
@@ -70,20 +81,40 @@
 		<div class="jumbotron" id="first">
 			<div class = "row">
 				<div class="col-lg-4 col-md-4 col-sm-0"></div>
-				<form class="col-lg-4 col-md-4 col-sm-12">
-					<!--span class="glyphicon glyphicon-user"></span-->
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon2">
-						<span class="input-group-addon" id="basic-addon2">@iseosystems.com</span>
+				<form class="col-lg-4 col-md-6 col-sm-12">		
+								
+					<div class="md-form">
+						<i class="fa fa-envelope prefix"></i>
+						<input type="text" id="form2" class="form-control" aria-describedby="basic-addon2">
+						<label for="form2">Username</label>
 					</div>
-					<br>
-					<input type="password" class="form-control" placeholder="Password"><br>
-					<div id="logindiv"><input type="submit" align="center" class="btn" value="Log In"></div>
-				</form>
-			</div>
+
+					<div class="md-form">
+						<i class="fa fa-lock prefix"></i>
+						<input type="password" id="form4" class="form-control">
+						<label for="form4">password</label>
+					</div>
+
+					<div id="logindiv">
+						<input type="submit" align="center" class="btn btn-deep-purple" value="Log In">
+					</div>
+					
+				</div>
+			</form>
 		</div>
 		<script src="js/jquery.js"></script>
-		<script src="js/bootstrap.min.js"></script>	
+		
+			<!-- JQuery -->
+		<script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+
+		<!-- Bootstrap tooltips -->
+		<script type="text/javascript" src="js/tether.min.js"></script>
+
+		<!-- Bootstrap core JavaScript -->
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+		<!-- MDB core JavaScript -->
+		<script type="text/javascript" src="js/mdb.min.js"></script>
 		<script>
 			var a = $("#test").height();
 			$("#first").height(a-20);
