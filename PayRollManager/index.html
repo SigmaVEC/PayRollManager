@@ -17,30 +17,11 @@
 		<link href="css/style.css" rel="stylesheet">
 	</head>
 	<style>
-		.navbar {
-		margin-bottom: 0;
-		background-color: #191919;
-		z-index: 9999;
-		border: 0;
-		font-size: 12px !important;
-		line-height: 1.42857143 !important;
-		letter-spacing: 4px;
-		border-radius: 0;
-		}
-		.navbar li a, .navbar .navbar-brand {
-		color: #fff !important;	
-		}
-		.navbar-nav li a:hover, .navbar-nav li.active a {
-		color: #191919 !important;
-		background-color: #fff !important;
-		}
-		.navbar-default .navbar-toggle {
-		border-color: transparent;
-		color: #fff !important;
-		}
+		
 		.jumbotron {
 		padding: 100px;
 		padding-top:200px;
+		background-color: #E6E6E6;//#a9a9aa;
 		}
 		#test{ position: absolute;
 		width: 100%;
@@ -49,16 +30,18 @@
 		#logindiv{
 		padding-left:30px;
 		padding-right:30px;
+		text-align: center;
 		}
 		.btn{
-		background-color: #4CAF50;
-		color:#f2f2f2;
-		text-align:center;
-		width:100%;
+		width:80%;
+		}
+		.btn:hover{
+		background-color: #3E83BA;
 		}
 		form {
 		padding: 40px 10px 20px 40px;
-		background-color: #a9a9aa;
+		background-color: #C5C5C9;
+		border-radius: 5px;
 		}
 		#top{
 			height:80px;
@@ -72,31 +55,41 @@
 		body{
 			font-family:'Segoe UI';
 		}
+		label{
+			color:#66757D;
+			}
+		input[type=text],input[type=password]{
+			border-color:#66757D;
+			}
+		button{
+			background-color:#2B689D;
+			}
+		
 	</style>
 	<body class="row">
 		<div id="top">
 			<span id="logo">Payroll Manager</span>
 		</div>
 		<div class="jumbotron" id="test"></div>
-		<div class="jumbotron" id="first">
+		<div class="jumbotron" id="first" >
 			<div class = "row">
 				<div class="col-lg-4 col-md-4 col-sm-0"></div>
 				<form class="col-lg-4 col-md-6 col-sm-12">		
 								
 					<div class="md-form">
 						<i class="fa fa-envelope prefix"></i>
-						<input type="text" id="form2" class="form-control" aria-describedby="basic-addon2">
-						<label for="form2">Username</label>
+						<input type="text" id="form2" class="form-control">
+						<label for="form2" >Username</label>
 					</div>
 
 					<div class="md-form">
 						<i class="fa fa-lock prefix"></i>
 						<input type="password" id="form4" class="form-control">
-						<label for="form4">password</label>
+						<label for="form4" >password</label>
 					</div>
 
 					<div id="logindiv">
-						<input type="submit" align="center" class="btn btn-deep-purple" value="Log In">
+						<button id="btnLogin" align="center" class="btn" value="Log In" >Log In</button>
 					</div>
 					
 				</div>
