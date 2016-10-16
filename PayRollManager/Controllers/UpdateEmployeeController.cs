@@ -92,39 +92,52 @@ namespace PayRollManager.Controllers
                 }
                 else
                 {
-                    try
+                    var employee1 = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId));
+                    if (employee1 != null)
                     {
-                        var updateEmployee = new JavaScriptSerializer().Deserialize<EmployeeDataModel>(employeeJson);
-                        var dbEmployee = db.Employee_Info.FirstOrDefault((p) => (p.EmployeeId == updateEmployee.employeeId));
 
-                        if (dbEmployee != null)
+                        try
                         {
-                            dbEmployee.Password = updateEmployee.password;
-                            dbEmployee.EmployeeName = updateEmployee.name;
-                            db.SaveChangesAsync();
+                            var updateEmployee = new JavaScriptSerializer().Deserialize<EmployeeDataModel>(employeeJson);
+                            var dbEmployee = db.Employee_Info.FirstOrDefault((p) => (p.EmployeeId == updateEmployee.employeeId));
 
+                            if (dbEmployee != null)
+                            {
+                                dbEmployee.Password = updateEmployee.password;
+                                dbEmployee.EmployeeName = updateEmployee.name;
+                                db.SaveChangesAsync();
+
+                                return Ok(new Message
+                                {
+                                    data = null,
+                                    message = "Success"
+                                });
+                            }
+                            else
+                            {
+                                return Ok(new Message
+                                {
+                                    data = null,
+                                    message = "Employee does not exist"
+                                });
+                            }
+
+                        }
+                        catch (System.ArgumentException)
+                        {
                             return Ok(new Message
                             {
                                 data = null,
-                                message = "Success"
+                                message = "JSON format is invalid"
                             });
                         }
-                        else
-                        {
-                            return Ok(new Message
-                            {
-                                data = null,
-                                message = "Employee does not exist"
-                            });
-                        }
-
                     }
-                    catch (System.ArgumentException)
+                    else
                     {
                         return Ok(new Message
                         {
                             data = null,
-                            message = "JSON format is invalid"
+                            message = "Employee does not exist"
                         });
                     }
 

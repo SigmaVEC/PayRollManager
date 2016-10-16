@@ -44,26 +44,29 @@ namespace PayRollManager.Controllers
                 }
 
                 var dictionaryTransformed = new List<Dictionary<string,string>>();
-                for(int r=1;r<num_rows;r++)
+                var jsondict = new List<string>();
+                for (int r = 1; r < 3; r++)
+                    for (int r=1;r<num_rows;r++)
                 {
-                    var addvalues = new Dictionary<string, string>();
+                    dictionaryTransformed.Add(new Dictionary<string, string>());
 
-                    addvalues.Add(values[0, 0], values[r, 0]);
-                    addvalues.Add(values[0, 1], values[r, 1]);
-                    addvalues.Add(values[0, 2], values[r, 2]);
-                    dictionaryTransformed.Add(addvalues.Select(item => new { item.Key, Value = addvalues[item.Key] }));
+
+
+                    dictionaryTransformed[r - 1].Add(values[0, 0], values[r, 0]);
+                    dictionaryTransformed[r - 1].Add(values[0, 1], values[r, 1]);
+                    dictionaryTransformed[r - 1].Add(values[0, 2], values[r, 2]);
+                    jsondict.Add(Newtonsoft.Json.JsonConvert.SerializeObject(dictionaryTransformed[r - 1]));
+
 
 
                 }
-                var result = new Dictionary<string, List<Dictionary<string, string>>>();
-                result["attendance"] = dictionaryTransformed;
-                var convertedresult = result.ToDictionary(item => item.Key.ToString(), item => item.Value.ToString());
-
-                var json = new JavaScriptSerializer().Serialize(convertedresult);
+                var result = new Dictionary<string, List<string>>();
+                result["attendance"] = jsondict;
+                var jsonresult=Newtonsoft.Json.JsonConvert.SerializeObject(result);
                 return Ok(new Message
                 {
                     data = json,
-                    message = "json converted output"
+                    message = "Success"
                 });
 
             }
