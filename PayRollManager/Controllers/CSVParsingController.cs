@@ -10,16 +10,40 @@ namespace PayRollManager.Controllers
     public class CSVParsingController : ApiController
     {
         private PayRollManagerEntities db = new PayRollManagerEntities();
+        string path;
+        // POST: api/Index
+        [HttpPost]
+        public ActionResult Index(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    path = Path.Combine(Server.MapPath("~/Files"),
+                                               Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                   
+                    ViewBag.Message = "File uploaded successfully";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return View();
+        }
         // GET: api/CSVParser
         [HttpGet]
-        public IHttpActionResult CSVParser(String token, String filename)
+        public IHttpActionResult CSVParser(String token)
         {
             var tokenLifetime = int.Parse(ConfigurationManager.AppSettings["tokenLifetime"]);
             var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && DbFunctions.DiffHours(DateTime.Now, p.Timestamp) < tokenLifetime));
             if(session!=null)
             {
                 // Get the file's text.
-                string whole_file = System.IO.File.ReadAllText(filename);
+                string whole_file = System.IO.File.ReadAllText(path);
 
                 // Split into lines.
                 whole_file = whole_file.Replace('\n', '\r');
