@@ -1,8 +1,13 @@
-﻿using System;
+﻿using PayRollManager.Models;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace PayRollManager.Controllers
@@ -13,27 +18,43 @@ namespace PayRollManager.Controllers
         string path;
         // POST: api/Index
         [HttpPost]
-        public ActionResult Index(HttpPostedFileBase file)
+        public IHttpActionResult Index(HttpPostedFileBase file)
         {
             if (file != null && file.ContentLength > 0)
                 try
                 {
-                    path = Path.Combine(Server.MapPath("~/Files"),
+                    path = Path.Combine(HttpContext.Current.Server.MapPath("~/Files"),
                                                Path.GetFileName(file.FileName));
                     file.SaveAs(path);
-                   
-                    ViewBag.Message = "File uploaded successfully";
+                    return Ok(new Message
+                    {
+                        data = null,
+                        message = "Success"
+                    });
+
+                    
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                    return Ok(new Message
+                    {
+                        data = null,
+                        message = "Error in Uploading"
+                    });
                 }
             else
             {
-                ViewBag.Message = "You have not specified a file.";
+                return Ok(new Message
+                {
+                    data = null,
+                    message = "You have not specified a file."
+                });
             }
-            return View();
+            
         }
+
+       
+
         // GET: api/CSVParser
         [HttpGet]
         public IHttpActionResult CSVParser(String token)
@@ -72,7 +93,7 @@ namespace PayRollManager.Controllers
 
                     var dictionaryTransformed = new List<Dictionary<string, string>>();
                     var jsondict = new List<string>();
-                    for (int r = 1; r < 3; r++)
+                    
                         for (int r = 1; r < num_rows; r++)
                         {
                             dictionaryTransformed.Add(new Dictionary<string, string>());
@@ -92,7 +113,7 @@ namespace PayRollManager.Controllers
                     var jsonresult = Newtonsoft.Json.JsonConvert.SerializeObject(result);
                     return Ok(new Message
                     {
-                        data = json,
+                        data = jsonresult,
                         message = "Success"
                     });
                 }
@@ -107,6 +128,14 @@ namespace PayRollManager.Controllers
                 }
 
 
+            }
+            else
+            {
+                return Ok(new Message
+                {
+                    data = null,
+                    message = "Session Token is invalid"
+                });
             }
         }
     }
