@@ -191,6 +191,7 @@
     <Compile Include="Controllers\RemoveCompanyController.cs" />
     <Compile Include="Controllers\RemoveEmployeeController.cs" />
     <Compile Include="Controllers\UpdateEmployeeController.cs" />
+    <Compile Include="Controllers\CSVParsingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
