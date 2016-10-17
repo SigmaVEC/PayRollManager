@@ -371,24 +371,26 @@
 			s = '<tr>';
 			obj = modalAddEmp;
 			for ( i in obj ) {
-				s = s + '<td><input type="text"  class="form-control" id="'+ obj[i].fields+ecount+ '"placeholder="'+ obj[i].fields+' ' +ecount+ '"</td>';
+				s = s + '<td><input type="text"  class="form-control" id="'+obj[i].fields+ecount+'" placeholder="'+ obj[i].fields+' ' +ecount+ '"</td>';
 			}	
 			s = s + "</tr>";
 			$("#tableAddEmp").append(s);
 			ecount++;
 		});
-		$("#btnAddNewEmpDone").on("click", function () {
+		//addEmployeeDone
+		$("#submit").on("click", function () {
 		    obj = modalAddEmp;
-		    empAddDone = {}
+		    empAddDone = {};
 		    j = 0;
+		    ec=ecount-1;//new count variable
 		    alert("#" + obj[0].fields + "1");
-		    if (document.getElementById("#" + obj[0].fields + "1")) {
-		        alert("#" + obj[i].fields + count);
-		        for (i in obj) {
-		            empAddDone[j].obj.fields = $("#" + obj[i].fields + count).val();
+		    i=0;
+		        
+		        for (i in obj.fields) {
+		            empAddDone[j].obj[i].fields = $("#" + obj[i].fields + ec).val();
 		            j++;
 		        }
-		    }
+		   alert($("#"+obj[0].fields+ec).val());
 		    alert(JSON.stringify(empAddDone));
 		});
 		$("#deleteEmpIcon").on("click",function(){
@@ -447,6 +449,7 @@
 		$("#username").html(getCookie("Uname"));
 		//validate();
         //alert($("#fsdfsdf"))
+        
 
 	</script>
 	<script>
@@ -465,7 +468,8 @@
 							<td><input type="text" class="form-control" placeholder="type `+count+`" id="stype`+count+`"/></td>
 							<td><label class="control-label"><input type="checkbox" value="isPercent" id="ispercent`+count+`" class="ispercent"/> ispercent </label></td>
 							<td><label class="control-label"><input type="radio" value="addition" name="adjustment`+count+`" checked /> Addition</label> </td> 
-							<td><label class="control-label"><input type="radio" value="redution" name="adjustment`+count+`"/> 	Reduction </label></td>
+							<td><label class="control-label"><input type="radio" value="redution" name="adjustment`+count+`"/> Reduction </label></td>
+
 						</tr>`;
 			$("#tableSalary").append(s);
 			count++;
