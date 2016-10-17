@@ -464,8 +464,8 @@
 			s=`<tr class="inputGroupSalary" id="sal"`+count+`>
 							<td><input type="text" class="form-control" placeholder="type `+count+`" id="stype`+count+`"/></td>
 							<td><label class="control-label"><input type="checkbox" value="isPercent" id="ispercent`+count+`" class="ispercent"/> ispercent </label></td>
-							<td><label class="control-label"><input type="radio" value="addition" id="adjustment`+count+`" checked /> Addition</label> </td> 
-							<td><label class="control-label"><input type="radio" value="redution" id="adjustment`+count+`"/> 	Reduction </label></td>
+							<td><label class="control-label"><input type="radio" value="addition" name="adjustment`+count+`" checked /> Addition</label> </td> 
+							<td><label class="control-label"><input type="radio" value="redution" name="adjustment`+count+`"/> 	Reduction </label></td>
 						</tr>`;
 			$("#tableSalary").append(s);
 			count++;
