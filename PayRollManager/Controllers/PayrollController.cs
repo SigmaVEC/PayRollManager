@@ -61,9 +61,9 @@ namespace PayRollManager.Controllers {
                                     }
 
                                     employeeData.Add(new EmployeeViewModel {
-                                        id = employee.EmployeeId,
-                                        name = employee.EmployeeName,
-                                        doj = employee.DOJ,
+                                        id = employeeInfo.EmployeeId,
+                                        name = employeeInfo.EmployeeName,
+                                        doj = employeeInfo.DOJ,
                                         salary = salaryData.ToArray()
                                     });
                                 } else {
