@@ -66,11 +66,6 @@ namespace PayRollManager.Controllers {
                                         doj = employee.DOJ,
                                         salary = salaryData.ToArray()
                                     });
-
-                                    return Ok(new Message {
-                                        data = employeeData,
-                                        message = "Success"
-                                    });
                                 } else {
                                     return Ok(new Message {
                                         data = null,
@@ -85,10 +80,17 @@ namespace PayRollManager.Controllers {
                             }
                         }
 
-                        return Ok(new Message {
-                            data = null,
-                            message = "Invalid data entered"
-                        });
+                        if(employeeData.Count == attendanceInput.attendance.Length) {
+                            return Ok(new Message {
+                                data = employeeData,
+                                message = "Success"
+                            });
+                        } else {
+                            return Ok(new Message {
+                                data = null,
+                                message = "Invalid data entered"
+                            });
+                        }
                     } catch (System.ArgumentException) {
                         return Ok(new Message {
                             data = null,

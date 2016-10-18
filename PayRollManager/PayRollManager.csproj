@@ -140,10 +140,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\PayRollManager.mdf" />
-    <Content Include="App_Data\PayRollManager_log.ldf">
-      <DependentUpon>PayRollManager.mdf</DependentUpon>
-    </Content>
     <Content Include="companyview.html" />
     <Content Include="css\bootstrap-dark.css" />
     <Content Include="css\bootstrap-theme.css" />
@@ -293,7 +289,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
