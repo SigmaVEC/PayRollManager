@@ -38,8 +38,8 @@
 					&nbsp;<h1>Company 1</h1>&nbsp;
 					<ul class="nav nav-tabs">
   						<li role="presentation" class="active" id="generalTab" section="generalSection"><a href="#">General</a></li>
-  						<li role="presentation" id="EfieldTab" section="EfieldSection"><a href="#">Add Fields</a></li>
-  						<li role="presentation" id="addTab" section="addSection"><a href="#">Add Employees</a></li>
+  						<li role="presentation" id="EfieldTab" section="EfieldSection"><a href="#">Add Employees</a></li>
+  						<!--li role="presentation" id="addTab" section="addSection"><a href="#">Add Employees</a></li-->
   						<li role="presentation" id="viewTab" section="viewSection"><a href="#">View Employee</a></li>
 						<li role="presentation" id="payRollTab" section="payRollSection"><a href="#">PayRoll</a></li>
 					</ul>
@@ -56,24 +56,24 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">Personal Info <span class="glyphicon glyphicon-plus add" id="addPersonal"></span></div>
 								<table class="table table-striped table-bordered" id="tablePersonal">
-									<tr class="inputGroupInfo">
+									<!--tr class="inputGroupInfo">
 										<td><input type="text" class="form-control" placeholder="type 1" name="ptype1"/></td>
-									</tr>	
+									</tr-->	
 								</table>
 							</div>
 						&nbsp;
 							<div class="panel panel-default">
 								<div class="panel-heading">Salary Info <span class="glyphicon glyphicon-plus add" id="addSalary"></span></div>
 								<table class="table table-striped table-bordered" id="tableSalary">
-									<tr class="inputGroupSalary" >
+									<!--tr class="inputGroupSalary" >
 										<td><input type="text" class="form-control" placeholder="type 1" name="stype1"/></td>
 										<td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercent" class="ispercent"/> ispercent</label> </td>
 										<td><label class="control-label"><input type="radio" value="addition" name="adjustment1" checked /> Addition </label></td> 
 										<td><label class="control-label"><input type="radio" value="redution" name="adjustment1"/> 	Reduction </label></td>
-									</tr>
+									</tr-->
 								</table>
 							</div>
-							<button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%"id="esubmit">Submit</button>
+							<button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%"id="esubmit">Add Employee</button>
 						</div>
 						</div>
 					</div>
@@ -88,7 +88,7 @@
 				  			<div class="panel-heading">Add Employee <span class="glyphicon glyphicon-plus add" id="addNewEmpIcon"></span> </div>
 							<table class="table" id="tableAddEmp">
 							</table>
-                          <button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%"id="submit">Submit</button>
+                            <button class="btn btn-primary btn-block" style="margin-left:20%; width:60%" id="submit">Submit</button>
 						</div>
 					</div>
 					<div id="viewSection" class="section"><br>
@@ -377,7 +377,7 @@
 			$("#tableAddEmp").append(s);
 			ecount++;
 		});
-		//addEmployeeDone
+		/*addEmployeeDone
 		$("#submit").on("click", function () {
 		    obj = modalAddEmp;
 		    empAddDone = {};
@@ -391,6 +391,7 @@
 		   
 		    alert(JSON.stringify(empAddDone));
 		});
+        */
 		
 		
 		
@@ -454,22 +455,23 @@
 
 	</script>
 	<script>
-		var count=2;//Salary field count
-		var cnt=2;//Personal field count
+		var count=0;//Salary field count
+		var cnt=0;//Personal field count
 		var th = $("#test").height();
 		var toph = $("#top").height();
 		$("#test").hide();
 		$("#addPersonal").on("click", function(){
-			$("#tablePersonal").append('<tr id="per"'+cnt+'class="inputGroupInfo"><td><input type="text" class="form-control" placeholder="type '+cnt+'" id="ptype'+cnt+'"/></td></tr>');
+		    $("#tablePersonal").append('<tr id="per"' + cnt + 'class="inputGroupInfo"><td><input type="text" class="form-control" placeholder="type ' + cnt + '" id="ptype' + cnt + '"/></td><td><input type="text" class="form-control" placeholder="Value ' + cnt + '" id="pVal' + cnt + '"/></td></tr>');
 			cnt++;
 		});
-		$("#addSalary").on("click", function(){
+		$("#addSalary").on("click", function(){ 
 			
 			s=`<tr class="inputGroupSalary" id="sal"`+count+`>
-							<td><input type="text" class="form-control" placeholder="type `+count+`" id="stype`+count+`"/></td>
+							<td><input type="text" class ="form-control" placeholder= "type `+count+`" id= "stype`+count+`" /></td>
+                            <td><input type="text" class ="form-control" placeholder= "val `+count+`" id= "sval`+count+`" /></td>
 							<td><label class="control-label"><input type="checkbox" value="isPercent" id="ispercent`+count+`" class="ispercent"/> ispercent </label></td>
-							<td><label class="control-label"><input type="radio" value="addition" name="adjustment`+count+`" checked /> Addition</label> </td> 
-							<td><label class="control-label"><input type="radio" value="redution" name="adjustment`+count+`"/> Reduction </label></td>
+							<td><label class="control-label"><input type="radio" value="" name="adjustment`+count+`" checked /> Addition</label> </td> 
+							<td><label class="control-label"><input type="radio" value="-" name="adjustment`+count+`"/> Reduction </label></td>
 
 						</tr>`;
 			$("#tableSalary").append(s);
@@ -477,7 +479,31 @@
 		});
 		
 		$("#esubmit").on("click",function(){
-			
-			});
+		    obj = {};
+		    for (i = 0 ; i < cnt ; i++) {
+		        obj[$("#ptype" + i).val()] = $("#pVal" + i).val();
+		    }
+		    var arr = new Array();
+		    
+		    for (i = 0 ; i < count ; i++) {
+		        objSal = {};
+		        objSal.name = $("#stype" + i).val();
+		        //add adjustment to val
+		        var ad = $("input[name='adjustment" + i + "']:checked").val() + $("#sval" + i).val();
+		        objSal.value = ad;
+		        tpe = "#";
+		        if ($("#ispercent" + i).is(":checked") ){
+		            tpe = "%";
+		        }
+		        objSal.type = tpe;
+                arr.push(objSal);
+		    }
+		    obj.salary = arr;
+		    var jsondata = JSON.stringify(obj);
+		    alert(jsondata);
+		    $.get("/api/employeeadd", { token: getCookie("Token"), json: jsondata }, function (result) {
+		        alert(result.message);
+		    });
+		});
 	</script>
 </html>
