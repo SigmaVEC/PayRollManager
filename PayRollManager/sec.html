@@ -381,18 +381,19 @@
 		$("#submit").on("click", function () {
 		    obj = modalAddEmp;
 		    empAddDone = {};
-		    j = 0;
-		    ec=ecount-1;//new count variable
-		    alert("#" + obj[0].fields + "1");
-		    i=0;
-		        
-		        for (i in obj.fields) {
-		            empAddDone[j].obj[i].fields = $("#" + obj[i].fields + ec).val();
-		            j++;
+		    j = 1;
+		    while(j<ecount){ 
+		        for (i in obj) {
+		            empAddDone[obj[i].fields] = $("#" + obj[i].fields + j).val();
 		        }
-		   alert($("#"+obj[0].fields+ec).val());
+		        j++;
+			}
+		   
 		    alert(JSON.stringify(empAddDone));
 		});
+		
+		
+		
 		$("#deleteEmpIcon").on("click",function(){
 		
 			if(count>1){
