@@ -54,11 +54,21 @@
 						&nbsp;
 						<div class="row" id="outer">
 							<div class="panel panel-default">
-								<div class="panel-heading">Personal Info <span class="glyphicon glyphicon-plus add" id="addPersonal"></span></div>
+								<div class="panel-heading">Personal Info</div>
 								<table class="table table-striped table-bordered" id="tablePersonal">
-									<!--tr class="inputGroupInfo">
-										<td><input type="text" class="form-control" placeholder="type 1" name="ptype1"/></td>
-									</tr-->	
+									<tr class="inputGroupInfo">
+										<td>
+											Employee Name: <input type="text" placeholder="Enter name" name="name" id="pVal1"/>
+											<br/>
+											Employee ID: <input type="text" placeholder="Enter ID" name="employeeId" id="pVal2"/>
+											<br/>
+											Date of Join: <input type="text" placeholder="Enter a date" name="date" id="pVal3"/>
+											<br/>
+											Password: <input type="password" placeholder="Enter password" name="password" id="pVal4"/>
+											<br/>
+											Is this employee an admin?  <input type="checkbox" name="isAdmin" id="pVal5"/>
+										</td>
+									</tr>
 								</table>
 							</div>
 						&nbsp;
@@ -430,7 +440,8 @@
 		});
 		function companyClick(a) {
 		    c = a.getAttribute("cid");
-			document.getElementById("CompanyTitle").innerHTML = a.getAttribute("ctitle")
+			setCookie("CompanyId", c);
+			document.getElementById("CompanyTitle").innerHTML = a.getAttribute("ctitle");
 		    $.get("/api/employeeview", { token: getCookie("Token"),CompanyId: c }, function (result) {
 		        // alert(result.message);
 		        arr = result.data;
@@ -483,10 +494,6 @@
 		var th = $("#test").height();
 		var toph = $("#top").height();
 		$("#test").hide();
-		$("#addPersonal").on("click", function(){
-		    $("#tablePersonal").append('<tr id="per"' + cnt + 'class="inputGroupInfo"><td><input type="text" class="form-control" placeholder="type ' + cnt + '" id="ptype' + cnt + '"/></td><td><input type="text" class="form-control" placeholder="Value ' + cnt + '" id="pVal' + cnt + '"/></td></tr>');
-			cnt++;
-		});
 		$("#addSalary").on("click", function(){ 
 			
 			s=`<tr class="inputGroupSalary" id="sal"`+count+`>
@@ -503,9 +510,12 @@
 		
 		$("#esubmit").on("click",function(){
 		    obj = {};
-		    for (i = 0 ; i < cnt ; i++) {
-		        obj[$("#ptype" + i).val()] = $("#pVal" + i).val();
-		    }
+		    obj["name"] = $("#pVal1").val();
+			obj["employeeId"] = $("#pVal2").val();
+			obj["companyId"] = parseInt(getCookie("CompanyId"));
+			obj["date"] = $("#pVal3").val();
+			obj["password"] = $("#pVal4").val();
+			obj["isAdmin"] = (document.getElementById("pVal5").checked) ? "y" : "n";
 		    var arr = new Array();
 		    
 		    for (i = 0 ; i < count ; i++) {
@@ -513,7 +523,7 @@
 		        objSal.name = $("#stype" + i).val();
 		        //add adjustment to val
 		        var ad = $("input[name='adjustment" + i + "']:checked").val() + $("#sval" + i).val();
-		        objSal.value = ad;
+		        objSal.value = parseFloat(ad);
 		        tpe = "#";
 		        if ($("#ispercent" + i).is(":checked") ){
 		            tpe = "%";
@@ -524,7 +534,7 @@
 		    obj.salary = arr;
 		    var jsondata = JSON.stringify(obj);
 		    alert(jsondata);
-		    $.get("/api/employeeadd", { token: getCookie("Token"), json: jsondata }, function (result) {
+		    $.get("/api/employeeadd", { token: getCookie("Token"), employeeJson: jsondata }, function (result) {
 		        alert(result.message);
 		    });
 		});

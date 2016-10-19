@@ -148,7 +148,7 @@
 		    $.get('/api/authenticate', { companyid: cid, employeeid: uname, password: pass }, function (result) {
 		        //alert(result.data.SessionToken);
 		        if (result.message == "Success") {
-		            setCookie(result.data.SessionToken)
+		            setCookie("Token", result.data.SessionToken);
 		            setUserName(uname);
 		            window.location = "sec.html";
 		        } else {
