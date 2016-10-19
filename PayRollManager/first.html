@@ -20,13 +20,13 @@
 				<div class="col-lg-4 col-md-4 col-sm-12" id="formId">
                     
 					<form><div id="form">
-                              <h2 style="padding-left:166px;padding-bottom:20px">Log in</h2>					
+                              <h2 style="text-align:center;">LOGIN</h2>&nbsp;					
 						<!--span class="glyphicon glyphicon-user"></span-->
 						<div class="input-group">
-							<input type="text" class="form-control" id="uname" placeholder="Username" aria-describedby="basic-addon2">
+							<input type="text" class="form-control" id="uname" placeholder="Username" aria-describedby="basic-addon2" required>
                             <div class="input-group-btn">
                                 <div class="btn-group">
-                                    <button type="button" style="height:44px; width:76px;margin-right:20px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span id="cname">Select</span>
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
@@ -38,8 +38,8 @@
                             </div>
 						</div>
 						<br>
-						<input type="password" class="form-control" id="password" placeholder="Password"><br>
-						<div id="logindiv"><button id="btnLogin" align="center" class="btn" value="Log In">Log In</button></div>
+						<input type="password" class="form-control" id="password" placeholder="Password" required><br>
+						<div id="logindiv"><button id="btnLogin" class="btn btn-primary btn-block" align="center"  value="Log In">Log In</button></div>
 					</div></form>
 				<div>
 			</div>	
@@ -53,11 +53,7 @@
 			height: 100%;
 			background-color:aqua;
 		}
-        #password{
-            width:396px;
-            height:44px;
-            margin-left:20px
-        }
+        
 		#top{
 			height:80px;
             padding-top:15px;
@@ -76,21 +72,20 @@
 			border: 4px solid #616161;
 			border-radius: 13px;
 		}
-        #uname{
-            margin-left:20px;
-            width:320px;
-            height:44px;
-        }
 		#logindiv .btn{
-			width:100%;
-            height:50px;
-            margin-top:20px;
-            margin-bottom:30px;
-           
-            font-size:16px;
-
-			background-color: #4CAF50;
-			color:#f2f2f2;
+			//background-color:#00AE6D;
+			//text-transform: uppercase;
+			outline: 0;
+  			//background: #4CAF50;
+  			width: 100%;
+  			border: 0;
+  			padding: 15px;
+  			//color: #FFFFFF;
+  			font-size: 14px;
+  			-webkit-transition: all 0.3 ease;
+  			transition: all 0.3 ease;
+  			cursor: pointer;
+			border-radius: 6px;
 		}
         body{
             font-family:'Segoe UI';
