@@ -52,7 +52,7 @@ $.get("/api/employeeview", {token:getCookie("Token")}, function (result) {
     // alert(result.message);
     if (result.message != "Success" && !window.location.toString().includes("first.html")) {
         //notify("Please Login");
-        window.location = "first.html";
+        //window.location = "first.html";
         return;
     }
 });
