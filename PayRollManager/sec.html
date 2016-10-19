@@ -30,12 +30,12 @@
  							 <div class="panel-heading " id="testHead"><b>Company List</b></div>
   					
 					<div class="list-group" id="listTest" >
-  						<button type="button" class="list-group-item" onclick="loadCompany()">Loading Comany</button>
+  						<button type="button" class="list-group-item" onclick="loadCompany()">Loading Company</button>
 					</div></div>
 					<button type="button" id="btnNew" class="btn btn-info"  data-toggle="modal" data-target="#myModal">Create New Company</button>
 				</div>
 				<div class="col-lg-9 col-md-9 col-sm-3">
-					&nbsp;<h1>Company 1</h1>&nbsp;
+					&nbsp;<h1 id="CompanyTitle">Select a Company</h1>&nbsp;
 					<ul class="nav nav-tabs">
   						<li role="presentation" class="active" id="generalTab" section="generalSection"><a href="#">General</a></li>
   						<li role="presentation" id="EfieldTab" section="EfieldSection"><a href="#">Add Employees</a></li>
@@ -309,9 +309,10 @@
 			$(this).addClass("active");
 		});
 		loadCompany();
-		loadGeneral('{"Employees count":"100","Date of Next Payment":"1-12-2016"}');
-		loadEmployees('[{"name":"sk","father name":"sekhar","DOB":"1-2-1996","Designation":"Director"},{"name":"none","father name":"nonedad","DOB":"1-4-1994","Designation":"Assistant"},{"name":"Mr X","father name":"Mr X dad","DOB":"1-2-2001","Designation":"Manager"}]');
-		loadAddEmployees('[{"fields":"Name"},{"fields":"FatherName"},{"fields":"Dob"},{"fields":"BasicPay"}]');
+		//loadGeneral('{"Employees count":"100","Date of Next Payment":"1-12-2016"}');
+		//loadEmployees('[{"name":"sk","father name":"sekhar","DOB":"1-2-1996","Designation":"Director"},{"name":"none","father name":"nonedad","DOB":"1-4-1994","Designation":"Assistant"},{"name":"Mr X","father name":"Mr X dad","DOB":"1-2-2001","Designation":"Manager"}]');
+		//loadAddEmployees('[{"fields":"Name"},{"fields":"FatherName"},{"fields":"Dob"},{"fields":"BasicPay"}]');
+		
 		function loadCompany() {
 		    $.get("api/listcompanies", {}, function (result) {
 		        // alert(result.message);
@@ -323,7 +324,7 @@
 		        var obj = result.data;
 		        var companyList="";
 		        for( a in obj )
-		            companyList = companyList + ' <button type="button" onclick="companyClick(this)" cid="' + obj[a].CompanyId + '" class="list-group-item">' + obj[a].CompanyName + '</button> ';
+		            companyList = companyList + ' <button type="button" onclick="companyClick(this)" cid="' + obj[a].CompanyId + '" class="list-group-item" ctitle="' + obj[a].CompanyName + '">' + obj[a].CompanyName + '</button> ';
 		        $("#listTest").html(companyList);
 		    });
 		}
@@ -429,6 +430,7 @@
 		});
 		function companyClick(a) {
 		    c = a.getAttribute("cid");
+			document.getElementById("CompanyTitle").innerHTML = a.getAttribute("ctitle")
 		    $.get("/api/employeeview", { token: getCookie("Token"),CompanyId: c }, function (result) {
 		        // alert(result.message);
 		        arr = result.data;
@@ -461,7 +463,7 @@
 		    var name = $("#cname").val();
 		    $.get("/api/addcompany", {token: getCookie("Token"), companyname: name}, function(result) {
 		            notify(result.message);
-		        
+					loadCompany();
 		    });
 		});
 		$("#signOut").on("click", function () {
