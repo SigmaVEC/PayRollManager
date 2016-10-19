@@ -193,6 +193,7 @@
     <Compile Include="Controllers\EmployeeViewController.cs" />
     <Compile Include="Controllers\ListCompaniesController.cs" />
     <Compile Include="Controllers\PayrollController.cs" />
+    <Compile Include="Controllers\PayrollHistoryController.cs" />
     <Compile Include="Controllers\RemoveCompanyController.cs" />
     <Compile Include="Controllers\RemoveEmployeeController.cs" />
     <Compile Include="Controllers\UpdateEmployeeController.cs" />
@@ -230,6 +231,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PayRollModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payroll_History.cs">
+      <DependentUpon>PayRollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SalaryDataModel.cs" />
     <Compile Include="Models\Session_Tokens.cs">

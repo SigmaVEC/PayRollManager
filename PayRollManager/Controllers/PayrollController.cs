@@ -12,7 +12,7 @@ namespace PayRollManager.Controllers {
     public class PayrollController : ApiController {
         private PayRollManagerEntities db = new PayRollManagerEntities();
 
-        // GET: api/AddEmployee
+        // GET: api/Payroll
         [HttpGet]
         public IHttpActionResult Calculate(String token, String attendanceJson) {
             var tokenLifetime = int.Parse(ConfigurationManager.AppSettings["tokenLifetime"]);
@@ -34,7 +34,9 @@ namespace PayRollManager.Controllers {
                                 var salaryData = new List<SalaryDataModel>();
                                 var basicPay = s.FirstOrDefault((p) => (p.AdjustmentName == "Basic"));
 
-                                if(basicPay != null) {
+                                if (basicPay != null) {
+                                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && p.Month.Month == DateTime.Now.Month)).ToArray();
+
                                     for (int j = 0; j < s.Length; j++) {
                                         if (Regex.IsMatch(s[j].AdjustmentName, @"Shift [0-9]+")) {
                                             var shiftNo = int.Parse(s[j].AdjustmentName.Split(' ')[1]);
@@ -60,6 +62,21 @@ namespace PayRollManager.Controllers {
                                         }
                                     }
 
+                                    for (int j = 0; j < history.Length; j++) {
+                                        db.Payroll_History.Remove(history[j]);
+                                    }
+
+                                    for (int j = 0; j < salaryData.Count; j++) {
+                                        db.Payroll_History.Add(new Payroll_History {
+                                            CompanyId = employeeInfo.CompanyId,
+                                            EmployeeId = employeeInfo.EmployeeId,
+                                            Month = DateTime.Now,
+                                            AdjustmentName = salaryData[j].name,
+                                            AdjustmentType = salaryData[j].type,
+                                            AdjustmentValue = salaryData[j].value
+                                        });
+                                    }
+
                                     employeeData.Add(new EmployeeViewModel {
                                         id = employeeInfo.EmployeeId,
                                         name = employeeInfo.EmployeeName,
@@ -81,6 +98,7 @@ namespace PayRollManager.Controllers {
                         }
 
                         if(employeeData.Count == attendanceInput.attendance.Length) {
+                            db.SaveChangesAsync();
                             return Ok(new Message {
                                 data = employeeData,
                                 message = "Success"
