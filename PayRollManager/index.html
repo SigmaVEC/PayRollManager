@@ -82,13 +82,13 @@
 								
 					<div class="md-form">
 						<i class="fa fa-envelope prefix" ></i>
-						<input type="text" id="form2" class="form-control">
+						<input type="text" id="form2" id="uname" class="form-control">
 						<label for="form2" >Username</label>
 					</div>
 
 					<div class="md-form">
 						<i class="fa fa-lock prefix"></i>
-						<input type="password" id="form4" class="form-control">
+						<input type="password" id="form4" id="password" class="form-control">
 						<label for="form4" >password</label>
 					</div>
 
@@ -99,6 +99,32 @@
 				</div>
 			</form>
 		</div>
+		<script>
+			var th = $("#test").height();
+			var toph = $("#top").height();
+			var fh = $("form").height();
+			var h1 = th-toph-fh;
+			var cid = 0;
+			$("#test").hide();
+			$("#formId").height(th-toph);
+			$("form").css("margin-top", h1 / 2 - 40);
+			$("#btnLogin").on("click", function () {
+				var uname = $("#uname").val();
+				var pass = $("#password").val();
+				console.log(uname);
+				//api/authenticate?companyid=1&employeeid=123&password=qwe
+				$.get('/api/authenticate', { companyid: cid, employeeid: uname, password: pass }, function (result) {
+					//alert(result.data.SessionToken);
+					if (result.message == "Success") {
+						setCookie(result.data.SessionToken)
+						setUserName(uname);
+						window.location = "sec.html";
+					} else {
+						notify("Check username and password");
+					}
+				});
+			});
+		</script>
 		<script src="js/jquery.js"></script>
 		
 			<!-- JQuery -->
