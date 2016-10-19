@@ -19,14 +19,14 @@
 				<div class="col-lg-4 col-md-4 col-sm-0"></div>
 				<div class="col-lg-4 col-md-4 col-sm-12" id="formId">
                     
-					<form><div id="form">
-                              <h2 style="padding-left:166px;padding-bottom:20px">Log in</h2>					
+					<div><div id="form">
+                              <h2 style="text-align:center;">LOGIN</h2>&nbsp;					
 						<!--span class="glyphicon glyphicon-user"></span-->
 						<div class="input-group">
-							<input type="text" class="form-control" id="uname" placeholder="Username" aria-describedby="basic-addon2">
+							<input type="text" class="form-control" id="uname" placeholder="Username" aria-describedby="basic-addon2" required>
                             <div class="input-group-btn">
                                 <div class="btn-group">
-                                    <button type="button" style="height:44px; width:76px;margin-right:20px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span id="cname">Select</span>
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
@@ -40,24 +40,52 @@
 						<br>
 						<input type="password" class="form-control" id="password" placeholder="Password"><br>
 						<div id="logindiv"><button id="btnLogin" align="center" class="btn" value="Log In">Log In</button></div>
-					</div></form>
+					</div></div>
 				<div>
 			</div>	
 		</div>
+        <div id="notification" class="container-fluid">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4" id="notificationArea"></div>
+                <div class="col-md-4"></div>
+            </div>
+         </div>
 	</body>
+    <style>
+        #test {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: aqua;
+        }
+
+        #top {
+            height: 50px;
+            background-color: #455a64;
+            /*background: #007299;*/
+            padding-left: 5%;
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #form {
+            background-color: #a9a9aa;
+            margin: 0px;
+            padding: 20px;
+            padding-top: 10px;
+            border: 4px solid #616161;
+            border-radius: 13px;
+        }
 	<style>
-		
 		#test{ 
 			position: absolute;
 			width: 100%;
 			height: 100%;
 			background-color:aqua;
 		}
-        #password{
-            width:396px;
-            height:44px;
-            margin-left:20px
-        }
+        
 		#top{
 			height:80px;
             padding-top:15px;
@@ -76,39 +104,42 @@
 			border: 4px solid #616161;
 			border-radius: 13px;
 		}
-        #uname{
-            margin-left:20px;
-            width:320px;
-            height:44px;
-        }
 		#logindiv .btn{
-			width:100%;
-            height:50px;
-            margin-top:20px;
-            margin-bottom:30px;
-           
-            font-size:16px;
+			//background-color:#00AE6D;
+			//text-transform: uppercase;
+			outline: 0;
+  			//background: #4CAF50;
+  			width: 100%;
+  			border: 0;
+  			padding: 15px;
+  			//color: #FFFFFF;
+  			font-size: 14px;
+  			-webkit-transition: all 0.3 ease;
+  			transition: all 0.3 ease;
+  			cursor: pointer;
+			border-radius: 6px;
+		} 
 
-			background-color: #4CAF50;
-			color:#f2f2f2;
-		}
-        body{
-            font-family:'Segoe UI';
+        #logindiv .btn {
+            width: 100%;
+            background-color: #4CAF50;
+            color: #f2f2f2;
         }
-		#logindiv{
-			padding-left:30px;
-			padding-right:30px;
-		}
-	</style>
+
+        #logindiv {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    </style>
 	<script>
 		var th = $("#test").height();
 		var toph = $("#top").height();
-		var fh = $("form").height();
+		var fh = $("#form").height();
 		var h1 = th-toph-fh;
 		var cid = 0;
 		$("#test").hide();
 		$("#formId").height(th-toph);
-		$("form").css("margin-top", h1 / 2 - 40);
+		$("#form").css("margin-top", h1 / 2 - 40);
 		$("#btnLogin").on("click", function () {
 		    var uname = $("#uname").val();
 		    var pass = $("#password").val();

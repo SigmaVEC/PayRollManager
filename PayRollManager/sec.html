@@ -194,7 +194,13 @@
     				</div>
   			</div>
 		</div>
-        
+        <div id="notification" class="container-fluid">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4" id="notificationArea"></div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
 	</body>
 	<style>
 		#panel{
@@ -345,14 +351,29 @@
 						if ( i==0 ){
 							h1 = h1 + "<th>" + key + "</th>";
 						}
-						//console.log(key + " ->> " + p[key]); 
-						s1 = s1 + "<td>" + p[key] + "</td>";
+					    //console.log(key + " ->> " + p[key]); 
+						if (key != "salary") {
+						    s1 = s1 + "<td>" + p[key] + "</td>";
+						} else {
+						    s = loadSalary(p[key]);
+						    s1 = s1 + "<td>" + s + "</td>";
+						}
 					}
 				}
 				s1 = s1 + "</tr>";
 			}
 			h1 = h1 + "</tr></thead>";
 			$("#empTable").html(h1 + s1);
+		}
+		function loadSalary(p1) {
+		   // console.log(p1);
+		    var s = "";
+		    for (i in p1) {
+		        p = p1[i];
+		        console.log(p);
+		            s = s + p.name + " : " + p.value + " , ";
+		    }
+		    return s;
 		}
 		var modalAddEmp ;
 		function loadAddEmployees(a){
