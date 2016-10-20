@@ -60,16 +60,18 @@ namespace PayRollManager.Controllers
 
                     for (int r = 1; r < num_rows; r++)
                     {
+                        
                         dictionaryTransformed.Add(new Dictionary<string, string>());
 
 
+                        for (int c = 0; c < num_cols; c++)
+                        {
+                            dictionaryTransformed[r - 1].Add(values[0, c], values[r, c]);
+                            
+                            
 
-                        dictionaryTransformed[r - 1].Add(values[0, 0], values[r, 0]);
-                        dictionaryTransformed[r - 1].Add(values[0, 1], values[r, 1]);
-                        dictionaryTransformed[r - 1].Add(values[0, 2], values[r, 2]);
+                        }
                         jsondict.Add(Newtonsoft.Json.JsonConvert.SerializeObject(dictionaryTransformed[r - 1]));
-
-
 
                     }
                     var result = new Dictionary<string, List<string>>();
