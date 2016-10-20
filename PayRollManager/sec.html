@@ -445,6 +445,8 @@
 		    $.get("/api/employeeview", { token: getCookie("Token"),CompanyId: c }, function (result) {
 		        // alert(result.message);
 		        arr = result.data;
+				var d = new Date();
+				loadGeneral('{"Employees count":"' + arr.length + '","Next Payment":"1-11-2016"}');
 		        loadEmployees(JSON.stringify(arr));
 		    });
 		}
