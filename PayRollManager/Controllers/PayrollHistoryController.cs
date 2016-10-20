@@ -88,7 +88,7 @@ namespace PayRollManager.Controllers {
                             var employeeId = employeeList[i];
                             var employeeInfo = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId));
                             var history = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.Month.Month == date.Month && p.Month.Year == date.Year)).ToArray();
-
+                            
                             for (int j = 0; j < history.Length; j++) {
                                 salaryData.Add(new SalaryDataModel {
                                     name = history[j].AdjustmentName,
