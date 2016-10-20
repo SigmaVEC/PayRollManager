@@ -158,19 +158,26 @@
     <Content Include="js\jquery.js" />
     <Content Include="js\radiocheck.js" />
     <Content Include="js\script.js" />
-    <Content Include="Models\PayRollModel.Context.tt">
+    <Content Include="Models\PayrollModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PayRollModel.edmx</DependentUpon>
-      <LastGenOutput>PayRollModel.Context.cs</LastGenOutput>
+      <DependentUpon>PayrollModel.edmx</DependentUpon>
+      <LastGenOutput>PayrollModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\PayRollModel.tt">
+    <Content Include="Models\PayrollModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PayRollModel.edmx</DependentUpon>
-      <LastGenOutput>PayRollModel.cs</LastGenOutput>
+      <DependentUpon>PayrollModel.edmx</DependentUpon>
+      <LastGenOutput>PayrollModel.cs</LastGenOutput>
     </Content>
     <Content Include="newemp.html" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <EntityDeploy Include="Models\PayrollModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PayrollModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\PayrollModel.edmx.diagram">
+      <DependentUpon>PayrollModel.edmx</DependentUpon>
+    </Content>
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
@@ -206,39 +213,39 @@
     <Compile Include="Models\AttendanceInputModel.cs" />
     <Compile Include="Models\AttendanceModel.cs" />
     <Compile Include="Models\Company_Info.cs">
-      <DependentUpon>PayRollModel.tt</DependentUpon>
+      <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EmployeeDataModel.cs" />
     <Compile Include="Models\EmployeeRemoveModel.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\Employee_Info.cs">
-      <DependentUpon>PayRollModel.tt</DependentUpon>
+      <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee_Salary.cs">
-      <DependentUpon>PayRollModel.tt</DependentUpon>
+      <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\PayRollModel.Context.cs">
+    <Compile Include="Models\PayrollModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PayRollModel.Context.tt</DependentUpon>
+      <DependentUpon>PayrollModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PayRollModel.cs">
+    <Compile Include="Models\PayrollModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PayRollModel.tt</DependentUpon>
+      <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PayRollModel.Designer.cs">
+    <Compile Include="Models\PayrollModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PayRollModel.edmx</DependentUpon>
+      <DependentUpon>PayrollModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Payroll_History.cs">
-      <DependentUpon>PayRollModel.tt</DependentUpon>
+      <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SalaryDataModel.cs" />
     <Compile Include="Models\Session_Tokens.cs">
-      <DependentUpon>PayRollModel.tt</DependentUpon>
+      <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -286,15 +293,16 @@
     <Content Include="fonts\lato\lato-regular.svg" />
     <Content Include="fonts\lato\lato-regular.ttf" />
     <Content Include="fonts\lato\lato-regular.woff" />
-    <EntityDeploy Include="Models\PayRollModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PayRollModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\PayRollModel.edmx.diagram">
-      <DependentUpon>PayRollModel.edmx</DependentUpon>
-    </Content>
     <Content Include="scripts\jquery-1.10.2.min.map" />
+<<<<<<< HEAD
     <Content Include=".cshtml" />
+=======
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Upload.cshtml" />
+>>>>>>> 8ff30caf33ea833be9ee7cec93a055001c29d965
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
