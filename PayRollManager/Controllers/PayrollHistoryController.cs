@@ -26,7 +26,6 @@ namespace PayRollManager.Controllers {
                     var history = db.Payroll_History.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId && p.Month.Month == date.Month && p.Month.Year == date.Year)).ToArray();
 
                     if(history.Length != 0) {
-                        var employeeData = new List<EmployeeViewModel>();
                         var salaryData = new List<SalaryDataModel>();
 
                         for(int i = 0; i < history.Length; i++) {
@@ -37,12 +36,12 @@ namespace PayRollManager.Controllers {
                             });
                         }
 
-                        employeeData.Add(new EmployeeViewModel {
+                        var employeeData = new EmployeeViewModel {
                             id = employee.EmployeeId,
                             name = employee.EmployeeName,
                             doj = employee.DOJ,
                             salary = salaryData.ToArray()
-                        });
+                        };
 
                         return Ok(new Message {
                             data = employeeData,
