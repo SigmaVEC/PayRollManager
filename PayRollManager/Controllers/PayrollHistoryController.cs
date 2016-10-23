@@ -14,7 +14,7 @@ namespace PayRollManager.Controllers {
 
         //GET: /api/PayrollHistory
         [HttpGet]
-        public IHttpActionResult EmployeePayroll(String token, String month) {
+        public IHttpActionResult EmployeePayroll(String token, String date, String monthly) {
             var tokenLifetime = int.Parse(ConfigurationManager.AppSettings["tokenLifetime"]);
             var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && DbFunctions.DiffHours(DateTime.Now, p.Timestamp) < tokenLifetime));
 
@@ -22,8 +22,8 @@ namespace PayRollManager.Controllers {
                 var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId));
 
                 if (employee != null) {
-                    var date = DateTime.Parse(month);
-                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId && p.Month.Month == date.Month && p.Month.Year == date.Year)).ToArray();
+                    var d = DateTime.Parse(date);
+                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId && p.Month.Month == d.Month && p.Month.Year == d.Year)).ToArray();
 
                     if(history.Length != 0) {
                         var salaryData = new List<SalaryDataModel>();
@@ -69,7 +69,7 @@ namespace PayRollManager.Controllers {
 
         //GET: /api/PayrollHistory
         [HttpGet]
-        public IHttpActionResult CompanyPayroll(String token, int companyId, String month) {
+        public IHttpActionResult CompanyPayroll(String token, int companyId, String date, String monthly) {
             var tokenLifetime = int.Parse(ConfigurationManager.AppSettings["tokenLifetime"]);
             var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && DbFunctions.DiffHours(DateTime.Now, p.Timestamp) < tokenLifetime));
 
@@ -77,8 +77,8 @@ namespace PayRollManager.Controllers {
                 var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId && p.IsAdmin == "y"));
 
                 if (employee != null) {
-                    var date = DateTime.Parse(month);
-                    var employeeList = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.Month.Month == date.Month && p.Month.Year == date.Year)).Select((p) => (p.EmployeeId)).Distinct().ToArray();
+                    var d = DateTime.Parse(date);
+                    var employeeList = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.Month.Month == d.Month && p.Month.Year == d.Year)).Select((p) => (p.EmployeeId)).Distinct().ToArray();
                     if (employeeList.Length != 0) {
                         var employeeData = new List<EmployeeViewModel>();
                         
@@ -86,7 +86,7 @@ namespace PayRollManager.Controllers {
                             var salaryData = new List<SalaryDataModel>();
                             var employeeId = employeeList[i];
                             var employeeInfo = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId));
-                            var history = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.Month.Month == date.Month && p.Month.Year == date.Year)).ToArray();
+                            var history = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.Month.Month == d.Month && p.Month.Year == d.Year)).ToArray();
                             
                             for (int j = 0; j < history.Length; j++) {
                                 salaryData.Add(new SalaryDataModel {

@@ -294,15 +294,12 @@
     <Content Include="fonts\lato\lato-regular.ttf" />
     <Content Include="fonts\lato\lato-regular.woff" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
-<<<<<<< HEAD
     <Content Include=".cshtml" />
-=======
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Upload.cshtml" />
->>>>>>> 8ff30caf33ea833be9ee7cec93a055001c29d965
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

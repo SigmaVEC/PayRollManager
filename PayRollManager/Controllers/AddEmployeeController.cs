@@ -56,6 +56,23 @@ namespace PayRollManager.Controllers {
                                     });
                                 }
                             }
+
+                            for (int i = 0; i < newEmployee.personal.Length; i++) {
+                                if ((newEmployee.personal[i].name.Length != 0) && (newEmployee.personal[i].value.Length != 0)) {
+                                    var p = new Personal_Details {
+                                        CompanyId = newEmployee.companyId,
+                                        EmployeeId = newEmployee.employeeId,
+                                        Name = newEmployee.personal[i].name,
+                                        Value = newEmployee.personal[i].value
+                                    };
+                                    db.Personal_Details.Add(p);
+                                } else {
+                                    return Ok(new Message {
+                                        data = null,
+                                        message = "Personal data model contains invalid data"
+                                    });
+                                }
+                            }
                             db.SaveChangesAsync();
 
                             return Ok(new Message {

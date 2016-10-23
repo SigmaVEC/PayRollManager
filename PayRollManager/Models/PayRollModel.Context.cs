@@ -29,6 +29,7 @@ namespace PayRollManager.Models
         public virtual DbSet<Employee_Info> Employee_Info { get; set; }
         public virtual DbSet<Employee_Salary> Employee_Salary { get; set; }
         public virtual DbSet<Payroll_History> Payroll_History { get; set; }
+        public virtual DbSet<Personal_Details> Personal_Details { get; set; }
         public virtual DbSet<Session_Tokens> Session_Tokens { get; set; }
     }
 }
