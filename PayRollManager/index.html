@@ -17,7 +17,6 @@
 		<link href="css/style.css" rel="stylesheet">
 	</head>
 	<style>
-		
 		.jumbotron {
 			padding: 100px;
 			padding-top:150px;
@@ -41,7 +40,7 @@
 		}
 		form {
 			padding: 40px 10px 20px 40px;
-			background-color: #C5C5C9;
+			background-color: #D9F3FE;//#C5C5C9;
 			border: 2px solid #616161;
 			border-radius: 13px;
 		}
@@ -52,7 +51,6 @@
 			padding-left:5%;
 			color: #fff;
 			font-size: 34px;
-			
 		}
 		body{
 			font-family:'Segoe UI';
@@ -69,6 +67,17 @@
 		i{
 			margin-top:12px;
 			}
+		.sel{
+			width: 170px;
+			}
+		div.select{
+			position: relative;
+			left: 230px;
+			bottom: 55px;
+			}
+		div.passlog{
+			margin-top: -70px;	
+			}
 	</style>
 	<body class="row">
 		<div id="top">
@@ -79,35 +88,48 @@
 			<div class = "row">
 				<div class="col-lg-4 col-md-4 col-sm-0"></div>
 				<form class="col-lg-4 col-md-6 col-sm-12">		
-								
 					<div class="md-form">
-						<i class="fa fa-envelope prefix" ></i>
+						<i class="fa fa-envelope prefix"></i>
 						<input type="text" id="form2" id="uname" class="form-control">
 						<label for="form2" >Username</label>
+						<div class="select">
+							<div class="input-group-btn">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle sel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span id="cname">Select Company</span>
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="listCompany" style="margin-top:-20px;">
+                                        <button type="button" class="list-group-item disabled">loading</button>
+                                    </ul>
+                                </div>
+                            </div>
+						</div>
 					</div>
+					<div class="passlog">
+						<div class="md-form">
+							<i class="fa fa-lock prefix"></i>
+							<input type="password" id="form4" id="password" class="form-control">
+							<label for="form4" >password</label>
+						</div>
 
-					<div class="md-form">
-						<i class="fa fa-lock prefix"></i>
-						<input type="password" id="form4" id="password" class="form-control">
-						<label for="form4" >password</label>
+						<div id="logindiv">
+							<button id="btnLogin" align="center" class="btn" value="Log In" >Log In</button>
+						</div>
 					</div>
-
-					<div id="logindiv">
-						<button id="btnLogin" align="center" class="btn" value="Log In" >Log In</button>
-					</div>
-					
 				</div>
 			</form>
 		</div>
 		<script>
 			var th = $("#test").height();
 			var toph = $("#top").height();
-			var fh = $("form").height();
+			var fh = $("#form").height();
 			var h1 = th-toph-fh;
 			var cid = 0;
 			$("#test").hide();
 			$("#formId").height(th-toph);
-			$("form").css("margin-top", h1 / 2 - 40);
+			$("#form").css("margin-top", h1 / 2 - 40);
 			$("#btnLogin").on("click", function () {
 				var uname = $("#uname").val();
 				var pass = $("#password").val();
@@ -116,7 +138,7 @@
 				$.get('/api/authenticate', { companyid: cid, employeeid: uname, password: pass }, function (result) {
 					//alert(result.data.SessionToken);
 					if (result.message == "Success") {
-						setCookie(result.data.SessionToken)
+						setCookie("Token", result.data.SessionToken);
 						setUserName(uname);
 						window.location = "sec.html";
 					} else {
@@ -124,6 +146,24 @@
 					}
 				});
 			});
+			$.get("api/listcompanies", {}, function (result) {
+				// alert(result.message);
+				if (result.message != "Success") {
+					companyList = ' <button type="button" class="list-group-item disabled">' + result.message + '</button> ';
+					$("#listCompany").html(companyList);
+					return;
+				}
+				var obj = result.data;
+				var companyList = "";
+				for (a in obj)
+					companyList = companyList + ' <button type="button" cid="'+obj[a].CompanyId+'" class="list-group-item " onclick="companySelect(this)">' + obj[a].CompanyName + '</button> ';
+				$("#listCompany").html(companyList);
+			});
+			function companySelect(a) {
+				cid = a.getAttribute("cid");
+				var n = a.innerHTML;
+				$("#cname").html(n);
+			}
 		</script>
 		<script src="js/jquery.js"></script>
 		
