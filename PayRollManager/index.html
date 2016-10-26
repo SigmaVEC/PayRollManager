@@ -34,6 +34,7 @@
 		}
 		.btn{
 			width:80%;
+			border-radius: 0px;
 		}
 		.btn:hover{
 			background-color: #3E83BA;
@@ -78,6 +79,9 @@
 		div.passlog{
 			margin-top: -70px;	
 			}
+		.md-form .prefix{
+			color: #757575;
+			}
 	</style>
 	<body class="row">
 		<div id="top">
@@ -90,7 +94,7 @@
 				<form class="col-lg-4 col-md-6 col-sm-12">		
 					<div class="md-form">
 						<i class="fa fa-envelope prefix"></i>
-						<input type="text" id="form2" id="uname" class="form-control">
+						<input type="text" id="form2" id="uname" class="form-control" required>
 						<label for="form2" >Username</label>
 						<div class="select">
 							<div class="input-group-btn">
@@ -110,7 +114,7 @@
 					<div class="passlog">
 						<div class="md-form">
 							<i class="fa fa-lock prefix"></i>
-							<input type="password" id="form4" id="password" class="form-control">
+							<input type="password" id="form4" id="password" class="form-control" required>
 							<label for="form4" >password</label>
 						</div>
 
