@@ -54,7 +54,7 @@
 						&nbsp;
 						<div class="row" id="outer">
 							<div class="panel panel-default">
-								<div class="panel-heading">Personal Info</div>
+								<div class="panel-heading">Personal Info<span class="glyphicon glyphicon-plus add" id="addPersonal"></span><</div>
 								<table class="table table-striped table-bordered" id="tablePersonal">
 									<tr class="inputGroupInfo">
 										<td> Employee Name:</td><td> <input type="text" class="form-control" placeholder="Enter name" name="name" id="pVal1"/>
@@ -78,6 +78,20 @@
 										<td><label class="control-label"><input type="radio" value="addition" name="adjustment1" checked /> Addition </label></td> 
 										<td><label class="control-label"><input type="radio" value="redution" name="adjustment1"/> 	Reduction </label></td>
 									</tr-->
+									<tr class="inputGroupSalary" id="sal0"">
+										<td><input type="text" class ="form-control" readOnly placeholder= "type 0" id= "stype0" value="basic"/></td>
+										<td><input type="text" class ="form-control" placeholder= "val 0" id= "sval0" /></td>
+										<td><label class="control-label"><input type="checkbox" value="isPercent" id="ispercent0" class="ispercent"/> ispercent </label></td>
+										<td><label class="control-label"><input type="radio" value="" name="adjustment0" checked /> Addition</label> </td> 
+										<td><label class="control-label"><input type="radio" value="-" name="adjustment0"/> Deduction </label></td>
+									</tr>
+									<tr class="inputGroupSalary" id="sal1"">
+										<td><input type="text" class ="form-control" readOnly placeholder= "type 1" id= "stype1" value="shift"/></td>
+										<td><input type="text" class ="form-control" placeholder= "val 1" id= "sval1" /></td>
+										<td><label class="control-label"><input type="checkbox" value="isPercent" id="ispercent1" class="ispercent"/> ispercent </label></td>
+										<td><label class="control-label"><input type="radio" value="" name="adjustment1" checked /> Addition</label> </td> 
+										<td><label class="control-label"><input type="radio" value="-" name="adjustment1"/> Deduction </label></td>
+									</tr>
 								</table>
 							</div>
 							<button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%"id="esubmit">Add Employee</button>
@@ -527,7 +541,7 @@
 
 	</script>
 	<script>
-		var count=0;//Salary field count
+		var count=2;//Salary field count
 		var cnt=0;//Personal field count
 		var th = $("#test").height();
 		var toph = $("#top").height();
@@ -545,6 +559,15 @@
 			$("#tableSalary").append(s);
 			count++;
 		});
+		$("#addPersonal").on("click", function () {
+
+		    s = `<tr class="addPersonal" id="personal"` + count + `>
+							<td><input type="text" class ="form-control" placeholder= "custom type `+ cnt + `" id= "ptype` + cnt + `" /></td>
+                            <td><input type="text" class ="form-control" placeholder= "val `+ cnt + `" id= "pval` + cnt + `" /></td>
+						</tr>`;
+		    $("#tablePersonal").append(s);
+		    cnt++;
+		});
 		
 		$("#esubmit").on("click",function(){
 		    obj = {};
@@ -555,10 +578,18 @@
 			obj["password"] = $("#pVal4").val();
 			obj["isAdmin"] = (document.getElementById("pVal5").checked) ? "y" : "n";
 		    var arr = new Array();
-		    
+		    for (i = 0; i < cnt; i++ ) {
+				var key = $("#ptype"+i).val();
+				obj[key] = $("#pval"+i).val();
+			}
 		    for (i = 0 ; i < count ; i++) {
 		        objSal = {};
 		        objSal.name = $("#stype" + i).val();
+				var nameUpperTemp = objSal.name;
+				if ((nameUpperTemp.toUpperCase() === "BASIC" || nameUpperTemp.toUpperCase()  === "SHIFT")  && i > 1){
+					$("#stype" + i).val("");
+					alert("Check type");
+				}
 		        //add adjustment to val
 		        var ad = $("input[name='adjustment" + i + "']:checked").val() + $("#sval" + i).val();
 		        objSal.value = parseFloat(ad);

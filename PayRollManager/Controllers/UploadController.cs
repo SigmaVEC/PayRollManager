@@ -12,7 +12,7 @@ namespace PayRollManager.Controllers
 {
     public class UploadController : ApiController
     {
-        [HttpGet]
+        [HttpPost]
         public async Task<HttpResponseMessage> PostFormData()
         {
             // Check if the request contains multipart/form-data.
