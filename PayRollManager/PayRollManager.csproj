@@ -151,6 +151,7 @@
     <Content Include="EfeildsAdd.html" />
     <Content Include="employee.html" />
     <Content Include="first.html" />
+    <Content Include="fromExcel.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="js\bootstrap.js" />

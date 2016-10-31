@@ -1,0 +1,102 @@
+<html>
+	<script src="handsontable/handsontable.full.js"></script>
+	<link rel="stylesheet" href="handsontable/handsontable.full.css">
+	<body>
+		<div id="example">
+		</div>
+	</body>
+	<script>
+	var data = [
+  		["", "Ford", "Volvo", "Toyota", "Honda"],
+  		["2014", 10, 11, 12, 13],
+  		["2015", 20, 11, 14, 13],
+  		["2016", 30, 15, 12, 13]
+	];
+
+	var container = document.getElementById('example');
+	var hot = new Handsontable(container, {
+		data: data,
+  		minSpareRows: 10,
+  		rowHeaders: true,
+  		colHeaders: true,
+  		contextMenu: true
+	});
+	</script>
+</html>
+<!--
+from js fiddle
+$(document).ready(function () {
+
+    var data = [{
+        id: 1,
+        matsvalue: 'Ted',
+        isActive: true,
+        color: 'orange',
+        date: '2008-01-01'
+    }, {
+        id: 2,
+        matsvalue: 'John',
+        isActive: false,
+        color: 'black',
+        date: null
+    }, {
+        id: 3,
+        matsvalue: 'Al',
+        isActive: true,
+        color: 'red',
+        date: null
+    }, {
+        id: 4,
+        matsvalue: 'Ben',
+        isActive: false,
+        color: 'blue',
+        date: null
+    }],
+        container = document.getElementById('example1'),
+        hot1,
+        greenRenderer;
+
+    greenRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+        Handsontable.renderers.TextRenderer.apply(this, arguments);
+        td.style.backgroundColor = 'green';
+
+    };
+
+    hot1 = new Handsontable(container, {
+        data: data,
+        startRows: 5,
+        colHeaders: ["id", "matsvalue", "isActive", "color", "date"],
+        minSpareRows: 1,
+        columns: [{
+            data: "id",
+            type: 'text'
+        }, {
+            data: "matsvalue",
+            renderer: greenRenderer
+        }, {
+            data: "isActive",
+            type: 'checkbox'
+        }, {
+            data: "date",
+            type: 'date',
+            dateFormat: 'YYYY-MM-DD'
+        }, {
+            data: "color",
+            type: 'autocomplete',
+            source: ["yellow", "red", "orange", "green", "blue", "gray", "black", "white"]
+        }]
+    });
+
+   function a(){
+   			 for (i in hot1.getSourceData()){
+         		 console.log(hot1.getSourceData()[i])
+         }
+   }
+   $("#a").on("click",function(){
+   			 for (i in hot1.getSourceData()){
+         		 console.log(hot1.getSourceData()[i])
+         }
+   });
+});
+
+-->

@@ -1,0 +1,127 @@
+﻿<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="handsontable/handsontable.full.css"/>
+    <script src="handsontable/handsontable.full.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/script.js"></script>
+</head>
+<body>
+    <div id="top">
+        <span id="logo">Payroll Manager</span>
+    </div>
+    <div id="test"></div>
+    <div class="container-fluid">
+        <div class="row" id="start">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="cname">Select Company</span>
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" id="listCompany">
+                    <button type="button" class="list-group-item disabled">loading</button>
+                </ul>
+            </div>
+            <div id="sample"></div>
+        </div>
+    </div>
+    <div id="notification" class="container-fluid">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4" id="notificationArea"></div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</body>
+<style>
+    #test {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: aqua;
+    }
+
+    #top {
+        height: 80px;
+        padding-top: 15px;
+        background-color: #455a64;
+        /*background: #007299;*/
+        padding-left: 5%;
+        color: #fff;
+        font-size: 34px;
+    }
+    
+</style>
+<script>
+    var th = $("#test").height();
+   // $("#top").hide();
+    $("#test").hide();
+    var toph = $("#top").height();
+    $.get("api/listcompanies", {}, function (result) {
+        // alert(result.message);
+        if (result.message != "Success") {
+            companyList = ' <button type="button" class="list-group-item disabled">' + result.message + '</button> ';
+            $("#listCompany").html(companyList);
+            return;
+        }
+        var obj = result.data;
+        var companyList = "";
+        for (a in obj)
+            companyList = companyList + ' <button type="button" cid="' + obj[a].CompanyId + '" class="list-group-item " onclick="companySelect(this)">' + obj[a].CompanyName + '</button> ';
+        $("#listCompany").html(companyList);
+    });
+</script>
+<script>
+    var data = [
+  		{
+  		    name: "name1",
+  		    employeeId: "id1",
+  		    date: '2008-01-01',
+  		    basic: "2000",
+            shifts : "3"
+  		}, {
+  		    name: "name2",
+  		    employeeId: "id2",
+  		    date: '2008-02-01',
+  		    basic: "20000",
+  		    shifts: "3"
+  		}, {
+  		    name: "name3",
+  		    employeeId: "id31",
+  		    date: '2008-01-01',
+  		    basic: "90000",
+  		    shifts: "1"
+  		}
+    ];
+
+    var container = document.getElementById('sample');
+    var ht = new Handsontable(container, {
+        data: data,
+        minSpareRows: 1,
+        rowHeaders: true,
+        colHeaders: ["name","id","date","Basic","shifts"],
+        columns: [{
+            data:"name",
+            type:'text'
+        },{
+            data: "employeeId",
+            type:'text'
+        }, {
+            data: "date",
+            type: 'date'
+        }, {
+            data: "basic",
+            type: 'text'
+        }, {
+            data: "shifts",
+            type: 'text'
+        }]
+  
+    });
+</script>
+</html>
