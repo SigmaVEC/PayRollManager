@@ -81,16 +81,16 @@
 									<tr class="inputGroupSalary" id="sal0"">
 										<td><input type="text" class ="form-control" readOnly placeholder= "type 0" id= "stype0" value="basic" disabled /></td>
 										<td><input type="text" class ="form-control" placeholder= "val 0" id= "sval0" /></td>
-										<td><label class="control-label"><input type="checkbox" value="isPercent" id="ispercent0" class="ispercent"/> ispercent </label></td>
-										<td><label class="control-label"><input type="radio" value="" name="adjustment0" checked /> Addition</label> </td> 
-										<td><label class="control-label"><input type="radio" value="-" name="adjustment0"/> Deduction </label></td>
+										<td><input type="text" class ="form-control" placeholder= "Increment Amount" id= "incamount" /></td> 
+										<td><input type="text" class ="form-control" placeholder= "Increment Date" id= "incdate" /></td>
 									</tr>
-									<tr class="inputGroupSalary" id="sal1"">
+									<tr class="inputGroupSalary" id="sal1">
 										<td><input type="text" class ="form-control" readOnly placeholder= "type 1" id= "stype1" value="shift" disabled /></td>
-										<td><input type="text" class ="form-control" placeholder= "val 1" id= "sval1" /></td>
-										<td><label class="control-label"><input type="checkbox" value="isPercent" id="ispercent1" class="ispercent"/> ispercent </label></td>
-										<td><label class="control-label"><input type="radio" value="" name="adjustment1" checked /> Addition</label> </td> 
-										<td><label class="control-label"><input type="radio" value="-" name="adjustment1"/> Deduction </label></td>
+										<td><select class="form-control">
+											<option value="1">Shift 1</option> 
+											<option value="2">Shift 2</option>
+											<option value="3">Shift 3</option>
+											</select></td>
 									</tr>
 								</table>
 							</div>
@@ -183,8 +183,17 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">PayRoll</div>
 							<table class="table table-striped table-bordered">
-							<tr><td><label>Select month</label></td><td><input type="date" class="form-control" id="payrollDate"></td>
-							<td><button class="btn btn-primary" onclick="displayPayroll()">Go</button></td></tr>
+							<tr><td><label>Select month</label></td><td><input type="date" class="form-control" id="payrollDate"></td></tr>
+							<tr><td><label>Shift</label></td>
+								<td><select class="form-control">
+											<option value="0">All</option>
+											<option value="1">Shift 1</option> 
+											<option value="2">Shift 2</option>
+											<option value="3">Shift 3</option>
+									</select></td>
+								<td><button class="btn btn-primary" onclick="displayPayroll()">Go</button></td>
+							</tr>
+							
 							</table>
 							<table class="table  table-striped table-bordered" id="tablePayRoll">
 							</table>
