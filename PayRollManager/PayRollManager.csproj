@@ -201,7 +201,7 @@
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\EmployeeViewController.cs" />
     <Compile Include="Controllers\ListCompaniesController.cs" />
-    <Compile Include="Controllers\PayrollController.cs" />
+    <Compile Include="Controllers\PayrollGenerateController.cs" />
     <Compile Include="Controllers\PayrollHistoryController.cs" />
     <Compile Include="Controllers\RemoveCompanyController.cs" />
     <Compile Include="Controllers\RemoveEmployeeController.cs" />
@@ -213,6 +213,9 @@
     </Compile>
     <Compile Include="Models\AttendanceInputModel.cs" />
     <Compile Include="Models\AttendanceModel.cs" />
+    <Compile Include="Models\Attendance_Details.cs">
+      <DependentUpon>PayrollModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Company_Info.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
@@ -242,6 +245,10 @@
       <DependentUpon>PayrollModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Payroll_History.cs">
+      <DependentUpon>PayrollModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PersonalDataModel.cs" />
+    <Compile Include="Models\Personal_Details.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SalaryDataModel.cs" />

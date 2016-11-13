@@ -12,13 +12,11 @@ namespace PayRollManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Payroll_History
+    public partial class Attendance_Details
     {
         public int CompanyId { get; set; }
         public string EmployeeId { get; set; }
-        public System.DateTime GenerationDate { get; set; }
-        public string AdjustmentName { get; set; }
-        public double AdjustmentValue { get; set; }
-        public string AdjustmentType { get; set; }
+        public System.DateTime Date { get; set; }
+        public string IsPresent { get; set; }
     }
 }

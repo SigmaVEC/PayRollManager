@@ -9,7 +9,7 @@ using System.Web.Http;
 using System.Web.Script.Serialization;
 
 namespace PayRollManager.Controllers {
-    public class PayrollController : ApiController {
+    public class PayrollGenerateController : ApiController {
         private PayRollManagerEntities db = new PayRollManagerEntities();
 
         // GET: api/Payroll
@@ -35,7 +35,7 @@ namespace PayRollManager.Controllers {
                                 var basicPay = s.FirstOrDefault((p) => (p.AdjustmentName == "Basic"));
 
                                 if (basicPay != null) {
-                                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && p.Month.Month == DateTime.Now.Month)).ToArray();
+                                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && p.GenerationDate.Month == DateTime.Now.Month)).ToArray();
 
                                     for (int j = 0; j < s.Length; j++) {
                                         if (Regex.IsMatch(s[j].AdjustmentName, @"Shift [0-9]+")) {
@@ -70,7 +70,7 @@ namespace PayRollManager.Controllers {
                                         db.Payroll_History.Add(new Payroll_History {
                                             CompanyId = employeeInfo.CompanyId,
                                             EmployeeId = employeeInfo.EmployeeId,
-                                            Month = DateTime.Now,
+                                            GenerationDate = DateTime.Now,
                                             AdjustmentName = salaryData[j].name,
                                             AdjustmentType = salaryData[j].type,
                                             AdjustmentValue = salaryData[j].value

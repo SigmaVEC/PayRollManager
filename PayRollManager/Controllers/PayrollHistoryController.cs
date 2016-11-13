@@ -23,7 +23,7 @@ namespace PayRollManager.Controllers {
 
                 if (employee != null) {
                     var d = DateTime.Parse(date);
-                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId && p.Month.Month == d.Month && p.Month.Year == d.Year)).ToArray();
+                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId && p.GenerationDate.Month == d.Month && p.GenerationDate.Year == d.Year)).ToArray();
 
                     if(history.Length != 0) {
                         var salaryData = new List<SalaryDataModel>();
@@ -78,7 +78,7 @@ namespace PayRollManager.Controllers {
 
                 if (employee != null) {
                     var d = DateTime.Parse(date);
-                    var employeeList = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.Month.Month == d.Month && p.Month.Year == d.Year)).Select((p) => (p.EmployeeId)).Distinct().ToArray();
+                    var employeeList = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.GenerationDate.Month == d.Month && p.GenerationDate.Year == d.Year)).Select((p) => (p.EmployeeId)).Distinct().ToArray();
                     if (employeeList.Length != 0) {
                         var employeeData = new List<EmployeeViewModel>();
                         
@@ -86,7 +86,7 @@ namespace PayRollManager.Controllers {
                             var salaryData = new List<SalaryDataModel>();
                             var employeeId = employeeList[i];
                             var employeeInfo = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId));
-                            var history = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.Month.Month == d.Month && p.Month.Year == d.Year)).ToArray();
+                            var history = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.GenerationDate.Month == d.Month && p.GenerationDate.Year == d.Year)).ToArray();
                             
                             for (int j = 0; j < history.Length; j++) {
                                 salaryData.Add(new SalaryDataModel {

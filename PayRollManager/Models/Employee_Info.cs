@@ -17,8 +17,8 @@ namespace PayRollManager.Models
         public int CompanyId { get; set; }
         public string EmployeeId { get; set; }
         public string EmployeeName { get; set; }
-        public System.DateTime DOJ { get; set; }
         public Nullable<System.DateTime> DOL { get; set; }
+        public System.DateTime DOJ { get; set; }
         public string IsAdmin { get; set; }
         public string Password { get; set; }
     }
