@@ -15,9 +15,12 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-4 col-md-4 col-sm-0"></div>
-				<div class="col-lg-4 col-md-4 col-sm-12" id="formId">
+				<div class="col-lg-4 col-md-4 col-sm-12" id="formId"  >
 					<form action="">					
 						<!--span class="glyphicon glyphicon-user"></span-->
+                        <img id="UploadedImage" src="#" alt="Upload your photo" width="100px" height="100px" style="margin-left:auto;margin-right:auto;display:block" /><br />
+                        <input type='file' id="img" style="margin-left:auto;margin-right:auto;display:block"  /><br />
+                        
 						<input type="text" class="form-control" id="name" placeholder="Name"><br>
 						<input type="text" class="form-control" id="fname" placeholder="Father's Name"><br>
 						<input type="text" class="form-control" id="dob" placeholder="DOB"><br>
@@ -28,7 +31,7 @@
 						<br>
 						<input type="password" class="form-control" id="password" placeholder="Password"><br>
 						<input type="password" class="form-control" id="repassword" placeholder="Confirm Password"><br>
-						<div id="logindiv"><input type="submit" align="center" class="btn" value="Log In"></div>
+						<div id="logindiv"><input type="submit" align="center" class="btn" value="Sign Up"></div>
 					</form>
 				<div>
 			</div>	
@@ -79,7 +82,24 @@
 		var h1 = th-toph-fh;
 		$("#test").hide();
 		$("#formId").height(th-toph);
-		$("form").css("margin-top",h1/2-40);
+		$("form").css("margin-top", h1 / 2 - 40);
+
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+
+		        reader.onload = function (e) {
+		            $('#UploadedImage').attr('src', e.target.result);
+		        }
+
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#img").change(function () {
+		    readURL(this);
+		});
+
 		$('#repassword').on('blur', function () {
 			$('#repassword').css('border-color', 'white');
 			});
