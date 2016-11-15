@@ -27,7 +27,27 @@
                     <button type="button" class="list-group-item disabled">loading</button>
                 </ul>
             </div>
-            <div id="sample"></div>
+			<div id="getFieldsRoot">
+				<div class="panel panel-default">
+					<div class="panel-heading">Salary Info <span class="glyphicon glyphicon-plus add" id="addSalary"></span></div>
+					<table class="table table-striped table-bordered" id="tableSalary">
+						<tr class="inputGroupSalary" >
+							<td><input type="text" class="form-control" readonly disabled placeholder="type 1" name="stype1" value="basicpay"/></td>
+							<td><label class="control-label"><input readonly disabled type="checkbox" value="isPercent" name="ispercent" class="ispercent" /> ispercent</label> </td>
+							<td><label class="control-label"><input readonly disabled type="radio" value="addition" name="adjustment1" selected /> Addition </label></td> 
+							<td><label class="control-label"><input readonly disabled type="radio" value="redution" name="adjustment1"/> 	Reduction </label></td>
+						</tr>
+						<tr class="inputGroupSalary" >
+							<td><input type="text" class="form-control" readonly disabled placeholder="type 1" name="stype1" value="shifts"/></td>
+						</tr>
+					</table>
+				</div>
+				<button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%" id="submit">Submit</button>
+			</div>
+            <div id="sample">
+				<div id="sheet"/>
+				<button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%" id="upload">Upload</button>
+			</div>
         </div>
     </div>
     <div id="notification" class="container-fluid">
@@ -55,12 +75,22 @@
         color: #fff;
         font-size: 34px;
     }
-    
+    .add{
+			position: static;
+			float: right;
+			font-size:20px;
+			color:#666;
+		}
+		#addSalary:hover{
+			color:#59F;
+			cursor: pointer;
+		}
 </style>
 <script>
     var th = $("#test").height();
    // $("#top").hide();
     $("#test").hide();
+	$("#sample").hide();
     var toph = $("#top").height();
     $.get("api/listcompanies", {}, function (result) {
         // alert(result.message);
@@ -75,8 +105,44 @@
             companyList = companyList + ' <button type="button" cid="' + obj[a].CompanyId + '" class="list-group-item " onclick="companySelect(this)">' + obj[a].CompanyName + '</button> ';
         $("#listCompany").html(companyList);
     });
+	function companySelect(a){
+		var cname = a.innerHTML;
+		$("#cname").html(cname);
+	}
 </script>
 <script>
+	var count = 0;
+	$("#addSalary").on("click", function(){
+			
+			s=`<tr class="inputGroupSalary" id="sal"`+count+`>
+							<td><input type="text" class="form-control" placeholder="type `+count+`" id="stype`+count+`" name="stype`+count+`"/></td>
+							<td><label class="control-label"><input checked type="checkbox" id="ispercent`+count+`" value="isPercent" name="ispercent`+count+`" class="ispercent"/> ispercent </label></td>
+							<td><label class="control-label"><input type="radio" id="adj`+count+`" value="" name="adjustment`+count+`" selected /> Addition</label> </td> 
+							<td><label class="control-label"><input type="radio" id="adj`+count+`" value="-" name="adjustment`+count+`"/> 	Reduction </label></td>
+						</tr>`;
+			$("#tableSalary").append(s);
+			count++;
+		});
+	var names = [];
+	var adTypes = [];
+	var types = [];
+	$("#submit").on("click",function(){
+		for (var i = 0 ; i < count ; i++){
+			name = $("#stype" + i).val();
+			columnHeaders.push(name);
+			ad = $("input[name='adjustment" + i + "']:checked").val(); //ie "" or "-"
+			tpe = "#";
+			if ($("#ispercent" + i).is(":checked") ){
+				tpe = "%";
+			}
+			names.push(name);
+			adTypes.push(ad);
+			types.push(tpe);
+		}
+		$("#sample").show();
+		$("#getFieldsRoot").hide();
+		createSheet();
+	});
     var data = [
   		{
   		    name: "name1",
@@ -84,6 +150,7 @@
   		    date: '2008-01-01',
   		    basic: "2000",
             shifts : "3"
+			
   		}, {
   		    name: "name2",
   		    employeeId: "id2",
@@ -98,30 +165,85 @@
   		    shifts: "1"
   		}
     ];
-
-    var container = document.getElementById('sample');
-    var ht = new Handsontable(container, {
-        data: data,
-        minSpareRows: 1,
-        rowHeaders: true,
-        colHeaders: ["name","id","date","Basic","shifts"],
-        columns: [{
-            data:"name",
-            type:'text'
-        },{
-            data: "employeeId",
-            type:'text'
-        }, {
-            data: "date",
-            type: 'date'
-        }, {
-            data: "basic",
-            type: 'text'
-        }, {
-            data: "shifts",
-            type: 'text'
-        }]
-  
-    });
+	//console.log(getCount(data[0]));
+	function getCount(d){
+		count1 = 0;
+		for (var k in d) {
+			if (d.hasOwnProperty(k)) {
+				++count1;
+			}
+		}
+		return count1;
+	}
+	//getColumnHeaders(data[0]);
+	function getColumnHeadersTypesFromObj(d){
+		header=[];
+		for (var k in d) {
+			obj = {};
+			if (d.hasOwnProperty(k)) {
+				obj.data = k;
+				obj.type = "text";
+				header.push(obj);
+			}
+		}
+		for (i in header){
+			console.log(header[i]);
+		}
+		return header;
+	}
+	function getColumnHeadersTypes(cHeader){
+		console.log("S");
+		console.log(cHeader);
+		header=[];
+		for (var k in cHeader) {
+			obj = {};
+			obj.data = cHeader[k];
+			obj.type = "text";
+			header.push(obj);
+		}
+		getColumnHeadersTypes[header]
+		return header;
+	}
+	function getColumnHeaders(d){
+		header=[];
+		for (var k in d) {
+			if (d.hasOwnProperty(k)) {
+				header.push(k);
+			}
+		}
+		console.log(header);
+		return header;
+		
+	}
+	/*
+	 obj["name"] = $("#pVal1").val();
+			obj["employeeId"] = $("#pVal2").val();
+			obj["companyId"] = parseInt(getCookie("CompanyId"));
+			obj["date"] = $("#pVal3").val();
+			obj["password"] = $("#pVal4").val();
+	*/
+	
+	var columnHeaders = ["name", "employeeId", "companyId", "date", "password", "basicpay", "shifts"]
+	var ddata = [];
+	
+	function createDummyData(){
+		obj = {};
+		for (i in columnHeaders){
+			obj[columnHeaders[i]] = "";
+		}
+		ddata[0] = obj;
+	}
+	
+	
+    function createSheet(){
+		var container = document.getElementById('sheet');
+		var ht = new Handsontable(container, {
+			data: ddata,
+			minSpareRows: 1,
+			rowHeaders: true,
+			colHeaders: columnHeaders,
+			columns:getColumnHeadersTypes(columnHeaders)
+		});
+	}
 </script>
 </html>
