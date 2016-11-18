@@ -11,27 +11,54 @@
 		<div id="top">
 			<span id="logo">Payroll Manager</span>
 		</div>
+		<br/>
 		<div id="test"></div>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-4 col-md-4 col-sm-0"></div>
-				<div class="col-lg-4 col-md-4 col-sm-12" id="formId"  >
+				<div class="col-lg-4 col-md-6 col-sm-12" id="formId"  >
 					<form action="">					
 						<!--span class="glyphicon glyphicon-user"></span-->
-                        <img id="UploadedImage" src="#" alt="Upload your photo" width="100px" height="100px" style="margin-left:auto;margin-right:auto;display:block" /><br />
+                        <img id="UploadedImage" src="#" alt=" Upload  your  photo " width="100px" height="100px" style="margin-left:auto;margin-right:auto;display:block" /><br />
                         <input type='file' id="img" style="margin-left:auto;margin-right:auto;display:block"  /><br />
-                        
-						<input type="text" class="form-control" id="name" placeholder="Name"><br>
-						<input type="text" class="form-control" id="fname" placeholder="Father's Name"><br>
-						<input type="text" class="form-control" id="dob" placeholder="DOB"><br>
+                        <div class="input-group">
+							<div class="input-group-addon">
+								<span class="glyphicon glyphicon-user"></span> 
+							</div>
+							<input type="text" class="form-control" id="name" placeholder="Name">
+						</div><br>
 						<div class="input-group">
+							<div class="input-group-addon">
+								<span class="glyphicon glyphicon-tag"></span> 
+							</div>
+						<input type="text" class="form-control" id="fname" placeholder="Father's Name">
+						</div><br>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class="glyphicon glyphicon-calendar"></span> 
+							</div>
+						<input type="text" class="form-control" id="dob" placeholder="DOB">
+						</div><br>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class="glyphicon glyphicon-envelope"></span> 
+							</div>
 							<input type="text" class="form-control" id="uname" placeholder="Username" aria-describedby="basic-addon2">
 							<span class="input-group-addon" id="basic-addon2">@iseosystems.com</span>
-						</div>
-						<br>
-						<input type="password" class="form-control" id="password" placeholder="Password"><br>
-						<input type="password" class="form-control" id="repassword" placeholder="Confirm Password"><br>
-						<div id="logindiv"><input type="submit" align="center" class="btn" value="Sign Up"></div>
+						</div><br>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class="glyphicon glyphicon-lock"></span> 
+							</div>
+						<input type="password" class="form-control" id="password" placeholder="Password">
+						</div><br>
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class="glyphicon glyphicon-lock"></span> 
+							</div>
+						<input type="password" class="form-control" id="repassword" placeholder="Confirm Password">
+						</div><br>
+						<div id="logindiv"><input type="submit" align="center" class="btn btn-primary" value="Sign Up"></div>
 					</form>
 				<div>
 			</div>	
@@ -64,7 +91,7 @@
 		}
 		#logindiv .btn{
 			width:100%;
-			background-color: #4CAF50;
+			//background-color: #4CAF50;
 			color:#f2f2f2;
 		}
 		#logindiv{

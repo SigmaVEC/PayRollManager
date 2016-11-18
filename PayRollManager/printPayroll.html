@@ -17,7 +17,9 @@
     </div>
     <div id="test"></div>
     <div class="container-fluid">
-        <div class="row" id="start">
+		&nbsp;&nbsp;&nbsp;
+        <div class="row" id="start" align="center">
+			<label>Company&nbsp;&nbsp;</label>
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span id="cname">Select Company</span>
@@ -28,6 +30,7 @@
                     <button type="button" class="list-group-item disabled">loading</button>
                 </ul>
             </div>
+            <br/><br/>
 			<table class="table table-striped table-bordered">
 				<tr>
 					<td><label>Select month</label></td>
@@ -41,6 +44,7 @@
 			<button class="btn btn-primary" onclick="displayPayroll()">Go</button>
 			
         </div>
+        <br/><br/>
 		<div id="printRootDiv">
 			<div id="toPrint">
 				<table class="table table-striped" id="empTable">
@@ -105,9 +109,11 @@
 							</tr>
 					</tbody>
 				</table>
-			<div>
-			<button class="btn btn-primary" onclick="Print()">Print</button>
-		<div>
+			</div>
+			<div align="center">
+			<button class="btn btn-primary" onclick="Print()"><span class="glyphicon glyphicon-print"></span> Print</button>
+			</div>
+		</div>
 		<div id="pdf"></div>
     </div>
     <div id="notification" class="container-fluid">
