@@ -88,6 +88,7 @@
 </style>
 <script>
     var th = $("#test").height();
+	var selectedCompanyId = -1 ;
    // $("#top").hide();
     $("#test").hide();
 	$("#sample").hide();
@@ -107,6 +108,7 @@
     });
 	function companySelect(a){
 		var cname = a.innerHTML;
+		selectedCompanyId = a.getAttribute("cid");
 		$("#cname").html(cname);
 	}
 </script>
@@ -142,6 +144,25 @@
 		$("#sample").show();
 		$("#getFieldsRoot").hide();
 		createSheet();
+	});
+	$("#upload").on("click",function(){
+		var finalExcelData =  dispData();
+		var jsonData = JSON.stringify(finalExcelData);
+		alert(jsonData);
+		if(selectedCompanyId == -1){
+			alert("select company");
+			return;
+		}
+		//TODO:CHANGE API URL and TEST
+		$.get("api/addEmployeeList", { token: getCookie("Token"),CompanyId: selectedCompanyId , data:jsonData}, function (result) {
+			if (result.message != "Success") {
+				alert(result.message);
+				return;
+			}else {
+				//TODO: Show Success
+				alert("success")
+			}
+		});
 	});
     var data = [
   		{
@@ -223,7 +244,7 @@
 			obj["password"] = $("#pVal4").val();
 	*/
 	
-	var columnHeaders = ["name", "employeeId", "companyId", "date", "password", "basicpay", "shifts"]
+	var columnHeaders = ["name", "employeeId", "companyId", "date", "password", "shifts", "basicpay"]
 	var ddata = [];
 	
 	function createDummyData(){
@@ -234,16 +255,56 @@
 		ddata[0] = obj;
 	}
 	
-	
+	var ht; 
     function createSheet(){
 		var container = document.getElementById('sheet');
-		var ht = new Handsontable(container, {
+		ht = new Handsontable(container, {
 			data: ddata,
 			minSpareRows: 1,
 			rowHeaders: true,
 			colHeaders: columnHeaders,
 			columns:getColumnHeadersTypes(columnHeaders)
 		});
+		ht.getData();
+	}
+	var finalExportData = [];
+	function dispData(){
+		var excelData = ht.getData();
+		for ( i in excelData){
+			var obj = {};
+			var objsalarr = [];
+			var salval = [];
+			if(excelData[i][0] == null && excelData[i][1] == null ){
+					continue;
+			}
+			for (j in excelData[i]){
+				//get data upto shifts
+				
+				if (j < 6){
+					obj[columnHeaders[j]] = excelData[i][j];
+				} else if(j == 6) {
+					var salobj = {};
+					salobj.name = "basicpay";
+					salobj.type = "#";
+					salobj.value = excelData[i][j];
+					objsalarr.push(salobj);
+				} else {
+					salval.push(excelData[i][j]);
+				}
+			}
+			
+			for (k in names){
+				var salobj = {};
+				salobj.name = names[k];
+				salobj.type = types[k];
+				salobj.value = salval[k];
+				objsalarr.push(salobj);
+			}
+			obj.salary = objsalarr;
+			finalExportData.push(obj);
+		}
+		console.log(ht.getData());
+		return finalExportData;
 	}
 </script>
 </html>
