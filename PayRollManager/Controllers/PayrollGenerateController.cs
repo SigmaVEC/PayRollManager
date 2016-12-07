@@ -36,12 +36,21 @@ namespace PayRollManager.Controllers {
 
                                 if (basicPay != null) {
                                     var history = db.Payroll_History.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && p.Date.Month == DateTime.Now.Month && p.Date.Year == DateTime.Now.Year)).ToArray();
+                                    var dbAttendance = new Attendance_Details[DateTime.DaysInMonth(empAttendance.date.Year, empAttendance.date.Month)];
+                                    var increments = db.Salary_Increments.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0)).ToArray();
+                                    var lastBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.NoOfRepeatsLeft == 1)).ToArray();
+                                    var intermediateBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.NoOfRepeatsLeft > 1)).ToArray();
+                                    var infiniteBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.NoOfRepeatsLeft == -1)).ToArray();
+
+                                    for (int j = 0; j < increments.Length; j++) {
+                                        basicPay.AdjustmentValue += (increments[j].IncrementType == "#") ? increments[j].IncrementValue : increments[j].IncrementValue * basicPay.AdjustmentValue / 100;
+                                    }
 
                                     for (int j = 0; j < s.Length; j++) {
                                         if (Regex.IsMatch(s[j].AdjustmentName, @"Shift [0-9]+")) {
                                             var shiftNo = int.Parse(s[j].AdjustmentName.Split(' ')[1]);
 
-                                            if (shiftNo <= empAttendance.shift.Max()) {
+                                            if (empAttendance.shift.Contains(shiftNo)) {
                                                 salaryData.Add(new SalaryDataModel {
                                                     name = s[j].AdjustmentName,
                                                     type = (s[j].AdjustmentValue >= 0) ? "+" : "-",
@@ -50,7 +59,7 @@ namespace PayRollManager.Controllers {
                                             } else {
                                                 return Ok(new Message {
                                                     data = null,
-                                                    message = "Shift length invalid"
+                                                    message = "Shift number invalid"
                                                 });
                                             }
                                         } else {
@@ -61,7 +70,43 @@ namespace PayRollManager.Controllers {
                                             });
                                         }
                                     }
+                                    
+                                    for (int j = 0; j < DateTime.DaysInMonth(empAttendance.date.Year, empAttendance.date.Month); j++) {
+                                        dbAttendance[j].CompanyId = empAttendance.companyId;
+                                        dbAttendance[j].EmployeeId = empAttendance.employeeId;
+                                        dbAttendance[j].Date = new DateTime(empAttendance.date.Year, empAttendance.date.Month, j + 1);
+                                        dbAttendance[j].Shift = empAttendance.shift[j];
+                                    }
 
+                                    for (int j = 0; j < lastBonus.Length; j++) {
+                                        salaryData.Add(new SalaryDataModel {
+                                            name = lastBonus[j].BonusName,
+                                            type = "+",
+                                            value = (lastBonus[j].BonusType == "#") ? lastBonus[j].BonusValue : lastBonus[j].BonusValue * basicPay.AdjustmentValue / 100
+                                        });
+                                    }
+
+                                    for (int j = 0; j < intermediateBonus.Length; j++) {
+                                        intermediateBonus[j].NoOfRepeatsLeft -= 1;
+                                        salaryData.Add(new SalaryDataModel {
+                                            name = intermediateBonus[j].BonusName,
+                                            type = "+",
+                                            value = (intermediateBonus[j].BonusType == "#") ? intermediateBonus[j].BonusValue : intermediateBonus[j].BonusValue * basicPay.AdjustmentValue / 100
+                                        });
+                                    }
+
+                                    for (int j = 0; j < infiniteBonus.Length; j++) {
+                                        salaryData.Add(new SalaryDataModel {
+                                            name = infiniteBonus[j].BonusName,
+                                            type = "+",
+                                            value = (infiniteBonus[j].BonusType == "#") ? infiniteBonus[j].BonusValue : infiniteBonus[j].BonusValue * basicPay.AdjustmentValue / 100
+                                        });
+                                    }
+
+                                    db.Attendance_Details.AddRange(dbAttendance);
+
+                                    db.Salary_Increments.RemoveRange(increments);
+                                    db.Salary_Bonus.RemoveRange(lastBonus);
                                     db.Payroll_History.RemoveRange(history);
 
                                     for (int j = 0; j < salaryData.Count; j++) {

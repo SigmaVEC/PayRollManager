@@ -253,6 +253,12 @@
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SalaryDataModel.cs" />
+    <Compile Include="Models\Salary_Bonus.cs">
+      <DependentUpon>PayrollModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Salary_Increments.cs">
+      <DependentUpon>PayrollModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Session_Tokens.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>

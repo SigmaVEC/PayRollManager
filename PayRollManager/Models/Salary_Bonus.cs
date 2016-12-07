@@ -21,7 +21,6 @@ namespace PayRollManager.Models
         public string BonusType { get; set; }
         public double BonusValue { get; set; }
         public int TargetAttendance { get; set; }
-        public string IsRepeating { get; set; }
-        public Nullable<int> MaxRepeats { get; set; }
+        public int NoOfRepeatsLeft { get; set; }
     }
 }

@@ -87,18 +87,23 @@
           <Property Name="BonusType" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="BonusValue" Type="float" Nullable="false" />
           <Property Name="TargetAttendance" Type="int" Nullable="false" />
-          <Property Name="IsRepeating" Type="varchar" MaxLength="1" />
-          <Property Name="MaxRepeats" Type="int" />
+          <Property Name="NoOfRepeatsLeft" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PayRollManager.dbo.Salary_Increments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Salary_Increments">
           <Key>
             <PropertyRef Name="CompanyId" />
             <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="ApplyDate" />
+            <PropertyRef Name="IncrementType" />
+            <PropertyRef Name="IncrementValue" />
           </Key>
           <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Value" Type="float" />
-          <Property Name="ApplyDate" Type="date" />
+          <Property Name="ApplyDate" Type="date" Nullable="false" />
+          <Property Name="IncrementType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IncrementValue" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Session_Tokens">
           <Key>
@@ -117,8 +122,16 @@
           <EntitySet Name="Payroll_History" EntityType="Self.Payroll_History" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personal_Details" EntityType="Self.Personal_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salary_Bonus" EntityType="Self.Salary_Bonus" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Salary_Increments" EntityType="Self.Salary_Increments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Session_Tokens" EntityType="Self.Session_Tokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salary_Increments" EntityType="Self.Salary_Increments" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Salary_Increments].[CompanyId] AS [CompanyId], 
+    [Salary_Increments].[EmployeeId] AS [EmployeeId], 
+    [Salary_Increments].[ApplyDate] AS [ApplyDate], 
+    [Salary_Increments].[IncrementType] AS [IncrementType], 
+    [Salary_Increments].[IncrementValue] AS [IncrementValue]
+    FROM [dbo].[Salary_Increments] AS [Salary_Increments]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -132,8 +145,8 @@
           <EntitySet Name="Payroll_History" EntityType="PayRollManagerModel.Payroll_History" />
           <EntitySet Name="Personal_Details" EntityType="PayRollManagerModel.Personal_Details" />
           <EntitySet Name="Salary_Bonus" EntityType="PayRollManagerModel.Salary_Bonus" />
-          <EntitySet Name="Salary_Increments" EntityType="PayRollManagerModel.Salary_Increments" />
           <EntitySet Name="Session_Tokens" EntityType="PayRollManagerModel.Session_Tokens" />
+          <EntitySet Name="Salary_Increments" EntityType="PayRollManagerModel.Salary_Increments" />
         </EntityContainer>
         <EntityType Name="Attendance_Details">
           <Key>
@@ -217,18 +230,7 @@
           <Property Name="BonusType" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="BonusValue" Type="Double" Nullable="false" />
           <Property Name="TargetAttendance" Type="Int32" Nullable="false" />
-          <Property Name="IsRepeating" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="MaxRepeats" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Salary_Increments">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-            <PropertyRef Name="EmployeeId" />
-          </Key>
-          <Property Name="CompanyId" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Value" Type="Double" />
-          <Property Name="ApplyDate" Type="DateTime" Precision="0" />
+          <Property Name="NoOfRepeatsLeft" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Session_Tokens">
           <Key>
@@ -238,6 +240,20 @@
           <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CompanyId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Salary_Increments">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="EmployeeId" />
+            <PropertyRef Name="ApplyDate" />
+            <PropertyRef Name="IncrementType" />
+            <PropertyRef Name="IncrementValue" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApplyDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IncrementType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IncrementValue" Type="Double" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -312,23 +328,12 @@
           <EntitySetMapping Name="Salary_Bonus">
             <EntityTypeMapping TypeName="PayRollManagerModel.Salary_Bonus">
               <MappingFragment StoreEntitySet="Salary_Bonus">
-                <ScalarProperty Name="MaxRepeats" ColumnName="MaxRepeats" />
-                <ScalarProperty Name="IsRepeating" ColumnName="IsRepeating" />
+                <ScalarProperty Name="NoOfRepeatsLeft" ColumnName="NoOfRepeatsLeft" />
                 <ScalarProperty Name="TargetAttendance" ColumnName="TargetAttendance" />
                 <ScalarProperty Name="BonusValue" ColumnName="BonusValue" />
                 <ScalarProperty Name="BonusType" ColumnName="BonusType" />
                 <ScalarProperty Name="BonusName" ColumnName="BonusName" />
                 <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Salary_Increments">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Salary_Increments">
-              <MappingFragment StoreEntitySet="Salary_Increments">
-                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
@@ -341,6 +346,17 @@
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
                 <ScalarProperty Name="SessionToken" ColumnName="SessionToken" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salary_Increments">
+            <EntityTypeMapping TypeName="PayRollManagerModel.Salary_Increments">
+              <MappingFragment StoreEntitySet="Salary_Increments">
+                <ScalarProperty Name="IncrementValue" ColumnName="IncrementValue" />
+                <ScalarProperty Name="IncrementType" ColumnName="IncrementType" />
+                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
