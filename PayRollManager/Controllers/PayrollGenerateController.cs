@@ -25,27 +25,27 @@ namespace PayRollManager.Controllers {
                     try {
                         var attendanceInput = new JavaScriptSerializer().Deserialize<AttendanceInputModel>(attendanceJson);
                         var employeeData = new List<EmployeeViewModel>();
-                        for(int i = 0; i < attendanceInput.attendance.Length; i++) {
+                        for (int i = 0; i < attendanceInput.attendance.Length; i++) {
                             var empAttendance = attendanceInput.attendance[i];
                             var employeeInfo = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == empAttendance.companyId && p.EmployeeId == empAttendance.employeeId));
 
-                            if(employeeInfo != null) {
+                            if (employeeInfo != null && empAttendance.shift.Length == DateTime.DaysInMonth(empAttendance.date.Year, empAttendance.date.Month)) {
                                 var s = db.Employee_Salary.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId)).ToArray();
                                 var salaryData = new List<SalaryDataModel>();
                                 var basicPay = s.FirstOrDefault((p) => (p.AdjustmentName == "Basic"));
 
                                 if (basicPay != null) {
-                                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && p.GenerationDate.Month == DateTime.Now.Month)).ToArray();
+                                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && p.Date.Month == DateTime.Now.Month && p.Date.Year == DateTime.Now.Year)).ToArray();
 
                                     for (int j = 0; j < s.Length; j++) {
                                         if (Regex.IsMatch(s[j].AdjustmentName, @"Shift [0-9]+")) {
                                             var shiftNo = int.Parse(s[j].AdjustmentName.Split(' ')[1]);
 
-                                            if (shiftNo <= empAttendance.shift.Length) {
+                                            if (shiftNo <= empAttendance.shift.Max()) {
                                                 salaryData.Add(new SalaryDataModel {
                                                     name = s[j].AdjustmentName,
                                                     type = (s[j].AdjustmentValue >= 0) ? "+" : "-",
-                                                    value = (s[j].AdjustmentType == "#") ? Math.Abs(s[j].AdjustmentValue) * empAttendance.shift[shiftNo - 1] : Math.Abs(s[j].AdjustmentValue * basicPay.AdjustmentValue / 100) * empAttendance.shift[shiftNo - 1]
+                                                    value = (s[j].AdjustmentType == "#") ? Math.Abs(s[j].AdjustmentValue) * empAttendance.shift.Count((p) => (p == shiftNo)) : Math.Abs(s[j].AdjustmentValue * basicPay.AdjustmentValue / 100) * empAttendance.shift.Count((p) => (p == shiftNo))
                                                 });
                                             } else {
                                                 return Ok(new Message {
@@ -62,15 +62,13 @@ namespace PayRollManager.Controllers {
                                         }
                                     }
 
-                                    for (int j = 0; j < history.Length; j++) {
-                                        db.Payroll_History.Remove(history[j]);
-                                    }
+                                    db.Payroll_History.RemoveRange(history);
 
                                     for (int j = 0; j < salaryData.Count; j++) {
                                         db.Payroll_History.Add(new Payroll_History {
                                             CompanyId = employeeInfo.CompanyId,
                                             EmployeeId = employeeInfo.EmployeeId,
-                                            GenerationDate = DateTime.Now,
+                                            Date = empAttendance.date,
                                             AdjustmentName = salaryData[j].name,
                                             AdjustmentType = salaryData[j].type,
                                             AdjustmentValue = salaryData[j].value

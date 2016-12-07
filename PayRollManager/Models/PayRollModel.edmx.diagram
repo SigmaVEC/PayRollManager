@@ -11,7 +11,9 @@
         <EntityTypeShape EntityType="PayRollManagerModel.Employee_Salary" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="PayRollManagerModel.Payroll_History" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="PayRollManagerModel.Personal_Details" Width="1.5" PointX="4.75" PointY="3.75" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Session_Tokens" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Bonus" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Increments" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Session_Tokens" Width="1.5" PointX="6.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

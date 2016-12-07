@@ -12,13 +12,16 @@ namespace PayRollManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Payroll_History
+    public partial class Salary_Bonus
     {
         public int CompanyId { get; set; }
         public string EmployeeId { get; set; }
-        public System.DateTime Date { get; set; }
-        public string AdjustmentName { get; set; }
-        public double AdjustmentValue { get; set; }
-        public string AdjustmentType { get; set; }
+        public System.DateTime ApplyDate { get; set; }
+        public string BonusName { get; set; }
+        public string BonusType { get; set; }
+        public double BonusValue { get; set; }
+        public int TargetAttendance { get; set; }
+        public string IsRepeating { get; set; }
+        public Nullable<int> MaxRepeats { get; set; }
     }
 }

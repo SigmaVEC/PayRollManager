@@ -17,6 +17,6 @@ namespace PayRollManager.Models
         public int CompanyId { get; set; }
         public string EmployeeId { get; set; }
         public System.DateTime Date { get; set; }
-        public string IsPresent { get; set; }
+        public int Shift { get; set; }
     }
 }
