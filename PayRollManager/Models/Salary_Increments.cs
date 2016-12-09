@@ -17,6 +17,7 @@ namespace PayRollManager.Models
         public int CompanyId { get; set; }
         public string EmployeeId { get; set; }
         public System.DateTime ApplyDate { get; set; }
+        public string IncrementName { get; set; }
         public string IncrementType { get; set; }
         public double IncrementValue { get; set; }
     }

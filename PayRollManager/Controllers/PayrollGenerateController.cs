@@ -38,9 +38,9 @@ namespace PayRollManager.Controllers {
                                     var history = db.Payroll_History.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && p.Date.Month == DateTime.Now.Month && p.Date.Year == DateTime.Now.Year)).ToArray();
                                     var dbAttendance = new Attendance_Details[DateTime.DaysInMonth(empAttendance.date.Year, empAttendance.date.Month)];
                                     var increments = db.Salary_Increments.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0)).ToArray();
-                                    var lastBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.NoOfRepeatsLeft == 1)).ToArray();
-                                    var intermediateBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.NoOfRepeatsLeft > 1)).ToArray();
-                                    var infiniteBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.NoOfRepeatsLeft == -1)).ToArray();
+                                    var lastBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.AvailableRepeats == 1)).ToArray();
+                                    var intermediateBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.AvailableRepeats > 1)).ToArray();
+                                    var infiniteBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.AvailableRepeats == -1)).ToArray();
 
                                     for (int j = 0; j < increments.Length; j++) {
                                         basicPay.AdjustmentValue += (increments[j].IncrementType == "#") ? increments[j].IncrementValue : increments[j].IncrementValue * basicPay.AdjustmentValue / 100;
@@ -87,7 +87,7 @@ namespace PayRollManager.Controllers {
                                     }
 
                                     for (int j = 0; j < intermediateBonus.Length; j++) {
-                                        intermediateBonus[j].NoOfRepeatsLeft -= 1;
+                                        intermediateBonus[j].AvailableRepeats -= 1;
                                         salaryData.Add(new SalaryDataModel {
                                             name = intermediateBonus[j].BonusName,
                                             type = "+",

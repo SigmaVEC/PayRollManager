@@ -199,6 +199,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AddCompanyController.cs" />
     <Compile Include="Controllers\AddEmployeeController.cs" />
+    <Compile Include="Controllers\AdditionalSalaryController.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\EmployeeViewController.cs" />
     <Compile Include="Controllers\ListCompaniesController.cs" />
@@ -212,11 +213,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdditionalSalaryDataModel.cs" />
+    <Compile Include="Models\AdditionalSalaryModel.cs" />
     <Compile Include="Models\AttendanceInputModel.cs" />
     <Compile Include="Models\AttendanceModel.cs" />
     <Compile Include="Models\Attendance_Details.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SalaryBonusModel.cs" />
     <Compile Include="Models\Company_Info.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
@@ -253,6 +257,7 @@
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SalaryDataModel.cs" />
+    <Compile Include="Models\SalaryIncrementsModel.cs" />
     <Compile Include="Models\Salary_Bonus.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
