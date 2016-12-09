@@ -24,7 +24,7 @@ namespace PayRollManager.Controllers {
 
                 if (employee != null) {
                     try {
-                        var salaryDataInput = new JavaScriptSerializer().Deserialize<AdditionalSalaryModel>(dataJson);
+                        var salaryDataInput = new JavaScriptSerializer().Deserialize<AdditionalSalaryInputModel>(dataJson);
 
                         if (action == "add") {
                             for (int i = 0; i < salaryDataInput.additionalSalary.Length; i++) {

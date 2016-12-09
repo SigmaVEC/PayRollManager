@@ -215,7 +215,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdditionalSalaryDataModel.cs" />
-    <Compile Include="Models\AdditionalSalaryModel.cs" />
+    <Compile Include="Models\AdditionalSalaryInputModel.cs" />
     <Compile Include="Models\AttendanceInputModel.cs" />
     <Compile Include="Models\AttendanceModel.cs" />
     <Compile Include="Models\Attendance_Details.cs">
@@ -265,9 +265,13 @@
     <Compile Include="Models\Salary_Increments.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Salary_Slab.cs">
+      <DependentUpon>PayrollModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Session_Tokens.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SlabInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
