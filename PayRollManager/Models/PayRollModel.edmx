@@ -103,6 +103,17 @@
           <Property Name="IncrementType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IncrementValue" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="Salary_Slab">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="FromAmount" />
+            <PropertyRef Name="ToAmount" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="FromAmount" Type="float" Nullable="false" />
+          <Property Name="ToAmount" Type="float" Nullable="false" />
+          <Property Name="Value" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="Session_Tokens">
           <Key>
             <PropertyRef Name="SessionToken" />
@@ -121,6 +132,7 @@
           <EntitySet Name="Personal_Details" EntityType="Self.Personal_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salary_Bonus" EntityType="Self.Salary_Bonus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Salary_Increments" EntityType="Self.Salary_Increments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salary_Slab" EntityType="Self.Salary_Slab" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Session_Tokens" EntityType="Self.Session_Tokens" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -136,6 +148,7 @@
           <EntitySet Name="Personal_Details" EntityType="PayRollManagerModel.Personal_Details" />
           <EntitySet Name="Salary_Bonus" EntityType="PayRollManagerModel.Salary_Bonus" />
           <EntitySet Name="Salary_Increments" EntityType="PayRollManagerModel.Salary_Increments" />
+          <EntitySet Name="Salary_Slab" EntityType="PayRollManagerModel.Salary_Slab" />
           <EntitySet Name="Session_Tokens" EntityType="PayRollManagerModel.Session_Tokens" />
         </EntityContainer>
         <EntityType Name="Attendance_Details">
@@ -235,6 +248,17 @@
           <Property Name="IncrementName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IncrementType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IncrementValue" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salary_Slab">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+            <PropertyRef Name="FromAmount" />
+            <PropertyRef Name="ToAmount" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="FromAmount" Type="Double" Nullable="false" />
+          <Property Name="ToAmount" Type="Double" Nullable="false" />
+          <Property Name="Value" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="Session_Tokens">
           <Key>
@@ -337,6 +361,16 @@
                 <ScalarProperty Name="IncrementName" ColumnName="IncrementName" />
                 <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salary_Slab">
+            <EntityTypeMapping TypeName="PayRollManagerModel.Salary_Slab">
+              <MappingFragment StoreEntitySet="Salary_Slab">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ToAmount" ColumnName="ToAmount" />
+                <ScalarProperty Name="FromAmount" ColumnName="FromAmount" />
                 <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
               </MappingFragment>
             </EntityTypeMapping>

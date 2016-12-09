@@ -33,6 +33,7 @@ namespace PayRollManager.Models
         public virtual DbSet<Personal_Details> Personal_Details { get; set; }
         public virtual DbSet<Salary_Bonus> Salary_Bonus { get; set; }
         public virtual DbSet<Salary_Increments> Salary_Increments { get; set; }
+        public virtual DbSet<Salary_Slab> Salary_Slab { get; set; }
         public virtual DbSet<Session_Tokens> Session_Tokens { get; set; }
     }
 }

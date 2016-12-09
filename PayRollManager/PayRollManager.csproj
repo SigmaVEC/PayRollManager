@@ -207,6 +207,7 @@
     <Compile Include="Controllers\PayrollHistoryController.cs" />
     <Compile Include="Controllers\RemoveCompanyController.cs" />
     <Compile Include="Controllers\RemoveEmployeeController.cs" />
+    <Compile Include="Controllers\SlabController.cs" />
     <Compile Include="Controllers\UpdateEmployeeController.cs" />
     <Compile Include="Controllers\CSVParsingController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -332,6 +333,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Slab\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

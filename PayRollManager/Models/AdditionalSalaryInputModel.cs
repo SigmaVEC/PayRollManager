@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace PayRollManager.Models {
-    public class AdditionalSalaryModel {
+    public class AdditionalSalaryInputModel {
         public AdditionalSalaryDataModel[] additionalSalary { get; set; }
     }
 }
