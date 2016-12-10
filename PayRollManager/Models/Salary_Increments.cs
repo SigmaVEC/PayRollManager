@@ -12,13 +12,13 @@ namespace PayRollManager.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Payroll_History
+    public partial class Salary_Increments
     {
         public int CompanyId { get; set; }
         public string EmployeeId { get; set; }
-        public System.DateTime Date { get; set; }
-        public string AdjustmentName { get; set; }
-        public double AdjustmentValue { get; set; }
-        public string AdjustmentType { get; set; }
+        public System.DateTime ApplyDate { get; set; }
+        public string IncrementName { get; set; }
+        public string IncrementType { get; set; }
+        public double IncrementValue { get; set; }
     }
 }

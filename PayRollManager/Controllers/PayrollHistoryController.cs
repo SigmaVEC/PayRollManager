@@ -7,6 +7,7 @@ using System.Web.Http;
 using PayRollManager.Models;
 using System.Configuration;
 using System.Data.Entity;
+using System.Text.RegularExpressions;
 
 namespace PayRollManager.Controllers {
     public class PayrollHistoryController : ApiController {
@@ -23,16 +24,46 @@ namespace PayRollManager.Controllers {
 
                 if (employee != null) {
                     var d = DateTime.Parse(date);
-                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId && p.GenerationDate.Month == d.Month && p.GenerationDate.Year == d.Year)).ToArray();
+                    var history = db.Payroll_History.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId && p.Date.Month == d.Month && p.Date.Year == d.Year)).ToArray();
 
                     if(history.Length != 0) {
                         var salaryData = new List<SalaryDataModel>();
 
-                        for(int i = 0; i < history.Length; i++) {
-                            salaryData.Add(new SalaryDataModel {
-                                name = history[i].AdjustmentName,
-                                type = history[i].AdjustmentType,
-                                value = history[i].AdjustmentValue
+                        if (monthly == "y") {
+                            for (int i = 0; i < history.Length; i++) {
+                                salaryData.Add(new SalaryDataModel {
+                                    name = history[i].AdjustmentName,
+                                    type = history[i].AdjustmentType,
+                                    value = history[i].AdjustmentValue
+                                });
+                            }
+                        } else if (monthly == "n") {
+                            var attendance = db.Attendance_Details.Where((p) => (p.CompanyId == employee.CompanyId && p.EmployeeId == employee.EmployeeId && p.Date.Month == d.Month && p.Date.Year == d.Year));
+
+                            for (int i = 0; i < history.Length; i++) {
+                                if (Regex.IsMatch(history[i].AdjustmentName, @"Shift [0-9]+")) {
+                                    var shiftNo = int.Parse(history[i].AdjustmentName.Substring(6));
+                                    var adjustmentValue = history[i].AdjustmentValue / attendance.Count((p) => (p.Shift == shiftNo));
+
+                                    salaryData.Add(new SalaryDataModel {
+                                        name = history[i].AdjustmentName,
+                                        type = history[i].AdjustmentType,
+                                        value = adjustmentValue 
+                                    });
+                                } else {
+                                    var adjustmentValue = history[i].AdjustmentValue / attendance.Count((p) => (p.Shift > 0));
+
+                                    salaryData.Add(new SalaryDataModel {
+                                        name = history[i].AdjustmentName,
+                                        type = history[i].AdjustmentType,
+                                        value = adjustmentValue
+                                    });
+                                }
+                            }
+                        } else {
+                            return Ok(new Message {
+                                data = null,
+                                message = "Invalid option entered"
                             });
                         }
 
@@ -78,7 +109,7 @@ namespace PayRollManager.Controllers {
 
                 if (employee != null) {
                     var d = DateTime.Parse(date);
-                    var employeeList = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.GenerationDate.Month == d.Month && p.GenerationDate.Year == d.Year)).Select((p) => (p.EmployeeId)).Distinct().ToArray();
+                    var employeeList = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.Date.Month == d.Month && p.Date.Year == d.Year)).Select((p) => (p.EmployeeId)).Distinct().ToArray();
                     if (employeeList.Length != 0) {
                         var employeeData = new List<EmployeeViewModel>();
                         
@@ -86,13 +117,43 @@ namespace PayRollManager.Controllers {
                             var salaryData = new List<SalaryDataModel>();
                             var employeeId = employeeList[i];
                             var employeeInfo = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId));
-                            var history = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.GenerationDate.Month == d.Month && p.GenerationDate.Year == d.Year)).ToArray();
-                            
-                            for (int j = 0; j < history.Length; j++) {
-                                salaryData.Add(new SalaryDataModel {
-                                    name = history[j].AdjustmentName,
-                                    type = history[j].AdjustmentType,
-                                    value = history[j].AdjustmentValue
+                            var history = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.Date.Month == d.Month && p.Date.Year == d.Year)).ToArray();
+
+                            if (monthly == "y") {
+                                for (int j = 0; j < history.Length; j++) {
+                                    salaryData.Add(new SalaryDataModel {
+                                        name = history[j].AdjustmentName,
+                                        type = history[j].AdjustmentType,
+                                        value = history[j].AdjustmentValue
+                                    });
+                                }
+                            } else if (monthly == "n") {
+                                var attendance = db.Attendance_Details.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.Date.Month == d.Month && p.Date.Year == d.Year));
+
+                                for (int j = 0; j < history.Length; j++) {
+                                    if (Regex.IsMatch(history[j].AdjustmentName, @"Shift [0-9]+")) {
+                                        var shiftNo = int.Parse(history[j].AdjustmentName.Substring(6));
+                                        var adjustmentValue = history[j].AdjustmentValue / attendance.Count((p) => (p.Shift == shiftNo));
+
+                                        salaryData.Add(new SalaryDataModel {
+                                            name = history[j].AdjustmentName,
+                                            type = history[j].AdjustmentType,
+                                            value = adjustmentValue
+                                        });
+                                    } else {
+                                        var adjustmentValue = history[j].AdjustmentValue / attendance.Count((p) => (p.Shift > 0));
+
+                                        salaryData.Add(new SalaryDataModel {
+                                            name = history[j].AdjustmentName,
+                                            type = history[j].AdjustmentType,
+                                            value = adjustmentValue
+                                        });
+                                    }
+                                }
+                            } else {
+                                return Ok(new Message {
+                                    data = null,
+                                    message = "Invalid option entered"
                                 });
                             }
 

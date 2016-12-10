@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 
 namespace PayRollManager.Models {
-    public class AttendanceModel {
+    public class AdditionalSalaryDataModel {
         public int companyId { get; set; }
         public String employeeId { get; set; }
-        public DateTime date { get; set; }
-        public int[] shift { get; set; }
+        public SalaryBonusModel[] bonus { get; set; }
+        public SalaryIncrementsModel[] increments { get; set; }
     }
 }
