@@ -4,94 +4,94 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PayRollManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Attendance_Details">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="Date" />
-          </Key>
-          <Property Name="CompanyId" Type="int" Nullable="false" />
-          <Property Name="EmployeeId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Date" Type="date" Nullable="false" />
-          <Property Name="IsPresent" Type="varchar" MaxLength="1" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Company_Info">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-          </Key>
-          <Property Name="CompanyId" Type="int" Nullable="false" />
-          <Property Name="CompanyName" Type="text" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Employee_Info">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-            <PropertyRef Name="EmployeeId" />
-          </Key>
-          <Property Name="CompanyId" Type="int" Nullable="false" />
-          <Property Name="EmployeeId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="EmployeeName" Type="text" Nullable="false" />
-          <Property Name="DOL" Type="date" />
-          <Property Name="DOJ" Type="date" Nullable="false" />
-          <Property Name="IsAdmin" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="Password" Type="text" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Employee_Salary">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="AdjustmentName" />
-          </Key>
-          <Property Name="CompanyId" Type="int" Nullable="false" />
-          <Property Name="EmployeeId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AdjustmentName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AdjustmentValue" Type="float" Nullable="false" />
-          <Property Name="AdjustmentType" Type="varchar" MaxLength="1" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Payroll_History">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="GenerationDate" />
-            <PropertyRef Name="AdjustmentName" />
-          </Key>
-          <Property Name="CompanyId" Type="int" Nullable="false" />
-          <Property Name="EmployeeId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="GenerationDate" Type="date" Nullable="false" />
-          <Property Name="AdjustmentName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AdjustmentValue" Type="float" Nullable="false" />
-          <Property Name="AdjustmentType" Type="varchar" MaxLength="1" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Personal_Details">
-          <Key>
-            <PropertyRef Name="CompanyId" />
-            <PropertyRef Name="EmployeeId" />
-            <PropertyRef Name="Name" />
-          </Key>
-          <Property Name="CompanyId" Type="int" Nullable="false" />
-          <Property Name="EmployeeId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Value" Type="text" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Session_Tokens">
-          <Key>
-            <PropertyRef Name="SessionToken" />
-          </Key>
-          <Property Name="SessionToken" Type="varchar" MaxLength="70" Nullable="false" />
-          <Property Name="Timestamp" Type="date" Nullable="false" />
-          <Property Name="CompanyId" Type="int" Nullable="false" />
-          <Property Name="EmployeeId" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityContainer Name="PayRollManagerModelStoreContainer">
-          <EntitySet Name="Attendance_Details" EntityType="Self.Attendance_Details" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Company_Info" EntityType="Self.Company_Info" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Employee_Info" EntityType="Self.Employee_Info" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Employee_Salary" EntityType="Self.Employee_Salary" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Payroll_History" EntityType="Self.Payroll_History" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Personal_Details" EntityType="Self.Personal_Details" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Session_Tokens" EntityType="Self.Session_Tokens" Schema="dbo" store:Type="Tables" />
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="PayRollManagerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PayRollManagerModelStoreContainer">
+    <EntitySet Name="Attendance_Details" EntityType="PayRollManagerModel.Store.Attendance_Details" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Company_Info" EntityType="PayRollManagerModel.Store.Company_Info" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Employee_Info" EntityType="PayRollManagerModel.Store.Employee_Info" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Employee_Salary" EntityType="PayRollManagerModel.Store.Employee_Salary" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Payroll_History" EntityType="PayRollManagerModel.Store.Payroll_History" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Personal_Details" EntityType="PayRollManagerModel.Store.Personal_Details" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Session_Tokens" EntityType="PayRollManagerModel.Store.Session_Tokens" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Attendance_Details">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+      <PropertyRef Name="EmployeeId" />
+      <PropertyRef Name="Date" />
+    </Key>
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="IsPresent" Type="varchar" Nullable="false" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="Company_Info">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="CompanyName" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee_Info">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="EmployeeName" Type="varchar(max)" Nullable="false" />
+    <Property Name="DOL" Type="datetime" Nullable="true" />
+    <Property Name="DOJ" Type="datetime" Nullable="false" />
+    <Property Name="IsAdmin" Type="varchar" Nullable="false" MaxLength="1" />
+    <Property Name="Password" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee_Salary">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+      <PropertyRef Name="EmployeeId" />
+      <PropertyRef Name="AdjustmentName" />
+    </Key>
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="AdjustmentName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="AdjustmentValue" Type="float" Nullable="false" />
+    <Property Name="AdjustmentType" Type="varchar" Nullable="false" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="Payroll_History">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+      <PropertyRef Name="EmployeeId" />
+      <PropertyRef Name="GenerationDate" />
+      <PropertyRef Name="AdjustmentName" />
+    </Key>
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="GenerationDate" Type="datetime" Nullable="false" />
+    <Property Name="AdjustmentName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="AdjustmentValue" Type="float" Nullable="false" />
+    <Property Name="AdjustmentType" Type="varchar" Nullable="false" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="Personal_Details">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+      <PropertyRef Name="EmployeeId" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Value" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Session_Tokens">
+    <Key>
+      <PropertyRef Name="SessionToken" />
+    </Key>
+    <Property Name="SessionToken" Type="varchar" Nullable="false" MaxLength="70" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="CompanyId" Type="int" Nullable="false" />
+    <Property Name="EmployeeId" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PayRollManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -185,85 +185,84 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PayRollManagerModelStoreContainer" CdmEntityContainer="PayRollManagerEntities">
-          <EntitySetMapping Name="Attendance_Details">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Attendance_Details">
-              <MappingFragment StoreEntitySet="Attendance_Details">
-                <ScalarProperty Name="IsPresent" ColumnName="IsPresent" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Company_Info">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Company_Info">
-              <MappingFragment StoreEntitySet="Company_Info">
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employee_Info">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Employee_Info">
-              <MappingFragment StoreEntitySet="Employee_Info">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-                <ScalarProperty Name="DOJ" ColumnName="DOJ" />
-                <ScalarProperty Name="DOL" ColumnName="DOL" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employee_Salary">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Employee_Salary">
-              <MappingFragment StoreEntitySet="Employee_Salary">
-                <ScalarProperty Name="AdjustmentType" ColumnName="AdjustmentType" />
-                <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />
-                <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Payroll_History">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Payroll_History">
-              <MappingFragment StoreEntitySet="Payroll_History">
-                <ScalarProperty Name="AdjustmentType" ColumnName="AdjustmentType" />
-                <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />
-                <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
-                <ScalarProperty Name="GenerationDate" ColumnName="GenerationDate" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Personal_Details">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Personal_Details">
-              <MappingFragment StoreEntitySet="Personal_Details">
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Session_Tokens">
-            <EntityTypeMapping TypeName="PayRollManagerModel.Session_Tokens">
-              <MappingFragment StoreEntitySet="Session_Tokens">
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-                <ScalarProperty Name="SessionToken" ColumnName="SessionToken" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PayRollManagerModelStoreContainer" CdmEntityContainer="PayRollManagerEntities">
+    <EntitySetMapping Name="Attendance_Details">
+      <EntityTypeMapping TypeName="IsTypeOf(PayRollManagerModel.Attendance_Details)">
+        <MappingFragment StoreEntitySet="Attendance_Details">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="IsPresent" ColumnName="IsPresent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Company_Info">
+      <EntityTypeMapping TypeName="IsTypeOf(PayRollManagerModel.Company_Info)">
+        <MappingFragment StoreEntitySet="Company_Info">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee_Info">
+      <EntityTypeMapping TypeName="IsTypeOf(PayRollManagerModel.Employee_Info)">
+        <MappingFragment StoreEntitySet="Employee_Info">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="DOL" ColumnName="DOL" />
+          <ScalarProperty Name="DOJ" ColumnName="DOJ" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee_Salary">
+      <EntityTypeMapping TypeName="IsTypeOf(PayRollManagerModel.Employee_Salary)">
+        <MappingFragment StoreEntitySet="Employee_Salary">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
+          <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />
+          <ScalarProperty Name="AdjustmentType" ColumnName="AdjustmentType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payroll_History">
+      <EntityTypeMapping TypeName="IsTypeOf(PayRollManagerModel.Payroll_History)">
+        <MappingFragment StoreEntitySet="Payroll_History">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="GenerationDate" ColumnName="GenerationDate" />
+          <ScalarProperty Name="AdjustmentName" ColumnName="AdjustmentName" />
+          <ScalarProperty Name="AdjustmentValue" ColumnName="AdjustmentValue" />
+          <ScalarProperty Name="AdjustmentType" ColumnName="AdjustmentType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Personal_Details">
+      <EntityTypeMapping TypeName="IsTypeOf(PayRollManagerModel.Personal_Details)">
+        <MappingFragment StoreEntitySet="Personal_Details">
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Session_Tokens">
+      <EntityTypeMapping TypeName="IsTypeOf(PayRollManagerModel.Session_Tokens)">
+        <MappingFragment StoreEntitySet="Session_Tokens">
+          <ScalarProperty Name="SessionToken" ColumnName="SessionToken" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -277,7 +276,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

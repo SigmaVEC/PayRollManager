@@ -153,6 +153,7 @@
     <Content Include="first.html" />
     <Content Include="fromExcel.html" />
     <Content Include="Global.asax" />
+    <Content Include="Bonus.html" />
     <Content Include="index.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
@@ -164,6 +165,7 @@
       <DependentUpon>PayrollModel.edmx</DependentUpon>
       <LastGenOutput>PayrollModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\PayrollModel.edmx.sql" />
     <Content Include="Models\PayrollModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PayrollModel.edmx</DependentUpon>
@@ -200,6 +202,7 @@
     <Compile Include="Controllers\AddCompanyController.cs" />
     <Compile Include="Controllers\AddEmployeeController.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
+    <Compile Include="Controllers\BonusController.cs" />
     <Compile Include="Controllers\EmployeeViewController.cs" />
     <Compile Include="Controllers\ListCompaniesController.cs" />
     <Compile Include="Controllers\PayrollGenerateController.cs" />
@@ -217,6 +220,7 @@
     <Compile Include="Models\Attendance_Details.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BonusDetailModel.cs" />
     <Compile Include="Models\Company_Info.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
