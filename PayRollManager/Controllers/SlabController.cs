@@ -84,6 +84,11 @@ namespace PayRollManager.Controllers {
                                     });
                                 }
                             }
+
+                            return Ok(new Message {
+                                data = null,
+                                message = "Success"
+                            });
                         } else if (action == "remove") {
                             for (int i = 0; i < slabInput.slab.Length; i++) {
                                 var slab = slabInput.slab[i];
@@ -98,6 +103,11 @@ namespace PayRollManager.Controllers {
                                     });
                                 }
                             }
+
+                            return Ok(new Message {
+                                data = null,
+                                message = "Success"
+                            });
                         } else {
                             return Ok(new Message {
                                 data = null,

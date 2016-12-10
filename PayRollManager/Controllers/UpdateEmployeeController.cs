@@ -42,50 +42,57 @@ namespace PayRollManager.Controllers {
                             db.Personal_Details.RemoveRange(dbEmployeePersonal);
                             db.Session_Tokens.Remove(dbEmployeeSession);
 
-                            for (int i = 0; i < updateEmployee.salary.Length; i++) {
-                                if ((updateEmployee.salary[i].type == "#") || (updateEmployee.salary[i].type == "%" && updateEmployee.salary[i].value <= 100)) {
-                                    var s = new Employee_Salary {
-                                        CompanyId = updateEmployee.companyId,
-                                        EmployeeId = updateEmployee.employeeId,
-                                        AdjustmentName = updateEmployee.salary[i].name,
-                                        AdjustmentType = updateEmployee.salary[i].type,
-                                        AdjustmentValue = updateEmployee.salary[i].value
-                                    };
-                                    db.Employee_Salary.Add(s);
-                                } else {
-                                    return Ok(new Message {
-                                        data = null,
-                                        message = "Salary data model contains invalid data"
-                                    });
+                            if (updateEmployee.salary.FirstOrDefault((p) => (p.name == "Basic" && p.type == "#" && p.value > 0)) != null) {
+                                for (int i = 0; i < updateEmployee.salary.Length; i++) {
+                                    if ((updateEmployee.salary[i].type == "#") || (updateEmployee.salary[i].type == "%" && updateEmployee.salary[i].value <= 100)) {
+                                        var s = new Employee_Salary {
+                                            CompanyId = updateEmployee.companyId,
+                                            EmployeeId = updateEmployee.employeeId,
+                                            AdjustmentName = updateEmployee.salary[i].name,
+                                            AdjustmentType = updateEmployee.salary[i].type,
+                                            AdjustmentValue = updateEmployee.salary[i].value
+                                        };
+                                        db.Employee_Salary.Add(s);
+                                    } else {
+                                        return Ok(new Message {
+                                            data = null,
+                                            message = "Salary data model contains invalid data"
+                                        });
+                                    }
                                 }
-                            }
 
-                            for (int i = 0; i < updateEmployee.personal.Length; i++) {
-                                if ((updateEmployee.personal[i].name.Length != 0) && (updateEmployee.personal[i].value.Length != 0)) {
-                                    var p = new Personal_Details {
-                                        CompanyId = updateEmployee.companyId,
-                                        EmployeeId = updateEmployee.employeeId,
-                                        Name = updateEmployee.personal[i].name,
-                                        Value = updateEmployee.personal[i].value
-                                    };
-                                    db.Personal_Details.Add(p);
-                                } else {
-                                    return Ok(new Message {
-                                        data = null,
-                                        message = "Personal data model contains invalid data"
-                                    });
+                                for (int i = 0; i < updateEmployee.personal.Length; i++) {
+                                    if ((updateEmployee.personal[i].name.Length != 0) && (updateEmployee.personal[i].value.Length != 0)) {
+                                        var p = new Personal_Details {
+                                            CompanyId = updateEmployee.companyId,
+                                            EmployeeId = updateEmployee.employeeId,
+                                            Name = updateEmployee.personal[i].name,
+                                            Value = updateEmployee.personal[i].value
+                                        };
+                                        db.Personal_Details.Add(p);
+                                    } else {
+                                        return Ok(new Message {
+                                            data = null,
+                                            message = "Personal data model contains invalid data"
+                                        });
+                                    }
                                 }
-                            }
-                            db.SaveChangesAsync();
+                                db.SaveChangesAsync();
 
-                            return Ok(new Message {
-                                data = null,
-                                message = "Success"
-                            });
+                                return Ok(new Message {
+                                    data = null,
+                                    message = "Success"
+                                });
+                            } else {
+                                return Ok(new Message {
+                                    data = null,
+                                    message = "Basic pay not found"
+                                })
+                            }
                         } else {
                             return Ok(new Message {
                                 data = null,
-                                message = "Employee deos not exist"
+                                message = "Employee does not exist"
                             });
                         }
                     } catch (System.ArgumentException) {

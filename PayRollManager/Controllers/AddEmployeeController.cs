@@ -39,46 +39,53 @@ namespace PayRollManager.Controllers {
                             };
                             db.Employee_Info.Add(e);
 
-                            for (int i = 0; i < newEmployee.salary.Length; i++) {
-                                if((newEmployee.salary[i].type == "#") || (newEmployee.salary[i].type == "%" && newEmployee.salary[i].value <= 100)) {
-                                    var s = new Employee_Salary {
-                                        CompanyId = newEmployee.companyId,
-                                        EmployeeId = newEmployee.employeeId,
-                                        AdjustmentName = newEmployee.salary[i].name,
-                                        AdjustmentType = newEmployee.salary[i].type,
-                                        AdjustmentValue = newEmployee.salary[i].value
-                                    };
-                                    db.Employee_Salary.Add(s);
-                                } else {
-                                    return Ok(new Message {
-                                        data = null,
-                                        message = "Salary data model contains invalid data"
-                                    });
+                            if (newEmployee.salary.FirstOrDefault((p) => (p.name == "Basic" && p.type == "#" && p.value > 0)) != null) {
+                                for (int i = 0; i < newEmployee.salary.Length; i++) {
+                                    if ((newEmployee.salary[i].type == "#") || (newEmployee.salary[i].type == "%" && newEmployee.salary[i].value <= 100)) {
+                                        var s = new Employee_Salary {
+                                            CompanyId = newEmployee.companyId,
+                                            EmployeeId = newEmployee.employeeId,
+                                            AdjustmentName = newEmployee.salary[i].name,
+                                            AdjustmentType = newEmployee.salary[i].type,
+                                            AdjustmentValue = newEmployee.salary[i].value
+                                        };
+                                        db.Employee_Salary.Add(s);
+                                    } else {
+                                        return Ok(new Message {
+                                            data = null,
+                                            message = "Salary data model contains invalid data"
+                                        });
+                                    }
                                 }
-                            }
 
-                            for (int i = 0; i < newEmployee.personal.Length; i++) {
-                                if ((newEmployee.personal[i].name.Length != 0) && (newEmployee.personal[i].value.Length != 0)) {
-                                    var p = new Personal_Details {
-                                        CompanyId = newEmployee.companyId,
-                                        EmployeeId = newEmployee.employeeId,
-                                        Name = newEmployee.personal[i].name,
-                                        Value = newEmployee.personal[i].value
-                                    };
-                                    db.Personal_Details.Add(p);
-                                } else {
-                                    return Ok(new Message {
-                                        data = null,
-                                        message = "Personal data model contains invalid data"
-                                    });
+                                for (int i = 0; i < newEmployee.personal.Length; i++) {
+                                    if ((newEmployee.personal[i].name.Length != 0) && (newEmployee.personal[i].value.Length != 0)) {
+                                        var p = new Personal_Details {
+                                            CompanyId = newEmployee.companyId,
+                                            EmployeeId = newEmployee.employeeId,
+                                            Name = newEmployee.personal[i].name,
+                                            Value = newEmployee.personal[i].value
+                                        };
+                                        db.Personal_Details.Add(p);
+                                    } else {
+                                        return Ok(new Message {
+                                            data = null,
+                                            message = "Personal data model contains invalid data"
+                                        });
+                                    }
                                 }
-                            }
-                            db.SaveChangesAsync();
+                                db.SaveChangesAsync();
 
-                            return Ok(new Message {
-                                data = null,
-                                message = "Success"
-                            });
+                                return Ok(new Message {
+                                    data = null,
+                                    message = "Success"
+                                });
+                            } else {
+                                return Ok(new Message {
+                                    data = null,
+                                    message = "Basic pay not found"
+                                });
+                            }
                         } else {
                             return Ok(new Message {
                                 data = null,

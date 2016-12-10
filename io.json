@@ -1,0 +1,526 @@
+#/api/AddCompany?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&companyName=NewCompany
+###
+{
+	"data": null,
+	"message": "Success"
+}
+
+#/api/AddEmployee?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&employeeJson=
+{
+	"companyId": 1,
+    "employeeId": "234",
+    "name": "qwerty",
+    "date": "2016-12-10T00:00:00",
+    "isAdmin": "n",
+    "password": "qwertyuiop",
+    "personal": [
+		{
+			"name": "Bank Name",
+			"value": "Axis bank"
+			
+		},
+		{
+			"name": "Bank Acc. No",
+			"value": "12345342342"
+			
+		}
+	],
+    "salary": [
+		{
+			"name": "Basic",
+            "value": 10000.0,
+            "type": "#"
+		},
+        {
+           	"name": "DA",
+           	"value": 1000.0,
+           	"type": "#"
+        }
+	]
+}
+###
+{
+	"data": null,
+	"message": "Success"
+}
+
+#/api/AdditionalSalary?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&action=add&dataJson=
+# OR
+#/api/AdditionalSalary?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&action=remove&dataJson=
+{
+	"additionalSalary": [
+		{
+			"companyId": 1,
+			"employeeId": "123",
+			"bonus": [
+				{
+					"applyDate": "2016-12-12T00:00:00",
+					"name": "Christmas",
+					"type": "#",
+					"value": 1000.0,
+					"targetAttendance": 2,
+					"availableRepeats": 1
+				},
+				{
+					"applyDate": "2016-12-25T00:00:00",
+					"name": "December bonus",
+					"type": "#",
+					"value": 1000.0,
+					"targetAttendance": 20,
+					"availableRepeats": 5
+				}
+			],
+			"increments": [
+				{
+					"applyDate": "2016-12-25T00:00:00",
+					"name": "First year increment",
+					"type": "#",
+					"value": 1500.0
+				},
+				{
+					"applyDate": "2017-12-25T00:00:00",
+					"name": "Second year increment",
+					"type": "#",
+					"value": 3000.0
+				}
+			]
+		},
+		{
+			"companyId": 1,
+			"employeeId": "456",
+			"bonus": [
+				{
+					"applyDate": "2016-12-12T00:00:00",
+					"name": "Christmas",
+					"type": "#",
+					"value": 1000.0,
+					"targetAttendance": 2,
+					"availableRepeats": 1
+				},
+				{
+					"applyDate": "2016-12-25T00:00:00",
+					"name": "December bonus",
+					"type": "#",
+					"value": 1000.0,
+					"targetAttendance": 20,
+					"availableRepeats": 5
+				}
+			],
+			"increments": [
+				{
+					"applyDate": "2016-12-25T00:00:00",
+					"name": "First year increment",
+					"type": "#",
+					"value": 1500.0
+				},
+				{
+					"applyDate": "2017-12-25T00:00:00",
+					"name": "Second year increment",
+					"type": "#",
+					"value": 3000.0
+				}
+			]
+		}
+	]
+}
+###
+{
+	"data": null,
+	"message": "Success"
+}
+
+#/api/AdditionalSalary?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&action=view&companyId=1&employeeId=123
+###
+{
+	"data": {
+		"companyId": 1,
+		"employeeId": "123",
+		"bonus": [
+			{
+				"applyDate": "2016-12-12T00:00:00",
+				"name": "Christmas",
+				"type": "#",
+				"value": 1000.0,
+				"targetAttendance": 2,
+				"availableRepeats": 1
+			},
+			{
+				"applyDate": "2016-12-25T00:00:00",
+				"name": "December bonus",
+				"type": "#",
+				"value": 1000.0,
+				"targetAttendance": 20,
+				"availableRepeats": 5
+			}
+		],
+		"increments": [
+			{
+				"applyDate": "2016-12-25T00:00:00",
+				"name": "First year increment",
+				"type": "#",
+				"value": 1500.0
+			},
+			{
+				"applyDate": "2017-12-25T00:00:00",
+				"name": "Second year increment",
+				"type": "#",
+				"value": 3000.0
+			}
+		]
+	},
+	"message": "Success"
+}
+
+#/api/Authenticate?companyId=1&employeeId=qwe123&password=qwerty
+###
+{
+    "data": {
+        "SessionToken": "X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1",
+        "Timestamp": "2016-12-10T11:47:46.2628309+05:30",
+        "CompanyId": 1,
+        "EmployeeId": "qwe123"
+    },
+    "message": "Success"
+}
+
+#/api/EmployeeView?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1
+###
+{
+    "data": {
+        "id": "123",
+        "name": "qwert",
+        "doj": "2016-08-20T00:00:00",
+		"dol": null,
+		"personal" : [
+			{
+				"name": "Father's Name",
+				"value": "Kuppuswamy"
+			},
+			{
+				"name": "Mother's Name",
+				"value": "Mangamma"
+			},
+			{
+				"name": "Bank",
+				"value": "HDFC"
+			},
+			{
+				"name": "Bank Acc. No",
+				"value": "201253467744"
+			}
+		],
+        "salary": [
+            {
+                "name": "Basic",
+                "value": 10000.0,
+                "type": "#"
+            },
+            {
+                "name": "DA",
+                "value": 1000.0,
+                "type": "#"
+            },
+            {
+                "name": "PF",
+                "value": -100.0,
+                "type": "#"
+            },
+			{
+				"name": "Canteen fees",
+                "value": -5.0,
+                "type": "%"
+			}
+        ]
+    },
+    "message": "Success"
+}
+
+#/api/EmployeeView?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&companyId=1
+###
+{
+	"data": [
+		{
+      		"id": "123",
+        	"name": "qwert",
+        	"doj": "2016-08-20T00:00:00",
+			"dol": null,
+			"personal" : [
+				{
+					"name": "Father's Name",
+					"value": "Kuppuswamy"
+				},
+				{
+					"name": "Bank Acc. No",
+					"value": "20125346774"
+				}
+			],
+        	"salary": [
+            	{
+                	"name": "Basic",
+                	"value": 10000.0,
+                	"type": "#"
+            	},
+            	{
+                	"name": "DA",
+                	"value": 1000.0,
+                	"type": "#"
+            	}
+        	]
+    	},
+		{
+      		"id": "456",
+        	"name": "yuiop",
+        	"doj": "2016-08-02T00:00:00",
+			"dol": null,
+			"personal" : [
+				{
+					"name": "Father's Name",
+					"value": "Karthik"
+				},
+				{
+					"name": "Bank Acc. No",
+					"value": "21232457865"
+				}
+			],
+        	"salary": [
+            	{
+                	"name": "Basic",
+                	"value": 10000.0,
+                	"type": "#"
+            	},
+            	{
+                	"name": "DA",
+                	"value": 1000.0,
+                	"type": "#"
+            	}
+        	]
+    	}
+	],
+	"message": "Success"
+}
+
+#/api/ListCompanies
+###
+{
+    "data": [
+        {
+            "CompanyId": 1,
+            "CompanyName": "qwe"
+        },
+        {
+            "CompanyId": 2,
+            "CompanyName": "NewCompany"
+        },
+        {
+            "CompanyId": 3,
+            "CompanyName": "zxc"
+        },
+        {
+            "CompanyId": 4,
+            "CompanyName": "newcompany4"
+        }
+    ],
+    "message": "Success"
+}
+
+#/api/PayrollGenerate?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&attendanceJson=
+{
+	"attendance": [
+		{
+			"companyId": 1,
+			"employeeId": "123",
+			"date": "2016-12-01T00:00:00",
+			"shift": [1, 2, 2, 1 ,4, 3, 0, 1, 2, 2, 1 ,4, 3, 0, 1, 2, 2, 1 ,4, 3, 0, 1, 2, 2, 1 ,4, 3, 0, 2, -1, -1]
+		},
+		{
+			"companyId": 2,
+			"employeeId": "234",
+			"date": "2016-12-01T00:00:00",
+			"shift": [1, 2, 2, 1 ,4, 3, 0, 1, 2, 2, 1 ,4, 3, 0, 1, 2, 2, 1 ,4, 3, 0, 1, 2, 2, 1 ,4, 3, 0, 2, -1, -1]
+		}
+	]
+}
+###
+{
+	"data": null,
+	"message": "Success"
+}
+
+#/api/PayrollHistory?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&date=2016-12-01&monthly=y
+###
+{
+    "data": {
+        "id": "123",
+        "name": "qwert",
+        "doj": "2016-08-20T00:00:00",
+		"dol": null,
+		"personal" : [],
+        "salary": [
+            {
+                "name": "Basic",
+                "value": 10000.0,
+                "type": "#"
+            },
+            {
+                "name": "DA",
+                "value": 1000.0,
+                "type": "#"
+            },
+            {
+                "name": "PF",
+                "value": -100.0,
+                "type": "#"
+            },
+			{
+				"name": "Canteen fees",
+                "value": -5.0,
+                "type": "%"
+			}
+        ]
+    },
+    "message": "Success"
+}
+
+#/api/PayrollHistory?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&companyId=1&date=2016-12-01&monthly=y
+###
+{
+	"data": [
+		{
+      		"id": "123",
+        	"name": "qwert",
+        	"doj": "2016-08-20T00:00:00",
+			"dol": null,
+			"personal" : [],
+        	"salary": [
+            	{
+                	"name": "Basic",
+                	"value": 10000.0,
+                	"type": "#"
+            	},
+            	{
+                	"name": "DA",
+                	"value": 1000.0,
+                	"type": "#"
+            	}
+        	]
+    	},
+		{
+      		"id": "456",
+        	"name": "yuiop",
+        	"doj": "2016-08-02T00:00:00",
+			"dol": null,
+			"personal" : [],
+        	"salary": [
+            	{
+                	"name": "Basic",
+                	"value": 10000.0,
+                	"type": "#"
+            	},
+            	{
+                	"name": "DA",
+                	"value": 1000.0,
+                	"type": "#"
+            	}
+        	]
+    	}
+	],
+	"message": "Success"
+}
+
+#/api/RemoveCompany?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&companyId=2
+###
+{
+	"data": null,
+	"message": "Success"
+}
+
+#/api/RemoveEmployee?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&employeeJson=
+{
+	"companyId": 1,
+	"employeeId": "123",
+	"dol": "2016-12-11T00:10:00"
+}
+###
+{
+	"data": null,
+	"message": "Success"
+}
+
+#/api/Slab?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&action=add&slabJson=
+# OR
+#/api/Slab?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&action=remove&slabJson=
+{
+	"slab": [
+		{
+			"CompanyId": 1,
+			"FromAmount": 2000.0,
+			"ToAmount": 5000.0,
+			"Value": 4500.0
+		},
+		{
+			"CompanyId": 1,
+			"FromAmount": 5000.0,
+			"ToAmount": 10000.0,
+			"Value": 9500.0
+		}
+	]
+}
+
+#/api/Slab?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&action=view&companyId=1
+###
+{
+	"data": [
+		{
+			"CompanyId": 1,
+			"FromAmount": 2000.0,
+			"ToAmount": 5000.0,
+			"Value": 4500.0
+		},
+		{
+			"CompanyId": 1,
+			"FromAmount": 5000.0,
+			"ToAmount": 10000.0,
+			"Value": 9500.0
+		}
+	],
+	"message": "Success"
+}
+
+#/api/UpdateEmployee?token=X2C1BkwAJn2zh2MfjMp5JHRApfol-2Sz3RDT2jnA3V1gwapDZAr76ETh-AwJzQ8lUEQ1&employeeJson=
+{
+	"companyId": 1,
+    "employeeId": "234",
+    "name": "qwerty",
+    "date": "2016-12-10T00:00:00",
+    "isAdmin": "y",
+    "password": "qwertyuiop",
+    "personal": [
+		{
+			"name": "Bank Name",
+			"value": "Axis bank"
+			
+		},
+		{
+			"name": "Bank Acc. No",
+			"value": "12345342342"
+			
+		}
+	],
+    "salary": [
+		{
+			"name": "Basic",
+            "value": 10000.0,
+            "type": "#"
+		},
+        {
+           	"name": "DA",
+           	"value": 1000.0,
+           	"type": "#"
+        }
+	]
+}
+###
+{
+	"data": null,
+	"message": "Success"
+}

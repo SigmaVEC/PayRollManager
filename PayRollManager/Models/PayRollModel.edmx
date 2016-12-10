@@ -124,7 +124,7 @@
           <Property Name="DOL" Type="date" />
           <Property Name="DOJ" Type="date" Nullable="false" />
           <Property Name="IsAdmin" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="Password" Type="text" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee_Salary">
           <Key>
@@ -271,7 +271,7 @@
           <Property Name="DOL" Type="DateTime" Precision="0" />
           <Property Name="DOJ" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsAdmin" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Employee_Salary">
           <Key>

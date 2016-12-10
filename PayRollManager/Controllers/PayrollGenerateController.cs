@@ -143,7 +143,7 @@ namespace PayRollManager.Controllers {
                         if(employeeData.Count == attendanceInput.attendance.Length) {
                             db.SaveChangesAsync();
                             return Ok(new Message {
-                                data = employeeData,
+                                data = null,
                                 message = "Success"
                             });
                         } else {
