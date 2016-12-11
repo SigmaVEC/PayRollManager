@@ -217,14 +217,16 @@
             companyList = companyList + ' <button type="button" cid="' + obj[a].CompanyId + '" class="list-group-item " onclick="companySelect(this)">' + obj[a].CompanyName + '</button> ';
         $("#listCompany").html(companyList);
     });
+	var cid = 0;
 	function companySelect(a){
+		cid = a.getAttribute("cid");
 		var cname = a.innerHTML;
 		$("#cname").html(cname);
 	}
 </script>
 <script>
 	function displayPayroll() {
-		$.get("api/payrollhistory", { token: getCookie("Token"), CompanyId: getCookie("CompanyId"), month: document.getElementById("payrollDate").value}, function (result) {
+		$.get("api/payrollhistory", { token: getCookie("Token"), CompanyId: cid, month: document.getElementById("payrollDate").value}, function (result) {
 			notify(result.message);
 			if (result.message == "Success") {
 				//Todo: add displaying to table

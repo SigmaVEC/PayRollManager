@@ -224,11 +224,7 @@
     <Compile Include="Models\Attendance_Details.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="Models\BonusDetailModel.cs" />
-=======
     <Compile Include="Models\SalaryBonusModel.cs" />
->>>>>>> 0f18acff28f7bdf1aa6781cf95b5997884a576f8
     <Compile Include="Models\Company_Info.cs">
       <DependentUpon>PayrollModel.tt</DependentUpon>
     </Compile>
