@@ -150,6 +150,7 @@
     <Content Include="css\style.css" />
     <Content Include="EfeildsAdd.html" />
     <Content Include="employee.html" />
+    <Content Include="EmployeeView.html" />
     <Content Include="first.html" />
     <Content Include="fromExcel.html" />
     <Content Include="Global.asax" />
@@ -173,6 +174,7 @@
     </Content>
     <Content Include="newemp.html" />
     <Content Include="printPayroll.html" />
+    <Content Include="RemoveCompany.html" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <EntityDeploy Include="Models\PayrollModel.edmx">
