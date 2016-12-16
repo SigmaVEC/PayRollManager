@@ -28,19 +28,23 @@
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <ul class="dropdown-menu" id="listCompany" style="margin-top:36px;">
+                <ul class="dropdown-menu" id="listCompany" >
                     <button type="button" class="list-group-item disabled">loading</button>
                 </ul>
             </div>
-            <div>
-				<ul id="empIdList">
-				<ul>
-                <input id="empId" type="text" placeholder="enter employee id"></input> <button onclick="addEmpId()">add</button>
-            </div>
+            <br>
+            <br>
+            <div  class="col-xs-4">
+				<input id="empId" class="form-control" type="text" placeholder="enter employee id"></input> 
+				</div>
+				<button class="btn btn-primary" onclick="addEmpId()">add</button>
+            <br>
+            <br>
 			<div>
-				<label class="control-label"><input type="radio" value="add" name="action" selected /> ADD </label>
+				<label class="control-label"><input type="radio" value="add" name="action" selected /> ADD </label><br>
 				<label class="control-label"><input type="radio" value="remove" name="action"/>REMOVE </label>
 			</div>
+			<br>
             <div>
                 <div class="panel panel-default">
 				  	<div class="panel-heading">Bonus Info <span class="glyphicon glyphicon-plus add" id="addBonus"></span></div>
@@ -50,9 +54,9 @@
                             <td><input type="number" class="form-control" placeholder="value" id="bonusValue1"/></td>
                             <td><input type="number" class="form-control" placeholder="target Attendance" id="bonusTA1"/></td>
                             <td><input type="number" class="form-control" placeholder="Availabe Repeats" id="bonusAR1"/></td>
-                            <td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercentB1" id="ispercentB1"/> ispercent</label> </td>
-                            <td><label class="control-label"><input type="radio" value="" name="adjustmentB1" selected /> Addition </label></td>
-                            <td><label class="control-label"><input type="radio" value="-" name="adjustmentB1"/> 	Reduction </label></td>
+                            <td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercentB1" id="ispercentB1"/> ispercent </label> </td>
+                            <td><label class="control-label"><input type="radio" value="" name="adjustmentB1" selected />  Addition </label></td>
+                            <td><label class="control-label"><input type="radio" value="-" name="adjustmentB1"/>  Reduction </label></td>
                         </tr>
                     </table>
                 </div>
@@ -73,7 +77,7 @@
                 </div>
             </div>
         </div>
-		<button onclick="getValues()">submit</button>
+		<button class="btn btn-primary" style="margin-left:auto;margin-right:auto;display:block;width:50%" onclick="getValues()">submit</button>
 
 	</body>
 	<style>

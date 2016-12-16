@@ -28,15 +28,17 @@
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <ul class="dropdown-menu" id="listCompany" style="margin-top:36px;">
+                <ul class="dropdown-menu" id="listCompany" >
                     <button type="button" class="list-group-item disabled">loading</button>
                 </ul>
             </div>
         </div>
-        <div>
-            <label class="control-label"><input type="radio" value="add" name="action" selected /> ADD </label>
-            <label class="control-label"><input type="radio" value="remove" name="action"/>REMOVE </label>
+        <br>
+        <div style="margin-left:10px">
+            <label class="control-label"><input type="radio" value="add" name="action" selected /> ADD </label><br>
+            <label class="control-label"><input type="radio" value="remove" name="action"/> REMOVE </label>
         </div>
+        <br>
         <div>
             <div class="panel panel-default">
                 <div class="panel-heading">Bonus Info <span class="glyphicon glyphicon-plus add" id="addSlab"></span></div>
@@ -49,7 +51,7 @@
                 </table>
             </div>
         </div>
-        <button onclick="slabAction()">Submit</button>
+        <button class="btn btn-primary" style="margin-left:auto;margin-right:auto;display:block;width:50%" onclick="slabAction()">Submit</button>
 
 	</body>
 	<style>
