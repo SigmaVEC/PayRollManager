@@ -207,6 +207,7 @@
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\BonusController.cs" />
     <Compile Include="Controllers\EmployeeViewController.cs" />
+    <Compile Include="Controllers\ImageUploadController.cs" />
     <Compile Include="Controllers\ListCompaniesController.cs" />
     <Compile Include="Controllers\PayrollGenerateController.cs" />
     <Compile Include="Controllers\PayrollHistoryController.cs" />
