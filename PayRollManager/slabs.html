@@ -41,12 +41,12 @@
         <br>
         <div>
             <div class="panel panel-default">
-                <div class="panel-heading">Bonus Info <span class="glyphicon glyphicon-plus add" id="addSlab"></span></div>
-                <table class="table table-striped table-bordered" id="tableSlab">
+                <div class="panel-heading">Bonus Info <span class="glyphicon glyphicon-plus add mvright" id="addSlab"></span></div>
+                <table class="table table-striped" id="tableSlab">
                     <tr >
-                        <td><input type="number" class="form-control" placeholder="From Amount" id="fromAmount1"/></td>
-                        <td><input type="number" class="form-control" placeholder="To Amount" id="toAmount1"/></td>
-                        <td><input type="number" class="form-control" placeholder="Value" id="value1"/></td>
+                        <td><input type="text" class="form-control" placeholder="From Amount" id="fromAmount1"/></td>
+                        <td><input type="text" class="form-control" placeholder="To Amount" id="toAmount1"/></td>
+                        <td><input type="text" class="form-control" placeholder="Value" id="value1"/></td>
                     </tr>
                 </table>
             </div>
@@ -55,6 +55,13 @@
 
 	</body>
 	<style>
+		.mvright{
+			float: right;
+			cursor: pointer;
+			}
+		td {
+			height: 50px;
+		}
 		#test{
 			position: absolute;
 			width: 100%;
@@ -106,9 +113,9 @@
         $("#addSlab").on("click", function(){
             $("#tableSlab").append(`
                 <tr>
-                    <td><input type="number" class="form-control" placeholder="From Amount `+scount+`" id="fromAmount`+scount+`"/></td>
-                    <td><input type="number" class="form-control" placeholder="To Amount `+scount+`" id="toAmount`+scount+`"/></td>
-                    <td><input type="number" class="form-control" placeholder="Value `+scount+`" id="value`+scount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="From Amount `+scount+`" id="fromAmount`+scount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="To Amount `+scount+`" id="toAmount`+scount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="Value `+scount+`" id="value`+scount+`"/></td>
                 </tr>
             `);
             scount++;
