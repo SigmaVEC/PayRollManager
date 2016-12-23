@@ -43,11 +43,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Bonus Info <span class="glyphicon glyphicon-plus add mvright" id="addSlab"></span></div>
                 <table class="table table-striped" id="tableSlab">
-                    <tr >
-                        <td><input type="text" class="form-control" placeholder="From Amount" id="fromAmount1"/></td>
-                        <td><input type="text" class="form-control" placeholder="To Amount" id="toAmount1"/></td>
-                        <td><input type="text" class="form-control" placeholder="Value" id="value1"/></td>
-                    </tr>
+                    
                 </table>
             </div>
         </div>
@@ -60,6 +56,7 @@
 			cursor: pointer;
 			}
 		td {
+			padding: 10px;
 			height: 50px;
 		}
 		#test{
@@ -109,7 +106,17 @@
 			$("#cname").html(cname);
 		}
 
-        scount = 2;
+        scount = 1;
+		$( document ).ready(function() {
+			$("#tableSlab").append(`
+                <tr>
+                    <td><input type="text" class="form-control" placeholder="From Amount `+scount+`" id="fromAmount`+scount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="To Amount `+scount+`" id="toAmount`+scount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="Value `+scount+`" id="value`+scount+`"/></td>
+                </tr>
+            `);
+            scount++;
+		});
         $("#addSlab").on("click", function(){
             $("#tableSlab").append(`
                 <tr>
