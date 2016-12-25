@@ -35,21 +35,21 @@
 				</tr>
 				<tr>
 					<td><label>Employee id</label></td>
-					<td><input type="text" class="form-control" id="payrollEmployeeId"></td>	
+					<td><input type="text" class="form-control" id="payrollEmployeeId"></td>
 				</tr>
 			</table>
 			<button class="btn btn-primary gobtn" onclick="displayPayroll()">Go</button>
-			
+
         </div>
 		<div id="printRootDiv">
-		
+
 			<div id="toPrint">
-				
+
 				<h3>ISEO SYSTEMS PVT. LTD<h4>ISO 9001:2000 Certified</h4></h3>
 				<p>payslip for month <span id="payDate">20:1:2016</span></p>
-				
+
 				<table id="empTableSection1" class="table" style="font-size:9">
-					<tr>	
+					<tr>
 						<td> Employee id</td><td>P23</td>
 					</tr>
 					<tr>
@@ -65,7 +65,7 @@
 						<td> present </td> <td> 10 </td>
 					</tr>
 				</table>
-					
+
 				<table id="empTable" class="table" style="font-size:9">
 					<colgroup>
 						<col width="10%">
@@ -88,7 +88,7 @@
 					</tr>
 			</thead>
 			<tbody>
-		   
+
 					<tr>
 						<td>1</td>
 						<td>Ram</td>
@@ -98,7 +98,7 @@
 						<td>Assistant Director</td>
 						<td>BBA</td>
 					</tr>
-			  
+
 					<tr>
 						<td>2</td>
 						<td>Guna</td>
@@ -137,11 +137,11 @@
 					</tr>
 			</tbody>
 				</table>
-				
+
 			</div>
-			
+
 			<div align="center">
-			<button class="btn btn-primary" onclick="javascript:demoFromHTML()"><span class="glyphicon glyphicon-file"></span> PDF</button>	
+			<button class="btn btn-primary" onclick="javascript:demoFromHTML()"><span class="glyphicon glyphicon-file"></span> PDF</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<button class="btn btn-primary"  onclick="Print()"><span class="glyphicon glyphicon-print"></span> Print</button>
 			</div>
@@ -178,7 +178,7 @@
 			float: right;
 			font-size:20px;
 			color:#666;
-		}	
+		}
 		#addSalary:hover{
 			color:#59F;
 			cursor: pointer;
@@ -188,7 +188,7 @@
 		width:100px;
 	}
 	#toPrint td,th{
-	
+
 	}
 	.gobtn{
 		margin-left:auto;
@@ -196,7 +196,7 @@
 		display:block;
 		width:30%;
 	}
-	
+
 </style>
 <script>
     var th = $("#test").height();
@@ -225,21 +225,65 @@
 	}
 </script>
 <script>
-	function displayPayroll() {
-		$.get("api/payrollhistory", { token: getCookie("Token"), CompanyId: cid, month: document.getElementById("payrollDate").value}, function (result) {
+	function displayPayroll() {                                                    //TODO::testDate
+		$.get("/api/PayrollHistory", { token: getCookie("Token"), CompanyId: cid, date: document.getElementById("payrollDate").value,monthly:"y"}, function (result) {
 			notify(result.message);
-			if (result.message == "Success") {
-				//Todo: add displaying to table
+			if (result.message == "Success") {//TODO:test
 				loadPayRoll(result.data);
 			}
 		});
 	}
-	function loadPayRoll(){
+    var empList = [];
+	function loadPayRoll(data){
 		//Todo: add the code to display the table
-		$("#printRootDiv").show();
+        // this is for all emp
+        empList = [];
+        for ( i in data ){
+            var emp = {};
+            var dud = [];
+            var add = [];
+            var total=0,totalDud=0,totalAdd=0;
+            emp.employeeId = data[i].id;
+            sal = data[i].salary;
+            for (j in salary){
+                if (salary[j].value < 0){
+                    dud.push(salary[j]);
+                    totalDud = totalDud - salary[j].value; //TODO: percent calc
+                }else {
+                    add.push(salary[j]);
+                    totalAdd = totalAdd + salary[j].value;
+                }
+            }
+            emp.total = totalAdd - totalDud;
+            emp.totalDud = totalDud;
+            emp.totalAdd = totalAdd;
+            emp.deduction = dud;
+            emp.increment = add;
+            empList.push(emp);
+        } //TODO:Loaded to empList from whish displayPayroll
+        s = "";
+        for ( i in empList ){
+            s = s + "<tr><td>"+ empList[i].employeeId + "</td>";
+            s = s + "<td>" + empList[i].totalAdd +"</td> <td>"+ empList[i].totalDud +"</td>";
+            s = s + "<td>" + empList[i].total + '</td> <td><button onclick="getSalDetails('+i+')"> check details</button></td></tr>';
+        }
+        $("#tablePayroll").html(s);//TODO:create payroll table
+        $("#printRootDiv").show();
 	}
-	$("#printRootDiv").show();
-	
+	$("#printRootDiv").show("");
+    function getSalDetails(var i){
+        s = "";
+        k = "";
+        for ( j in empList[i].increment){
+            s = s + "<tr><td>"+empList[i].increment.name+"</td><td>"+empList[i].increment.value+"</td></tr>";
+        }
+        for ( j in empList[i].deduction){
+            k = k + "<tr><td>"+empList[i].deduction.name+"</td><td>"+empList[i].deduction.value+"</td></tr>";
+        }
+        $("#tableInc").html(s);
+        $("#tableDud").html(k); //TODO:create tables
+    }
+
 </script>
 <script type="text/javascript">
         function demoFromHTML() {
@@ -258,15 +302,15 @@
                 left: 40,
                 width: 522
             };
-			pdf.setFontSize(2);	
+			pdf.setFontSize(2);
             pdf.fromHTML(
-                    source, 
+                    source,
                     margins.left, // x coord
                     margins.top, {// y coord
                         'width': margins.width, // max width of content on PDF
                         'elementHandlers': specialElementHandlers
                     },
-					 
+
             function(dispose) {
                 pdf.output('datauri');
             }
