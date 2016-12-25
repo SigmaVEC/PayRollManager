@@ -98,7 +98,9 @@
 		colHeaders = ["empid"];
 		var ddata = [];
 		function setDate(){
-			days = 30; //TODO:change this
+			var d = new Date($("#date").val());
+			var d1 = new Date(d.getFullYear(),d.getMonth,0);
+			days = d1.getDate(); //TODO:test
 			setColHeaders();
 		}
 		function setColHeaders(){

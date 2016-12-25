@@ -225,8 +225,9 @@
 	}
 </script>
 <script>
-	function displayPayroll() {                                                    //TODO::testDate
-		$.get("/api/PayrollHistory", { token: getCookie("Token"), date: document.getElementById("payrollDate").value,monthly:"y"}, function (result) {
+	function displayPayroll() {                            
+		var d = document.getElementById("payrollDate").value + "T00:00:00";//TODO::testDate
+		$.get("/api/PayrollHistory", { token: getCookie("Token"), date: d,monthly:"y"}, function (result) {
 			notify(result.message);
 			if (result.message == "Success") {//TODO:test
 				loadPayRoll(result.data);
