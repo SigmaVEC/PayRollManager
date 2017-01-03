@@ -183,17 +183,20 @@
 			empIdList.push(a);
 			$("#empIdList").append("<li>"+a+"</li>")
 		}
+		var d = new Date();
+		date = d.toISOString();
 		function getValues(){
 			bonus = [];
 			increments = [];
 
 			for ( i = 1; i < bcount; i++ ){
 				obj = {};
-				//TODO: add date
+				
 				obj.name = $("#bonusName"+i).val();
 				//obj.value = $("#bonusValue"+i).val();
 				obj.targetAttendance = $("#bonusTA"+i).val();
 				obj.availableRepeats = $("#bonusAR"+i).val();
+				obj.applyDate = date;
 
 				var ad = $("input[name='adjustmentB" + i + "']:checked").val() + $("#bonusValue"+i).val();
 				obj.value =  parseFloat(ad);
@@ -209,11 +212,12 @@
 
 			for ( i = 1; i < icount; i++ ){
 				obj = {};
-				//TODO: add date
+				
 				obj.name = $("#incName"+i).val();
 				//obj.value = $("#bonusValue"+i).val();
 				var ad = $("input[name='adjustmentInc" + i + "']:checked").val() + $("#incValue"+i).val();
 				obj.value =  parseFloat(ad);
+				obj.applyDate = date;
 		        //console.log(ad);
 		        tpe = "#";
 		        if ($("#ispercentInc" + i).is(":checked") ){

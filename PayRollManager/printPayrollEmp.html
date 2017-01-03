@@ -46,8 +46,14 @@
 			<div id="toPrint">
 
 				<h3>ISEO SYSTEMS PVT. LTD<h4>ISO 9001:2000 Certified</h4></h3>
-				<p>payslip for month <span id="payDate">20:1:2016</span></p>
+				<p>payslip for month <span id="payDate">Loading</span></p>
 
+				<div class="row">
+					<table class="col-md-6" id="tableInc"></table>
+					<table class="col-md-6" id="tableDud"></table>
+				</div>
+				<div id="totalDiv"></div>
+				
 				<table id="empTableSection1" class="table" style="font-size:9">
 					<tr>
 						<td> Employee id</td><td>P23</td>
@@ -139,14 +145,11 @@
 				</table>
 
 			</div>
-
 			<div align="center">
 			<button class="btn btn-primary" onclick="javascript:demoFromHTML()"><span class="glyphicon glyphicon-file"></span> PDF</button>
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			<button class="btn btn-primary"  onclick="Print()"><span class="glyphicon glyphicon-print"></span> Print</button>
 			</div>
 		<div>
-		<div id="pdf"></div>
+		
     </div>
     <div id="notification" class="container-fluid">
         <div class="row">
@@ -227,6 +230,7 @@
 <script>
 	function displayPayroll() {                            
 		var d = document.getElementById("payrollDate").value + "T00:00:00";//TODO::testDate
+		$("#payDate").html(d);
 		$.get("/api/PayrollHistory", { token: getCookie("Token"), date: d,monthly:"y"}, function (result) {
 			notify(result.message);
 			if (result.message == "Success") {//TODO:test
@@ -234,6 +238,9 @@
 			}
 		});
 	}
+	//TODO:change this
+	$("#empTableSection1").hide();
+	$("#empTable").hide();
 	function loadPayRoll(data){
 		//Todo: add the code to display the table
         // this is for all emp
@@ -242,10 +249,10 @@
         var dud = [];
         var add = [];
         var total=0,totalDud=0,totalAdd=0;
-        emp.employeeId = data[i].id;
+        emp.employeeId = data.id;
         sal = data.salary;
-        s= '';
-        k = '';
+        s= '<tr><th>Increments</th></tr>';
+        k = '<tr><th>deduction</th></tr>';
         for (j in salary){
             if (salary[j].value < 0){
                 dud.push(salary[j]);
@@ -266,8 +273,10 @@
         emp.totalAdd = totalAdd;
         emp.deduction = dud;
         emp.increment = add;
+		$("#totalDiv").html("total increments:"+ emp.totalAdd+"<br> total Deductions"+emp.totalDud+"<br> total"+emp.total)
 
-        //TODO:load to table
+		
+        //TODO:load to table -- > Done 2. testing to be done
 
         $("#printRootDiv").show();
 	}

@@ -99,8 +99,9 @@
 		var ddata = [];
 		function setDate(){
 			var d = new Date($("#date").val());
-			var d1 = new Date(d.getFullYear(),d.getMonth,0);
+			var d1 = new Date(d.getFullYear(),d.getMonth(),0);
 			days = d1.getDate(); //TODO:test
+			console.log(d.getMonth());
 			setColHeaders();
 		}
 		function setColHeaders(){
@@ -148,10 +149,21 @@
 		}
 		function submit(){
 			var data = setExportData();
+			var obj = {};
+			var arr = [];
+			for ( i in data){ //not working change this
+				if(data[i].employeeId != null){
+					arr.push(data[i]);
+				}
+			}
+			obj.attendance = arr;
 			jsonData = JSON.stringify(data);
+			console.log(data);
 			$.get("/api/PayrollGenerate",{attendanceJson:jsonData, token:getCookie("Token")}, function(result){
 				alert(result.message);
 			});
 		}
+		
+		
     </script>
 </html>
