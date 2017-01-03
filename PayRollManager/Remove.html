@@ -26,39 +26,42 @@
 			<li role="presentation" id="employeeTab" section="employeeSection"><a href="#">Remove Employees</a></li>
 		</ul>
 		<div id="companySection" class="section">
-			<div class="container-fluid">
+			<div class="container-fluid"><br/>
 				<div class="btn-group gobtn" style="margin-top:10px;">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<span id="cname">Select Company</span>
 						<span class="caret"></span>
 						<span class="sr-only">Toggle Dropdown</span>
 					</button>
-					<ul class="dropdown-menu" id="listCompany" style="margin-top:36px;">
+					<ul class="dropdown-menu" id="listCompany">
 						<button type="button" class="list-group-item disabled">loading</button>
 					</ul>
 				</div>
-				<button onclick="removeCompany()">Remove Company</button>
+				<button class="btn btn-danger down" onclick="removeCompany()">Remove Company</button>
 			</div>
 		</div>
 		<div id="employeeSection" class="section">
-			<div class="container-fluid">
+			<div class="container-fluid"><br/>
 				<div class="btn-group gobtn" style="margin-top:10px;">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<span id="cname">Select Company</span>
 						<span class="caret"></span>
 						<span class="sr-only">Toggle Dropdown</span>
 					</button>
-					<ul class="dropdown-menu" id="listCompany" style="margin-top:36px;">
+					<ul class="dropdown-menu" id="listCompany" >
 						<button type="button" class="list-group-item disabled">loading</button>
 					</ul>
 				</div>
-				<input id="empId" placeholder="enter employee id to remove"></input>
-				<button onclick="removeEmp()">Remove Employee</button>
+				<input type="text" class="form-control down" style="width: 20%;" id="empId" placeholder="enter employee id"/>
+				<button class="btn btn-danger down" onclick="removeEmp()">Remove Employee</button>
 			</div>
 		</div>
 		
 	</body>
 	<style>
+		.down{
+			margin-top: 10px;
+			}
 		#test{ 
 			position: absolute;
 			width: 100%;

@@ -87,7 +87,7 @@ namespace PayRollManager.Controllers {
                                 return Ok(new Message {
                                     data = null,
                                     message = "Basic pay not found"
-                                })
+                                });
                             }
                         } else {
                             return Ok(new Message {

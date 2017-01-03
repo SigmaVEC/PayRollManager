@@ -42,37 +42,23 @@
             <br>
 			<div>
 				<label class="control-label"><input type="radio" value="add" name="action" selected /> ADD </label><br>
-				<label class="control-label"><input type="radio" value="remove" name="action"/>REMOVE </label>
+				<label class="control-label"><input type="radio" value="remove" name="action"/> REMOVE </label>
 			</div>
 			<br>
             <div>
                 <div class="panel panel-default">
-				  	<div class="panel-heading">Bonus Info <span class="glyphicon glyphicon-plus add" id="addBonus"></span></div>
-					<table class="table table-striped table-bordered" id="tableBonus">
-                        <tr >
-                            <td><input type="text" class="form-control" placeholder="name" id="bonusName1"/></td>
-                            <td><input type="number" class="form-control" placeholder="value" id="bonusValue1"/></td>
-                            <td><input type="number" class="form-control" placeholder="target Attendance" id="bonusTA1"/></td>
-                            <td><input type="number" class="form-control" placeholder="Availabe Repeats" id="bonusAR1"/></td>
-                            <td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercentB1" id="ispercentB1"/> ispercent </label> </td>
-                            <td><label class="control-label"><input type="radio" value="" name="adjustmentB1" selected />  Addition </label></td>
-                            <td><label class="control-label"><input type="radio" value="-" name="adjustmentB1"/>  Reduction </label></td>
-                        </tr>
+				  	<div class="panel-heading">Bonus Info <span class="glyphicon glyphicon-plus add mvright" id="addBonus"></span></div>
+					<table class="table table-striped table-bordered tbl" id="tableBonus">
+                        
                     </table>
                 </div>
 
             </div>
             <div>
                 <div class="panel panel-default">
-				  	<div class="panel-heading">Increments Info<span class="glyphicon glyphicon-plus add" id="addInc"></span></div>
-					<table class="table table-striped table-bordered" id="tableInc">
-                        <tr>
-                            <td><input type="text" class="form-control" placeholder="name" id="incName1"/></td>
-                            <td><input type="number" class="form-control" placeholder="value" id="incValue1"/></td>
-                            <td><label class="control-label"><input type="checkbox" value="isPercentInc1" name="ispercent" id="ispercentInc1"/> ispercent</label> </td>
-                            <td><label class="control-label"><input type="radio" value="" name="adjustmentInc1" selected /> Addition </label></td>
-                            <td><label class="control-label"><input type="radio" value="-" name="adjustmentInc1"/> 	Reduction </label></td>
-                        </tr>
+				  	<div class="panel-heading">Increments Info<span class="glyphicon glyphicon-plus add mvright" id="addInc"></span></div>
+					<table class="table table-striped table-bordered tbl" id="tableInc">
+                        
                     </table>
                 </div>
             </div>
@@ -81,6 +67,15 @@
 
 	</body>
 	<style>
+		.mvright{
+			float: right;
+			cursor: pointer;
+			}
+		td {
+			padding: 2px;
+			height: 50px;
+			text-align: center;
+		}
 		#test{
 			position: absolute;
 			width: 100%;
@@ -129,18 +124,42 @@
 		}
 
 
-        bcount = 2;
-        icount = 2;
+        bcount = 1;
+        icount = 1;
+        $( document ).ready(function() {
+			$("#tableBonus").append(`
+                <tr class="inputGroupSalary" >
+                    <td><input type="text" class="form-control" placeholder="name `+bcount+`" id="bonusName`+bcount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="value `+bcount+`" id="bonusValue`+bcount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="target Attendance `+bcount+`" id="bonusTA`+bcount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="Availabe Repeats `+bcount+`" id="bonusAR`+bcount+`"/></td>
+                    <td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercent" id="ispercentB`+bcount+`" id="bip`+bcount+`"/>ispercent</label> </td>
+                    <td><label class="control-label"><input type="radio" value="" name="adjustmentB`+bcount+`" selected />Addition</label></td>
+                    <td><label class="control-label"><input type="radio" value="-" name="adjustmentB`+bcount+`"/>Reduction</label></td>
+                </tr>
+            `);
+            bcount++;
+            $("#tableInc").append(`
+                <tr>
+                    <td><input type="text" class="form-control" placeholder="name `+icount+`" id="incName`+icount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="value `+icount+`" id="incValue`+icount+`"/></td>
+                    <td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercent" id="ispercentInc`+icount+`"/> ispercent</label> </td>
+                    <td><label class="control-label"><input type="radio" value="" name="adjustmentInc`+icount+`" selected /> Addition </label></td>
+                    <td><label class="control-label"><input type="radio" value="-" name="adjustmentInc`+icount+`"/> 	Reduction </label></td>
+                </tr>
+            `);
+            icount++;
+			});
         $("#addBonus").on("click",function(){
             $("#tableBonus").append(`
                 <tr class="inputGroupSalary" >
                     <td><input type="text" class="form-control" placeholder="name `+bcount+`" id="bonusName`+bcount+`"/></td>
-                    <td><input type="number" class="form-control" placeholder="value `+bcount+`" id="bonusValue`+bcount+`"/></td>
-                    <td><input type="number" class="form-control" placeholder="target Attendance`+bcount+`" id="bonusTA`+bcount+`"/></td>
-                    <td><input type="number" class="form-control" placeholder="Availabe Repeats`+bcount+`" id="bonusAR`+bcount+`"/></td>
-                    <td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercent" id="ispercentB`+bcount+`" id="bip`+bcount+`"/> ispercent</label> </td>
-                    <td><label class="control-label"><input type="radio" value="" name="adjustmentB`+bcount+`" selected /> Addition </label></td>
-                    <td><label class="control-label"><input type="radio" value="-" name="adjustmentB`+bcount+`"/> 	Reduction </label></td>
+                    <td><input type="text" class="form-control" placeholder="value `+bcount+`" id="bonusValue`+bcount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="target Attendance `+bcount+`" id="bonusTA`+bcount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="Availabe Repeats `+bcount+`" id="bonusAR`+bcount+`"/></td>
+                    <td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercent" id="ispercentB`+bcount+`" id="bip`+bcount+`"/>ispercent</label> </td>
+                    <td><label class="control-label"><input type="radio" value="" name="adjustmentB`+bcount+`" selected />Addition</label></td>
+                    <td><label class="control-label"><input type="radio" value="-" name="adjustmentB`+bcount+`"/>Reduction</label></td>
                 </tr>
             `);
             bcount++;
@@ -148,8 +167,8 @@
         $("#addInc").on("click",function(){
             $("#tableInc").append(`
                 <tr>
-                    <td><input type="text" class="form-control" placeholder="name" id="incName`+icount+`"/></td>
-                    <td><input type="number" class="form-control" placeholder="value" id="incValue`+icount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="name `+icount+`" id="incName`+icount+`"/></td>
+                    <td><input type="text" class="form-control" placeholder="value `+icount+`" id="incValue`+icount+`"/></td>
                     <td><label class="control-label"><input type="checkbox" value="isPercent" name="ispercent" id="ispercentInc`+icount+`"/> ispercent</label> </td>
                     <td><label class="control-label"><input type="radio" value="" name="adjustmentInc`+icount+`" selected /> Addition </label></td>
                     <td><label class="control-label"><input type="radio" value="-" name="adjustmentInc`+icount+`"/> 	Reduction </label></td>
@@ -164,17 +183,20 @@
 			empIdList.push(a);
 			$("#empIdList").append("<li>"+a+"</li>")
 		}
+		var d = new Date();
+		date = d.toISOString();
 		function getValues(){
 			bonus = [];
 			increments = [];
 
 			for ( i = 1; i < bcount; i++ ){
 				obj = {};
-				//TODO: add date
+				
 				obj.name = $("#bonusName"+i).val();
 				//obj.value = $("#bonusValue"+i).val();
 				obj.targetAttendance = $("#bonusTA"+i).val();
 				obj.availableRepeats = $("#bonusAR"+i).val();
+				obj.applyDate = date;
 
 				var ad = $("input[name='adjustmentB" + i + "']:checked").val() + $("#bonusValue"+i).val();
 				obj.value =  parseFloat(ad);
@@ -190,11 +212,12 @@
 
 			for ( i = 1; i < icount; i++ ){
 				obj = {};
-				//TODO: add date
+				
 				obj.name = $("#incName"+i).val();
 				//obj.value = $("#bonusValue"+i).val();
 				var ad = $("input[name='adjustmentInc" + i + "']:checked").val() + $("#incValue"+i).val();
 				obj.value =  parseFloat(ad);
+				obj.applyDate = date;
 		        //console.log(ad);
 		        tpe = "#";
 		        if ($("#ispercentInc" + i).is(":checked") ){
