@@ -132,6 +132,9 @@
 			for (i in data){
 				obj = {};
 				obj.companyId = cid;
+				if (data[i][0] == null){
+					continue;
+				}
 				obj.employeeId = data[i][0];
 				obj.date = $("#date").val() + "T00:00:00";
 				arr = [];
@@ -151,7 +154,9 @@
 			var data = setExportData();
 			var obj = {};
 			var arr = [];
+			console.log(data);
 			for ( i in data){ //not working change this
+				console.log(data[i].employeeId);
 				if(data[i].employeeId != null){
 					arr.push(data[i]);
 				}
