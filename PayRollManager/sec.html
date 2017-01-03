@@ -611,6 +611,18 @@
                 arr.push(objSal);
 		    }
 		    obj.salary = arr;
+			obj.personal = [
+		{
+			"name": "Bank Name",
+			"value": "Axis bank"
+			
+		},
+		{
+			"name": "Bank Acc. No",
+			"value": "12345342342"
+			
+		}
+	];
 		    var jsondata = JSON.stringify(obj);
 		    alert(jsondata);
 		    $.get("/api/addemployee", { token: getCookie("Token"), employeeJson: jsondata }, function (result) {
