@@ -99,7 +99,7 @@
 		var ddata = [];
 		function setDate(){
 			var d = new Date($("#date").val());
-			var d1 = new Date(d.getFullYear(),d.getMonth(),0);
+			var d1 = new Date(d.getFullYear(),d.getMonth()+1,0);
 			days = d1.getDate(); //TODO:test
 			console.log(d.getMonth());
 			setColHeaders();
@@ -118,7 +118,7 @@
 			var container = document.getElementById('excel');
 			ht = new Handsontable(container, {
 				data: ddata,
-				minSpareRows: 5,
+				minSpareRows: 1,
 				rowHeaders: true,
 				colHeaders: colHeaders,
 
