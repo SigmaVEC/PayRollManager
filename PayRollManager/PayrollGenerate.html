@@ -30,22 +30,34 @@
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <ul class="dropdown-menu" id="listCompany" style="margin-top:36px;">
+                <ul class="dropdown-menu" id="listCompany" >
                     <button type="button" class="list-group-item disabled">loading</button>
                 </ul>
             </div>
         </div>
-        <div>
-            date : <input type="text" id="date" placeholder="YYYY-MM-DD format"></input>
-			<button onclick="setDate()">set date</button>
-        </div>
+        <div class="form-group" style="margin-top: 10px;">
+            <label>Date</label>
+            <input type="text" id="date" class="form-control" placeholder="YYYY-MM-DD format"></input>
+			<button onclick="setDate()" class="btn btn-primary">set date</button>
+        </div><br>
 		<div>
 			<div id="excel"></div>
 		</div>
-        <button onclick="submit()">Submit</button>
+        <button onclick="submit()" class="btn btn-primary sub">Submit</button>
 
 	</body>
 	<style>
+		input[type=text]{
+			width: 50%;
+			}
+		label,.btn{
+			margin-left: 15px;
+		}
+		.sub{
+			margin-left:50px;
+			display:block;
+			width:30%;
+		}
 		#test{
 			position: absolute;
 			width: 100%;
