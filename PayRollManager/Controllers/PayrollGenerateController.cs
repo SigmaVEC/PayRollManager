@@ -36,7 +36,7 @@ namespace PayRollManager.Controllers {
 
                                 if (basicPay != null) {
                                     var history = db.Payroll_History.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && p.Date.Month == DateTime.Now.Month && p.Date.Year == DateTime.Now.Year)).ToArray();
-                                    var dbAttendance = new Attendance_Details[DateTime.DaysInMonth(empAttendance.date.Year, empAttendance.date.Month)];
+                                    var dbAttendance = new List<Attendance_Details>();
                                     var increments = db.Salary_Increments.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0)).ToArray();
                                     var lastBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.AvailableRepeats == 1)).ToArray();
                                     var intermediateBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.AvailableRepeats > 1)).ToArray();
@@ -72,10 +72,13 @@ namespace PayRollManager.Controllers {
                                     }
                                     
                                     for (int j = 0; j < DateTime.DaysInMonth(empAttendance.date.Year, empAttendance.date.Month); j++) {
-                                        dbAttendance[j].CompanyId = empAttendance.companyId;
-                                        dbAttendance[j].EmployeeId = empAttendance.employeeId;
-                                        dbAttendance[j].Date = new DateTime(empAttendance.date.Year, empAttendance.date.Month, j + 1);
-                                        dbAttendance[j].Shift = empAttendance.shift[j];
+                                        var a = new Attendance_Details {
+                                            CompanyId = empAttendance.companyId,
+                                            EmployeeId = empAttendance.employeeId,
+                                            Date = new DateTime(empAttendance.date.Year, empAttendance.date.Month, j + 1),
+                                            Shift = empAttendance.shift[j]
+                                        };
+                                        dbAttendance.Add(a);
                                     }
 
                                     for (int j = 0; j < lastBonus.Length; j++) {

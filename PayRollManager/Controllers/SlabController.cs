@@ -85,6 +85,7 @@ namespace PayRollManager.Controllers {
                                 }
                             }
 
+                            db.SaveChangesAsync();
                             return Ok(new Message {
                                 data = null,
                                 message = "Success"
@@ -104,6 +105,7 @@ namespace PayRollManager.Controllers {
                                 }
                             }
 
+                            db.SaveChangesAsync();
                             return Ok(new Message {
                                 data = null,
                                 message = "Success"
