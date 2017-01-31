@@ -33,10 +33,7 @@
 					<td><label>Select month</label></td>
 					<td><input type="date" class="form-control" id="payrollDate"></td>
 				</tr>
-				<tr>
-					<td><label>Employee id</label></td>
-					<td><input type="text" class="form-control" id="payrollEmployeeId"></td>
-				</tr>
+				
 			</table>
 			<button class="btn btn-primary gobtn" onclick="displayPayroll()">Go</button>
 
@@ -48,96 +45,15 @@
 				<h3>ISEO SYSTEMS PVT. LTD<h4>ISO 9001:2000 Certified</h4></h3>
 				<p>payslip for month <span id="payDate">20:1:2016</span></p>
 
-				<table id="empTableSection1" class="table" style="font-size:9">
-					<tr>
-						<td> Employee id</td><td>P23</td>
-					</tr>
-					<tr>
-						<td> Employee name </td><td>name</td>
-					</tr>
-					<tr>
-						<td> Designation </td> <td> MMD </td>
-					</tr>
-					<tr>
-						<td> mandays </td> <td> 10 </td>
-					</tr>
-					<tr>
-						<td> present </td> <td> 10 </td>
-					</tr>
+				<div class="row">
+					<table class="col-md-6" id="tableInc"></table>
+					<table class="col-md-6" id="tableDud"></table>
+				</div>
+				<div id="totalDiv"></div>
+
+
+				<table id="tablePayroll" style="border:4px">
 				</table>
-
-				<table id="empTable" class="table" style="font-size:9">
-					<colgroup>
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-            </colgroup>
-			<thead>
-					<tr>
-						<th>sno</th>
-						<th>Name</th>
-						<th>Father Name</th>
-						<th>DOB</th>
-						<th>DOJ</th>
-						<th>Designation</th>
-						<th>Qualification</th>
-					</tr>
-			</thead>
-			<tbody>
-
-					<tr>
-						<td>1</td>
-						<td>Ram</td>
-						<td>Raj</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Assistant Director</td>
-						<td>BBA</td>
-					</tr>
-
-					<tr>
-						<td>2</td>
-						<td>Guna</td>
-						<td>Lokesh</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Director</td>
-						<td>MBA</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>Bharath</td>
-						<td>rehan</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Accountant</td>
-						<td>MCOM</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>RAM</td>
-						<td>RAJ</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Assistant Director</td>
-						<td>BBA</td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>bilal</td>
-						<td>rasique</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Sales</td>
-						<td>BBA</td>
-					</tr>
-			</tbody>
-				</table>
-
 			</div>
 
 			<div align="center">
@@ -196,7 +112,9 @@
 		display:block;
 		width:30%;
 	}
-
+	td{
+		padding:4px;
+	}
 </style>
 <script>
     var th = $("#test").height();
@@ -226,25 +144,88 @@
 </script>
 <script>
 	function displayPayroll() {                                                    //TODO::testDate
+		$("#payDate").html( document.getElementById("payrollDate").value);
 		$.get("/api/PayrollHistory", { token: getCookie("Token"), CompanyId: cid, date: document.getElementById("payrollDate").value,monthly:"y"}, function (result) {
+			
 			notify(result.message);
 			if (result.message == "Success") {//TODO:test
 				loadPayRoll(result.data);
 			}
 		});
 	}
-    var empList = [];
+	//testing
+	testInput = `
+{
+	"data": [
+		{
+      		"id": "123",
+        	"name": "qwert",
+        	"doj": "2016-08-20T00:00:00",
+			"dol": null,
+			"personal" : [],
+        	"salary": [
+            	{
+                	"name": "Basic",
+                	"value": 10000.0,
+                	"type": "#"
+            	},
+            	{
+                	"name": "DA",
+                	"value": 1000.0,
+                	"type": "#"
+            	},
+				{
+                	"name": "Uniform",
+                	"value": -100.0,
+                	"type": "#"
+            	}
+        	]
+    	},
+		{
+      		"id": "456",
+        	"name": "yuiop",
+        	"doj": "2016-08-02T00:00:00",
+			"dol": null,
+			"personal" : [],
+        	"salary": [
+            	{
+                	"name": "Basic",
+                	"value": 10800.0,
+                	"type": "#"
+            	},
+            	{
+                	"name": "DA",
+                	"value": 1020.0,
+                	"type": "#"
+            	},
+				{
+                	"name": "Uniform",
+                	"value": -100.0,
+                	"type": "#"
+            	}
+        	]
+    	}
+	],
+	"message": "Success"
+}
+	`
+	 var empList = [];
+	var jsontest = JSON.parse(testInput);
+	loadPayRoll(jsontest.data);
+	//testing end
+   
+	
 	function loadPayRoll(data){
 		//Todo: add the code to display the table
         // this is for all emp
-        empList = [];
+        window.empList.length = 0;
         for ( i in data ){
             var emp = {};
             var dud = [];
             var add = [];
             var total=0,totalDud=0,totalAdd=0;
             emp.employeeId = data[i].id;
-            sal = data[i].salary;
+            salary = data[i].salary;
             for (j in salary){
                 if (salary[j].value < 0){
                     dud.push(salary[j]);
@@ -260,28 +241,30 @@
             emp.deduction = dud;
             emp.increment = add;
             empList.push(emp);
-        } //TODO:Loaded to empList from whish displayPayroll
-        s = "";
+        } 
+        s = "<tr><td>Empid</td><td>Tot Inc</td> <td>Tot dud</td><td>Total</td><td></td></tr>";
         for ( i in empList ){
-            s = s + "<tr><td>"+ empList[i].employeeId + "</td>";
-            s = s + "<td>" + empList[i].totalAdd +"</td> <td>"+ empList[i].totalDud +"</td>";
-            s = s + "<td>" + empList[i].total + '</td> <td><button onclick="getSalDetails('+i+')"> check details</button></td></tr>';
+            s = s + "<tr><td> "+ empList[i].employeeId + " </td>";
+            s = s + "<td> " + empList[i].totalAdd +"</td> <td>"+ empList[i].totalDud +" </td>";
+            s = s + "<td> " + empList[i].total + ' </td> <td> <button onclick="getSalDetails('+i+')"> check details</button> </td></tr>';
         }
-        $("#tablePayroll").html(s);//TODO:create payroll table
+        $("#tablePayroll").html(s);
         $("#printRootDiv").show();
 	}
 	$("#printRootDiv").show("");
-    function getSalDetails(var i){
-        s = "";
-        k = "";
+    function getSalDetails(i){
+        s = "<tr><td>Increment name</td><td>Increment value</td></tr>";
+        k = "<tr><td>Deduction name</td><td>Deduction value</td></tr>";
+		console.log(empList);
         for ( j in empList[i].increment){
-            s = s + "<tr><td>"+empList[i].increment.name+"</td><td>"+empList[i].increment.value+"</td></tr>";
+            s = s + "<tr><td> "+empList[i].increment[j].name+" </td><td> "+empList[i].increment[j].value+" </td></tr>";
         }
         for ( j in empList[i].deduction){
-            k = k + "<tr><td>"+empList[i].deduction.name+"</td><td>"+empList[i].deduction.value+"</td></tr>";
+            k = k + "<tr><td>"+empList[i].deduction[j].name+"</td><td>"+empList[i].deduction[j].value+"</td></tr>";
         }
         $("#tableInc").html(s);
-        $("#tableDud").html(k); //TODO:create tables
+        $("#tableDud").html(k); 
+		$("#totalDiv").html("total increments:"+ empList[i].totalAdd+"<br> total Deductions"+empList[i].totalDud+"<br> total"+empList[i].total)
     }
 
 </script>
