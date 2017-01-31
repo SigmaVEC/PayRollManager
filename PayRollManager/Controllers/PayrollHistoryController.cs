@@ -178,7 +178,98 @@ namespace PayRollManager.Controllers {
                 } else {
                     return Ok(new Message {
                         data = null,
-                        message = "Employee does not exist"
+                        message = "You do not have permission to perform this operation"
+                    });
+                }
+            } else {
+                return Ok(new Message {
+                    data = null,
+                    message = "Session Token is invalid"
+                });
+            }
+        }
+
+        //GET: /api/PayrollHistory
+        [HttpGet]
+        public IHttpActionResult CompanyEmployeePayroll(String token, int companyId, String employeeId, String date, String monthly) {
+            var tokenLifetime = int.Parse(ConfigurationManager.AppSettings["tokenLifetime"]);
+            var session = db.Session_Tokens.FirstOrDefault((p) => (p.SessionToken == token && DbFunctions.DiffHours(DateTime.Now, p.Timestamp) < tokenLifetime));
+
+            if (session != null) {
+                var employee = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == session.CompanyId && p.EmployeeId == session.EmployeeId && p.IsAdmin == "y"));
+
+                if (employee != null) {
+                    var d = DateTime.Parse(date);
+                    var employeeInfo = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId));
+
+                    if (employeeInfo != null) {
+                        var salaryData = new List<SalaryDataModel>();
+                        var history = db.Payroll_History.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.Date.Month == d.Month && p.Date.Year == d.Year)).ToArray();
+
+                        if (history.Length != 0) {
+                            if (monthly == "y") {
+                                for (int j = 0; j < history.Length; j++) {
+                                    salaryData.Add(new SalaryDataModel {
+                                        name = history[j].AdjustmentName,
+                                        type = history[j].AdjustmentType,
+                                        value = history[j].AdjustmentValue
+                                    });
+                                }
+                            } else if (monthly == "n") {
+                                var attendance = db.Attendance_Details.Where((p) => (p.CompanyId == companyId && p.EmployeeId == employeeId && p.Date.Month == d.Month && p.Date.Year == d.Year));
+
+                                for (int j = 0; j < history.Length; j++) {
+                                    if (Regex.IsMatch(history[j].AdjustmentName, @"Shift [0-9]+")) {
+                                        var shiftNo = int.Parse(history[j].AdjustmentName.Substring(6));
+                                        var adjustmentValue = history[j].AdjustmentValue / attendance.Count((p) => (p.Shift == shiftNo));
+
+                                        salaryData.Add(new SalaryDataModel {
+                                            name = history[j].AdjustmentName,
+                                            type = history[j].AdjustmentType,
+                                            value = adjustmentValue
+                                        });
+                                    } else {
+                                        var adjustmentValue = history[j].AdjustmentValue / attendance.Count((p) => (p.Shift > 0));
+
+                                        salaryData.Add(new SalaryDataModel {
+                                            name = history[j].AdjustmentName,
+                                            type = history[j].AdjustmentType,
+                                            value = adjustmentValue
+                                        });
+                                    }
+                                }
+                            } else {
+                                return Ok(new Message {
+                                    data = null,
+                                    message = "Invalid option entered"
+                                });
+                            }
+
+                            return Ok(new Message {
+                                data = new EmployeeViewModel {
+                                    id = employeeInfo.EmployeeId,
+                                    name = employeeInfo.EmployeeName,
+                                    doj = employeeInfo.DOJ,
+                                    salary = salaryData.ToArray()
+                                },
+                                message = "Success"
+                            });
+                        } else {
+                            return Ok(new Message {
+                                data = null,
+                                message = "No Payroll exists for specified month"
+                            });
+                        } 
+                    } else {
+                        return Ok(new Message {
+                            data = null,
+                            message = "The specified employee does not exist"
+                        });
+                    }
+                } else {
+                    return Ok(new Message {
+                        data = null,
+                        message = "You do not have permission to perform this operation"
                     });
                 }
             } else {

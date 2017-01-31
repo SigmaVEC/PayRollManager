@@ -77,12 +77,6 @@ namespace PayRollManager.Controllers {
                                             });
                                         }
                                     }
-                                    db.SaveChangesAsync();
-
-                                    return Ok(new Message {
-                                        data = null,
-                                        message = "Success"
-                                    });
                                 } else {
                                     return Ok(new Message {
                                         data = null,
@@ -96,6 +90,13 @@ namespace PayRollManager.Controllers {
                                 });
                             }
                         }
+
+                        db.SaveChangesAsync();
+
+                        return Ok(new Message {
+                            data = null,
+                            message = "Success"
+                        });
                     } catch(System.ArgumentException) {
                         return Ok(new Message {
                             data = null,
