@@ -45,8 +45,8 @@
 
 			<div id="toPrint">
 
-				<h3>ISEO SYSTEMS PVT. LTD<h4>ISO 9001:2000 Certified</h4></h3>
-				<p>payslip for month <span id="payDate">Loading</span></p>
+				<h3 id="printHead">ISEO SYSTEMS PVT. LTD<h4>ISO 9001:2000 Certified</h4></h3>
+				<p id="printSecHead">payslip for month <span id="payDate">Loading</span></p>
 
 				<div class="row">
 					<table class="col-md-6" id="tableInc"></table>
@@ -199,7 +199,6 @@
 		display:block;
 		width:30%;
 	}
-
 </style>
 <script>
     var th = $("#test").height();
@@ -238,6 +237,35 @@
 			}
 		});
 	}
+	//testing
+	inputO = `{
+	"data":
+		{
+      		"id": "123",
+        	"name": "qwert",
+        	"doj": "2016-08-20T00:00:00",
+			"dol": null,
+			"personal" : [],
+        	"salary": [
+            	{
+                	"name": "Basic",
+                	"value": 10000.0,
+                	"type": "#"
+            	},
+            	{
+                	"name": "DA",
+                	"value": -1000.0,
+                	"type": "#"
+            	}
+        	]
+    	}
+    }
+`
+	var testIntput = JSON.parse(inputO);
+	loadPayRoll(testIntput.data);
+	//testing end
+	
+	
 	//TODO:change this
 	$("#empTableSection1").hide();
 	$("#empTable").hide();
@@ -250,10 +278,12 @@
         var add = [];
         var total=0,totalDud=0,totalAdd=0;
         emp.employeeId = data.id;
-        sal = data.salary;
+        salary = data.salary;
         s= '<tr><th>Increments</th></tr>';
         k = '<tr><th>deduction</th></tr>';
-        for (j in salary){
+        console.log(salary);
+		for (j in salary){
+		
             if (salary[j].value < 0){
                 dud.push(salary[j]);
                 totalDud = totalDud - salary[j].value; //TODO: percent calc
