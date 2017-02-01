@@ -279,8 +279,8 @@
         var total=0,totalDud=0,totalAdd=0;
         emp.employeeId = data.id;
         salary = data.salary;
-        s= '<tr><th>Increments</th></tr>';
-        k = '<tr><th>deduction</th></tr>';
+        s = "<tr><th>Increment name</td><th>Increment value</td></tr>";
+        k = "<tr><th>Deduction name</td><th>Deduction value</td></tr>";
         console.log(salary);
 		for (j in salary){
 		
@@ -297,13 +297,16 @@
         }
         $("#tableInc").html(s);
         $("#tableDud").html(k);
+        $("#tableInc").addClass("table table-striped table-bordered");
+        $("#tableDud").addClass("table table-striped table-bordered");
         
         emp.total = totalAdd - totalDud;
         emp.totalDud = totalDud;
         emp.totalAdd = totalAdd;
         emp.deduction = dud;
         emp.increment = add;
-		$("#totalDiv").html("total increments:"+ emp.totalAdd+"<br> total Deductions"+emp.totalDud+"<br> total"+emp.total)
+		$("#totalDiv").html("Total Increments : "+ emp.totalAdd+"<br> Total Deductions : "+emp.totalDud+"<br> Total : "+emp.total);
+		$("#totalDiv").addClass("table");
 
 		
         //TODO:load to table -- > Done 2. testing to be done

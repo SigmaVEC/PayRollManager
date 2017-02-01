@@ -242,19 +242,20 @@
             emp.increment = add;
             empList.push(emp);
         } 
-        s = "<tr><td>Empid</td><td>Tot Inc</td> <td>Tot dud</td><td>Total</td><td></td></tr>";
+        s = "<tr><th>Employee Id</th><th>Total Increment</th> <th>Total deduction</th><th>Total</th><td></td></tr>";
         for ( i in empList ){
             s = s + "<tr><td> "+ empList[i].employeeId + " </td>";
             s = s + "<td> " + empList[i].totalAdd +"</td> <td>"+ empList[i].totalDud +" </td>";
-            s = s + "<td> " + empList[i].total + ' </td> <td> <button onclick="getSalDetails('+i+')"> check details</button> </td></tr>';
+            s = s + "<td> " + empList[i].total + ' </td> <td> <button class="btn btn-primary" onclick="getSalDetails('+i+')"> check details</button> </td></tr>';
         }
         $("#tablePayroll").html(s);
+        $("#tablePayroll").addClass("table table-striped table-bordered");
         $("#printRootDiv").show();
 	}
 	$("#printRootDiv").show("");
     function getSalDetails(i){
-        s = "<tr><td>Increment name</td><td>Increment value</td></tr>";
-        k = "<tr><td>Deduction name</td><td>Deduction value</td></tr>";
+        s = "<tr><th>Increment name</td><th>Increment value</td></tr>";
+        k = "<tr><th>Deduction name</td><th>Deduction value</td></tr>";
 		console.log(empList);
         for ( j in empList[i].increment){
             s = s + "<tr><td> "+empList[i].increment[j].name+" </td><td> "+empList[i].increment[j].value+" </td></tr>";
@@ -263,8 +264,11 @@
             k = k + "<tr><td>"+empList[i].deduction[j].name+"</td><td>"+empList[i].deduction[j].value+"</td></tr>";
         }
         $("#tableInc").html(s);
-        $("#tableDud").html(k); 
-		$("#totalDiv").html("total increments:"+ empList[i].totalAdd+"<br> total Deductions"+empList[i].totalDud+"<br> total"+empList[i].total)
+        $("#tableDud").html(k);
+        $("#tableInc").addClass("table table-striped table-bordered");
+        $("#tableDud").addClass("table table-striped table-bordered"); 
+		$("#totalDiv").html("Total Increments : "+ empList[i].totalAdd+"<br> Total Deductions : "+empList[i].totalDud+"<br> Total : "+empList[i].total);
+		$("#totalDiv").addClass("table");
     }
 
 </script>
