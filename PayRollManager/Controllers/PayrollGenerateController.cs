@@ -12,6 +12,14 @@ namespace PayRollManager.Controllers {
     public class PayrollGenerateController : ApiController {
         private PayRollManagerEntities db = new PayRollManagerEntities();
 
+        private bool IsShiftPresent(String shifts, int shiftNo) {
+            if (shifts.Equals(shiftNo.ToString() + ",") || shifts.Equals("," + shiftNo.ToString() + ",") || shifts.Equals("," + shiftNo.ToString())) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         // GET: api/Payroll
         [HttpGet]
         public IHttpActionResult Calculate(String token, String attendanceJson) {
@@ -29,7 +37,7 @@ namespace PayRollManager.Controllers {
                             var empAttendance = attendanceInput.attendance[i];
                             var employeeInfo = db.Employee_Info.FirstOrDefault((p) => (p.CompanyId == empAttendance.companyId && p.EmployeeId == empAttendance.employeeId));
 
-                            if (employeeInfo != null && empAttendance.shift.Length == DateTime.DaysInMonth(empAttendance.date.Year, empAttendance.date.Month)) {
+                            if (employeeInfo != null && empAttendance.shifts.Length == DateTime.DaysInMonth(empAttendance.date.Year, empAttendance.date.Month)) {
                                 var s = db.Employee_Salary.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId)).ToArray();
                                 var salaryData = new List<SalaryDataModel>();
                                 var basicPay = s.FirstOrDefault((p) => (p.AdjustmentName == "Basic"));
@@ -38,9 +46,9 @@ namespace PayRollManager.Controllers {
                                     var history = db.Payroll_History.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && p.Date.Month == DateTime.Now.Month && p.Date.Year == DateTime.Now.Year)).ToArray();
                                     var dbAttendance = new List<Attendance_Details>();
                                     var increments = db.Salary_Increments.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0)).ToArray();
-                                    var lastBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.AvailableRepeats == 1)).ToArray();
-                                    var intermediateBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.AvailableRepeats > 1)).ToArray();
-                                    var infiniteBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shift.Count((q) => (q >= 1)) && p.AvailableRepeats == -1)).ToArray();
+                                    var lastBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shifts.Count((q) => (q.Equals("") == false)) && p.AvailableRepeats == 1)).ToArray();
+                                    var intermediateBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shifts.Count((q) => (q.Equals("") == false)) && p.AvailableRepeats > 1)).ToArray();
+                                    var infiniteBonus = db.Salary_Bonus.Where((p) => (p.CompanyId == employeeInfo.CompanyId && p.EmployeeId == employeeInfo.EmployeeId && DbFunctions.DiffDays(empAttendance.date, p.ApplyDate) >= 0 && p.TargetAttendance <= empAttendance.shifts.Count((q) => (q.Equals("") == false)) && p.AvailableRepeats == -1)).ToArray();
 
                                     for (int j = 0; j < increments.Length; j++) {
                                         basicPay.AdjustmentValue += (increments[j].IncrementType == "#") ? increments[j].IncrementValue : increments[j].IncrementValue * basicPay.AdjustmentValue / 100;
@@ -50,11 +58,11 @@ namespace PayRollManager.Controllers {
                                         if (Regex.IsMatch(s[j].AdjustmentName, @"Shift [0-9]+")) {
                                             var shiftNo = int.Parse(s[j].AdjustmentName.Split(' ')[1]);
 
-                                            if (empAttendance.shift.Contains(shiftNo)) {
+                                            if (empAttendance.shifts.FirstOrDefault((p) => (IsShiftPresent(p, shiftNo))) != null) {
                                                 salaryData.Add(new SalaryDataModel {
                                                     name = s[j].AdjustmentName,
                                                     type = (s[j].AdjustmentValue >= 0) ? "+" : "-",
-                                                    value = (s[j].AdjustmentType == "#") ? Math.Abs(s[j].AdjustmentValue) * empAttendance.shift.Count((p) => (p == shiftNo)) : Math.Abs(s[j].AdjustmentValue * basicPay.AdjustmentValue / 100) * empAttendance.shift.Count((p) => (p == shiftNo))
+                                                    value = (s[j].AdjustmentType == "#") ? Math.Abs(s[j].AdjustmentValue) * empAttendance.shifts.Count((p) => (IsShiftPresent(p, shiftNo))) : Math.Abs(s[j].AdjustmentValue * basicPay.AdjustmentValue / 100) * empAttendance.shifts.Count((p) => (IsShiftPresent(p, shiftNo)))
                                                 });
                                             } else {
                                                 return Ok(new Message {
@@ -72,13 +80,17 @@ namespace PayRollManager.Controllers {
                                     }
                                     
                                     for (int j = 0; j < DateTime.DaysInMonth(empAttendance.date.Year, empAttendance.date.Month); j++) {
-                                        var a = new Attendance_Details {
-                                            CompanyId = empAttendance.companyId,
-                                            EmployeeId = empAttendance.employeeId,
-                                            Date = new DateTime(empAttendance.date.Year, empAttendance.date.Month, j + 1),
-                                            Shift = empAttendance.shift[j]
-                                        };
-                                        dbAttendance.Add(a);
+                                        var shift = empAttendance.shifts[j].Split(',');
+
+                                        for (int k = 0; k < shift.Length; k++) {
+                                            var a = new Attendance_Details {
+                                                CompanyId = empAttendance.companyId,
+                                                EmployeeId = empAttendance.employeeId,
+                                                Date = new DateTime(empAttendance.date.Year, empAttendance.date.Month, j + 1),
+                                                Shift = int.Parse(shift[k])
+                                            };
+                                            dbAttendance.Add(a);
+                                        }
                                     }
 
                                     for (int j = 0; j < lastBonus.Length; j++) {

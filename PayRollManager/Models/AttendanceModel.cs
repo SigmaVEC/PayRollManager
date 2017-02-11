@@ -8,6 +8,6 @@ namespace PayRollManager.Models {
         public int companyId { get; set; }
         public String employeeId { get; set; }
         public DateTime date { get; set; }
-        public int[] shift { get; set; }
+        public String[] shifts { get; set; }
     }
 }
