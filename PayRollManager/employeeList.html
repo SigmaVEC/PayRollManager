@@ -1,0 +1,226 @@
+<html>
+	<head>
+		<title>Admin View</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="css/bootstrap-theme.css" />
+        <link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="handsontable/handsontable.full.css"/>
+	    <script src="handsontable/handsontable.full.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="js/script.js"></script>
+	</head>
+	<body>
+		<div id="top">
+			<span id="logo">Payroll Manager</span>
+			<button type="button" style="width:100px;height:40px;margin-right:50px" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
+                    <span id="username">user</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu menu" role="menu">
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Edit Details</a></li>
+                    <li id="signOut"><a href="#">Sign out</a></li>
+                </ul>
+				
+		</div>
+		<div id="test"></div>
+		 <div class="btn-group gobtn" style="margin-top:10px;">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span id="cname">Select Company</span>
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" id="listCompany" style="margin-top:36px;">
+                    <button type="button" class="list-group-item disabled">loading</button>
+                </ul>
+        </div><br/><br/>
+		<div class="container">
+			
+			<input placeholder="from" id="fromInput" type="date"></input>
+			<input placeholder="to" id="toInput"></input>
+			<button onclick="list()">Submit</button>
+			<br>
+			<table id="tableDisplay" class="table"></table>
+		</div>
+		<!--div class="container">
+			Leaving
+			<input placeholder="from" id="fromInput2" type="date"></input>
+			<input placeholder="to" id="toInput2"></input>
+			<button onclick="list()">Submit</button>
+			<br>
+			<table id="tableDisplay" class="table"></table>
+		</div-->
+	</body>
+	<style>
+		input[type=text]{
+			width: 50%;
+			}
+		label,.btn{
+			margin-left: 15px;
+		}
+		.sub{
+			margin-left:50px;
+			display:block;
+			width:30%;
+		}
+		#test{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color:aqua;
+		}
+		#top{
+			height:80px;
+			background-color:#455a64;
+			padding-left:5%;
+			padding-top:15px;
+			color: #fff;
+			font-size: 34px;
+
+		}
+		.menu{
+			position: static;
+			float: right;
+			margin-top: 7px;
+			margin-right: 7px;
+		}
+	</style>
+	<script>
+
+		var th = $("#test").height();
+		var toph = $("#top").height();
+		$("#test").hide();
+        $.get("api/listcompanies", {}, function (result) {
+			// alert(result.message);
+			if (result.message != "Success") {
+				companyList = ' <button type="button" class="list-group-item disabled">' + result.message + '</button> ';
+				$("#listCompany").html(companyList);
+				return;
+			}
+			var obj = result.data;
+			var companyList = "";
+			for (a in obj)
+				companyList = companyList + ' <button type="button" cid="' + obj[a].CompanyId + '" class="list-group-item " onclick="companySelect(this)">' + obj[a].CompanyName + '</button> ';
+			$("#listCompany").html(companyList);
+		});
+        var cid=-1;
+		function companySelect(a){
+			cid = a.getAttribute("cid");
+			var cname = a.innerHTML;
+			$("#cname").html(cname);
+		}
+
+		function list(){
+			//console.log("s");
+			if ( cid == -1){
+				alert("select company");
+				return;
+			}
+			$.get("/api/EmployeeView",{token:getCookie("Token"), companyId:cid},function(result){
+				if(result.message == "Success"){
+					data = result.data;
+					loadList(data);
+				
+				}else{console.log(result);
+					alert(result.message);
+				}
+				
+			});
+		}
+		///
+			var test = `{
+	"data": [
+		{
+      		"id": "123",
+        	"name": "qwert",
+        	"doj": "2016-08-20T00:00:00",
+			"dol": null,
+			"personal" : [
+				{
+					"name": "Father's Name",
+					"value": "Kuppuswamy"
+				},
+				{
+					"name": "Bank Acc. No",
+					"value": "20125346774"
+				}
+			],
+        	"salary": [
+            	{
+                	"name": "Basic",
+                	"value": 10000.0,
+                	"type": "#"
+            	},
+            	{
+                	"name": "DA",
+                	"value": 1000.0,
+                	"type": "#"
+            	}
+        	]
+    	},
+		{
+      		"id": "456",
+        	"name": "yuiop",
+        	"doj": "2016-08-02T00:00:00",
+			"dol": null,
+			"personal" : [
+				{
+					"name": "Father's Name",
+					"value": "Karthik"
+				},
+				{
+					"name": "Bank Acc. No",
+					"value": "21232457865"
+				}
+			],
+        	"salary": [
+            	{
+                	"name": "Basic",
+                	"value": 10000.0,
+                	"type": "#"
+            	},
+            	{
+                	"name": "DA",
+                	"value": 1000.0,
+                	"type": "#"
+            	}
+        	]
+    	}
+	],
+	"message": "Success"
+}`;
+
+	var obj = JSON.parse(test);
+			
+			
+		///
+		function loadList(data){
+			fr = $("#fromInput").val();
+			to = $("#toInput").val();
+			var d1 = new Date(fr);
+			var d2 = new Date(to);
+			fr2 = $("#fromInput2").val();
+			to2 = $("#toInput2").val();
+			var d12 = new Date(fr2);
+			var d22 = new Date(to2);
+			console.log(d12);
+			s = '<tr><th>id</th><th>name</th></tr>';
+			console.log(d1.getTime() > d2.getTime());
+			for ( i in data){
+				doj = new Date(data[i].doj);
+				dol = new Date(data[i].dol);
+				dnull = new Date(null);
+				var cond ;
+				if(dnull.getTime() != d1.getTime())
+					cond= true;//show all if none enterd
+				if(dnull.getTime() != dol.getTime())
+					cond = cond && d2.getTime() >= dol.getTime();
+				if( cond){
+					s = s + '<tr><td>'+data[i].id+'</td><td>'+data[i].name+'</td></tr>';
+				}
+			}
+			$("#tableDisplay").html(s);
+		}
+		
+    </script>
+</html>

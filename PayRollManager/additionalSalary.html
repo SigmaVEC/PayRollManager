@@ -35,9 +35,11 @@
             <br>
             <br>
             <div  class="col-xs-4">
+				<ol id="empIdList"></ol>
 				<input id="empId" class="form-control" type="text" placeholder="enter employee id"></input> 
 				</div>
 				<button class="btn btn-primary" onclick="addEmpId()">add</button>
+		
             <br>
             <br>
 			<div>
@@ -46,6 +48,7 @@
 			</div>
 			<br>
             <div>
+				<input id="applyDate" placeholder="date in YYYY-MM-DD"></input>
                 <div class="panel panel-default">
 				  	<div class="panel-heading">Bonus Info <span class="glyphicon glyphicon-plus add mvright" id="addBonus"></span></div>
 					<table class="table table-striped table-bordered tbl" id="tableBonus">
@@ -183,7 +186,7 @@
 			empIdList.push(a);
 			$("#empIdList").append("<li>"+a+"</li>")
 		}
-		var d = new Date();
+		var d = new Date($("#applyDate").val());
 		date = d.toISOString();
 		function getValues(){
 			bonus = [];
