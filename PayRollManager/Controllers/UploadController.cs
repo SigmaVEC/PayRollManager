@@ -13,7 +13,7 @@ namespace PayRollManager.Controllers
     public class UploadController : ApiController
     {
         [HttpPost]
-        public async Task<HttpResponseMessage> PostFormData()
+        public async Task<HttpResponseMessage> PostFormData(String token)
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent())
@@ -38,7 +38,7 @@ namespace PayRollManager.Controllers
                     //To View your file location in server.
                     Trace.WriteLine("Server file path: " + file.LocalFileName);
                     path = file.LocalFileName;
-
+                   
                 }
                 return Request.CreateResponse(HttpStatusCode.OK,path);
             }
