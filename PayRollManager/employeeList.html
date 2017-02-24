@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Admin View</title>
+		<title>Employee List</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/bootstrap-theme.css" />
         <link rel="stylesheet" href="css/style.css" />
@@ -24,21 +24,22 @@
 				
 		</div>
 		<div id="test"></div>
-		 <div class="btn-group gobtn" style="margin-top:10px;">
+		 <div class="btn-group gobtn" style="margin-top:10px;margin-left:25px">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span id="cname">Select Company</span>
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <ul class="dropdown-menu" id="listCompany" style="margin-top:36px;">
+                <ul class="dropdown-menu" id="listCompany" style="">
                     <button type="button" class="list-group-item disabled">loading</button>
                 </ul>
         </div><br/><br/>
 		<div class="container">
-			
-			<input placeholder="from" id="fromInput" type="date"></input>
-			<input placeholder="to" id="toInput"></input>
-			<button onclick="list()">Submit</button>
+			<div class="col-xs-4">
+			<input class="form-control" placeholder="from" id="fromInput" type="date"><br>
+			<input class="form-control" placeholder="to" id="toInput"><br>
+			<button class="btn btn-primary" onclick="list()">Submit</button>
+			</div>
 			<br>
 			<table id="tableDisplay" class="table"></table>
 		</div>

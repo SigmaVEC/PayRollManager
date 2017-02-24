@@ -1,6 +1,6 @@
 ﻿<html>
 	<head>
-		<title>Admin View</title>
+		<title>Remove</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css"/>
         <link rel="stylesheet" href="css/bootstrap-theme.css" />
         <link rel="stylesheet" href="css/style.css" />
@@ -20,7 +20,7 @@
                     <li id="signOut"><a href="#">Sign out</a></li>
                 </ul>
 		</div>
-		<div id="test"></div>
+		<div id="test"></div><br>
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="active" id="companyTab" section="companySection"><a href="#">Remove Company</a></li>
 			<li role="presentation" id="employeeTab" section="employeeSection"><a href="#">Remove Employees</a></li>
@@ -37,7 +37,7 @@
 						<button type="button" class="list-group-item disabled">loading</button>
 					</ul>
 				</div>
-				<button class="btn btn-danger down" onclick="removeCompany()">Remove Company</button>
+				<button class="btn btn-danger down" style="position: relative; left:20px;" onclick="removeCompany()">Remove Company</button>
 			</div>
 		</div>
 		<div id="employeeSection" class="section">
@@ -52,8 +52,8 @@
 						<button type="button" class="list-group-item disabled">loading</button>
 					</ul>
 				</div>
-				<input type="text" class="form-control down" style="width: 20%;" id="empId" placeholder="enter employee id"/>
-				<button class="btn btn-danger down" onclick="removeEmp()">Remove Employee</button>
+				<input type="text" class="form-control down" style="width: 20%; position: relative; top:6px; left:10px;" id="empId" placeholder="enter employee id"/>
+				<button class="btn btn-danger down" style="position: relative; left:20px;" onclick="removeEmp()">Remove Employee</button>
 			</div>
 		</div>
 		
@@ -83,6 +83,7 @@
 			margin-top: 7px;
 			margin-right: 7px;
 		}
+		
 	</style>
 	<script>
 			

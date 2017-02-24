@@ -106,10 +106,11 @@
 			font-size:20px;
 			color:#666;
 		}
-		#addSalary:hover{
-			color:#59F;
-			cursor: pointer;
+	.add:hover{
+		color:#59F;
+		cursor: pointer;
 		}
+	
 	.btn-group{
 		margin-left: 10px;
 		}
@@ -156,11 +157,9 @@
 		});
 		$("#addPersonal").on("click", function () {
 			//alert("s");
-		    s = `
-				<tr class="inputGroupInfo">
+		    s = `<tr class="inputGroupInfo">
 					<td><input type="text" class="form-control" placeholder="type `+cnt+`" id="ptypenew`+cnt+`" name="ptype1"/></td>
-				</tr>	
-			`;
+				</tr>`;
 		    $("#tablePersonalnew").append(s);
 		    cnt++;
 		});
