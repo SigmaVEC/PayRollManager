@@ -40,8 +40,8 @@
   						<li role="presentation" class="active" id="generalTab" section="generalSection"><a href="#">General</a></li>
   						<li role="presentation" id="EfieldTab" section="EfieldSection"><a href="#">Add Employees</a></li>
   						<!--li role="presentation" id="addTab" section="addSection"><a href="#">Add Employees</a></li-->
-  						<li role="presentation" id="viewTab" section="viewSection"><a href="#">View Employee</a></li>
-						<li role="presentation" id="payRollTab" section="payRollSection"><a href="#">PayRoll</a></li>
+  						<!--li role="presentation" id="viewTab" section="viewSection"><a href="#">View Employee</a></li>
+						<li role="presentation" id="payRollTab" section="payRollSection"><a href="#">PayRoll</a></li-->
 					</ul>
 					<div id="generalSection" class="section"><br><!--span id="settings" class="glyphicon glyphicon-cog"></span-->
 						<!--p>Number of Employess : 121</p>
@@ -49,16 +49,18 @@
 						<table id="generalTable" class="table table-bordered">
 						</table>
 						<div>
+
 							<table class="table table-bordered table-striped">
-							<tr><td><a href="fromExcel.html">Add Employee list</a></tr>
-							<tr><td><a href="printPayroll.html">Print Payroll</a></tr>
-							<tr><td><a href="Remove.html">Remove</a></tr>
-							<tr><td><a href="EmployeeView.html">Employee View</a></tr>
-							<tr><td><a href="additionalSalary.html"> Additional Salary</a></tr>
-							<tr><td><a href="PayrollGenerate.html"> generate payroll</a></tr>
-							<tr><td><a href="printPayroll.html"> Print payroll</a></tr>
-							<tr><td><a href="printPayrollEmp.html"> Print payroll For employee</a></tr>
-							<tr><td><a href="employeeList.html"> View Employees</a></tr>
+							<tr><td><a href="fromExcel.html">Add Employee list</a></td></tr>
+							<tr><td><a href="printPayroll.html">Print Payroll</a></td></tr>
+							<tr><td><a href="Remove.html">Remove</a></td></tr>
+							<tr><td><a href="EmployeeView.html">Employee View</a></td></tr>
+							<tr><td><a href="additionalSalary.html"> Additional Salary</a></td></tr>
+							<tr><td><a href="PayrollGenerate.html"> generate payroll</a></td></tr>
+							<tr><td><a href="printPayroll.html"> Print payroll</a></td></tr>
+							<tr><td><a href="printPayrollEmp.html"> Print payroll For employee</a></td></tr>
+							<tr><td><a href="employeeList.html"> View Employees</a></td></tr>
+							<tr><td><a href="employeeUpdate.html"> Update Employees</a></td></tr>
 							</table>
 						</div>
 					</div>
@@ -134,7 +136,7 @@
                             <button class="btn btn-primary btn-block" style="margin-left:20%; width:60%" id="submit">Submit</button>
 						</div>
 					</div>
-					<div id="viewSection" class="section"><br>
+					<div id="viewSection1" class="section"><br>
 						<div class="panel panel-default">
 				  			<div class="panel-heading">Employees <span class="glyphicon glyphicon-minus add" id="deleteEmpIcon"></span></div>
 								<table class="table table-striped" id="empTable">
@@ -201,8 +203,9 @@
   								</table>
 							</div>
 					</div>
+
 					<br>
-					<div id="payRollSection" class="section">
+					<div id="payRollSection1" class="section">
 						<div class="panel panel-default">
 							<div class="panel-heading">PayRoll</div>
 							<div style="margin:10px;" class="col-xs-4"><label>Select Month</label><input type="date" class="form-control" id="payrollDate"><br>
@@ -341,6 +344,8 @@
 		}
 	</style>
 	<script>
+		$("#payRollSection1").hide();
+		$("#viewSection1").hide();
 		var ecount=1;//Add employee count
 		var th = $("#test").height();
 		var toph = $("#top").height();

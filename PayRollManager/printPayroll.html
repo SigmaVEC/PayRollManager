@@ -44,12 +44,27 @@
 
 				<h3>ISEO SYSTEMS PVT. LTD<h4>ISO 9001:2000 Certified</h4></h3>
 				<p>payslip for month <span id="payDate">20:1:2016</span></p>
-
 				<div class="row">
-					<table class="col-md-6" id="tableInc"></table>
-					<table class="col-md-6" id="tableDud"></table>
+					<table class="table table-bordered table-striped" id="tablePer">
+						<tr><td>Name</td> <td id="tPerName"></td></tr>
+						<tr><td>Id</td> <td id="tperId"></td></tr>
+						<tr><td>D.O.J</td> <td id="tperDoj"></td></tr>
+						<tr><td>D.O.L</td> <td id="tperDol"></td></tr>
+					</table>
 				</div>
-				<div id="totalDiv"></div>
+				<div class="row">
+					<div class="col-md-6 ">
+						<table class="table table-striped table-bordered" id="tableInc"></table>
+					</div>
+					<div class="col-md-6 ">
+						<table class="table table-striped table-bordered" id="tableDud"></table>
+					</div>
+					
+				</div>
+				<table class="table table-striped table-bordered" id="totalDiv">
+					<tr><td>Increment</td> <td>Decrement</td> <td>Total</td> </tr>
+					<tr id="totalValDisp"></tr>
+				</table>
 
 
 				
@@ -57,7 +72,10 @@
 			<table id="tablePayroll" style="table table-striped table-bordered">
 			</table>
 			<div id="printableTableRoot" style="display:nonel;">
-				<table id="printableTable" class="table table-bordered"></table>
+				<div id="companyPrint">
+					CompanyName : <span id="pcname"></span>
+				</div>
+				<table id="printableTable" class=""></table>
 				</div>
 			<div align="center">
 			<button class="btn btn-primary" onclick="javascript:demoFromHTML()"><span class="glyphicon glyphicon-file"></span> PDF</button>
@@ -124,6 +142,9 @@
    // $("#top").hide();
     $("#test").hide();
 	$("#printRootDiv").hide();
+	$("#tablePer").hide();
+	$("#printableTable").hide();
+	$("#companyPrint").hide();
     var toph = $("#top").height();
     $.get("api/listcompanies", {}, function (result) {
         // alert(result.message);
@@ -143,6 +164,7 @@
 	function companySelect(a){
 		cid = a.getAttribute("cid");
 		var cname = a.innerHTML;
+		$("#pcname").html(cname);
 		$("#cname").html(cname);
 		$.get("/api/Slab",{token: getCookie("Token"), CompanyId: cid},function(result){
 			if ( result.Message == "Success"){
@@ -158,6 +180,7 @@
 			
 			notify(result.message);
 			if (result.message == "Success") {//TODO:test
+				console.log(result);
 				loadPayRoll(result.data);
 			}
 		});
@@ -237,13 +260,14 @@
 	 var empList = [];
 	var jsontest = JSON.parse(testInput);
 	slabarr = JSON.parse(slabarr1);
-	loadPayRoll(jsontest.data);
+	//loadPayRoll(jsontest.data);
 	//testing end
    
 	
 	function loadPayRoll(data){
 		//Todo: add the code to display the table
         // this is for all emp
+		
         window.empList.length = 0;
         for ( i in data ){
             var emp = {};
@@ -251,6 +275,10 @@
             var add = [];
             var total=0,totalDud=0,totalAdd=0;
             emp.employeeId = data[i].id;
+			emp.name = data[i].name;
+			emp.dol = data[i].dol;
+			emp.doj = data[i].doj;
+			emp.personal = data[i].personal;
             salary = data[i].salary;
             for (j in salary){
                 if (salary[j].type == '-'){
@@ -288,13 +316,17 @@
             </colgroup>
 			<thead>
 		<tr><th>Employee Id</th><th>Total Increment</th> <th>Total deduction</th><th>Total</th><td></td></tr></thead>`;
+		m =  `
+			<thead>
+		<tr><th>Employee Id</th><th>Total Increment</th> <th>Total deduction</th><th>Total</th></tr></thead>`;
         for ( i in empList ){
-            s = s + "<tr><td> "+ empList[i].employeeId + " </td>";
-            s = s + "<td> " + empList[i].totalAdd +"</td> <td>"+ empList[i].totalDud +" </td>";
-            s = s + "<td> " + empList[i].total + ' </td> <td> <button class="btn btn-primary" onclick="getSalDetails('+i+')"> check details</button> </td></tr>';
+            t =  "<tr><td> "+ empList[i].employeeId + " </td><td> " + empList[i].totalAdd +"</td> <td>"+ empList[i].totalDud +" </td><td> " + empList[i].total + " </td> ";
+			s = s+t;
+			m=m+t;
+			s = s + '<td> <button class="btn btn-primary" onclick="getSalDetails('+i+')"> check details</button> </td></tr>';
         }
         $("#tablePayroll").html(s);
-		$("#printableTable").html(s);
+		$("#printableTable").html(m);
         $("#tablePayroll").addClass("table table-striped table-bordered");
         $("#printRootDiv").show();
 	}
@@ -302,7 +334,15 @@
     function getSalDetails(i){
         s = "<tr><th>Increment name</td><th>Increment value</td></tr>";
         k = "<tr><th>Deduction name</td><th>Deduction value</td></tr>";
-		console.log(empList);
+		//console.log(empList);
+		$("#tablePer").show();
+		$("#tPerName").html(empList[i].name);
+		$("#tperId").html(empList[i].employeeId);
+		$("#tperDoj").html(empList[i].doj);
+		$("#tperDol").html(empList[i].dol);
+		for( m in  empList[i].personal){
+			$("#tablePer").append('<tr><td>'+empList[i].personal[m].name+'</td><td>'+empList[i].personal[m].value+'</td></tr>');
+		}
         for ( j in empList[i].increment){
             s = s + "<tr><td> "+empList[i].increment[j].name+" </td><td> "+empList[i].increment[j].value+" </td></tr>";
         }
@@ -311,10 +351,8 @@
         }
         $("#tableInc").html(s);
         $("#tableDud").html(k);
-        $("#tableInc").addClass("table table-striped table-bordered");
-        $("#tableDud").addClass("table table-striped table-bordered"); 
-		$("#totalDiv").html("Total Increments : "+ empList[i].totalAdd+"<br> Total Deductions : "+empList[i].totalDud+"<br> Total : "+empList[i].total);
-		$("#totalDiv").addClass("table");
+        $("#totalValDisp").html("<td>"+ empList[i].totalAdd+"</td><td>"+empList[i].totalDud+"<td>"+empList[i].total+"</td>");
+		
     }
 
 </script>
@@ -351,7 +389,8 @@
         }
 		function print() {
             var pdf = new jsPDF('p', 'pt', 'letter');
-            
+            $("#printableTable").show();
+			$("#companyPrint").show();
 			$('#printableTableRoot *').css({
 				fontSize:10
 			});

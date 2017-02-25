@@ -307,9 +307,9 @@
         console.log(salary);
 		for (j in salary){
 		
-            if (salary[j].value < 0){
+            if (salary[j].type == '='){
                 dud.push(salary[j]);
-                totalDud = totalDud - salary[j].value; //TODO: percent calc
+                totalDud = totalDud + salary[j].value; //TODO: percent calc
                 k  = k + '<tr><td>'+salary[j].name+'</td><td>'+salary[j].value+'</td></tr>';
             }else {
                 add.push(salary[j]);
