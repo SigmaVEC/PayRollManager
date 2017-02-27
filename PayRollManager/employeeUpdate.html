@@ -10,15 +10,8 @@
 	</head>
 	<body>
 		<div id="top">
-			<span id="logo">Payroll Manager</span>
-			<button type="button" style="width:100px;height:40px;margin-right:50px" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
-                    <span id="username">user</span> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu menu" role="menu">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Edit Details</a></li>
-                    <li id="signOut"><a href="#">Sign out</a></li>
-                </ul>
+			<span id="logo" onclick="window.location='sec.html';">Payroll Manager&nbsp;<span style="font-size:15px;">Update Employee</span></span>
+			
 		</div>
 		<div id="test"></div>
         <div class="container-fluid">
@@ -42,13 +35,13 @@
 								<div class="panel-heading">Personal Info</div>
 								<table class="table table-striped table-bordered" id="tablePersonal">
 									<tr class="inputGroupInfo">
-										<td> Employee Name:</td><td> <input type="text" class="form-control" name="name" id="pVal1"/>
+										<td> Employee Name </td><td> <input type="text" class="form-control" name="name" id="pVal1"/>
 											
-											</tr><tr><td>Employee ID: </td><td><input type="text" class="form-control" name="employeeId" id="pVal2"/>
+											</tr><tr><td>Employee ID </td><td><input type="text" class="form-control" name="employeeId" id="pVal2"/>
 											
-											</tr><tr><td>Date of Join:</td><td> <input type="text" class="form-control" name="date" id="pVal3"/>
+											</tr><tr><td>Date of Join </td><td> <input type="text" class="form-control" name="date" id="pVal3"/>
 											
-											</tr><tr><td>Password:</td><td> <input type="password" class="form-control" name="password" id="pVal4"/>
+											</tr><tr><td>Password </td><td> <input type="password" class="form-control" name="password" id="pVal4"/>
 											</tr><tr><td>Is this employee an admin? </td><td> <input type="checkbox"  name="isAdmin" id="pVal5"/>
 										</td></tr>
 								</table>
@@ -88,7 +81,7 @@
 									</tr>
 								</table>
 							</div>
-							<button  class="btn btn-primary btn-block" style="margin-left:20%; width:60%"id="esubmit">Add Employee</button>
+							<button  class="btn btn-primary btn-block" style="margin-left:40%; width:20%"id="esubmit">Add Employee</button>
 						</div>
 						</div>
 					</div>
@@ -108,6 +101,16 @@
 			width: 100%;
 			height: 100%;
 			background-color:aqua;
+		}
+		.add{
+			position: static;
+			float: right;
+			font-size:20px;
+			color:#666;
+			cursor:pointer;
+		}
+		.add:hover{
+			color:#59F;
 		}
 		#top{
 			height:80px;

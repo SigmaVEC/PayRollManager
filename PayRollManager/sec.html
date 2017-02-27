@@ -10,13 +10,11 @@
 	</head>
 	<body>
 		<div id="top">
-			<span id="logo">Payroll Manager&nbsp;<span style="font-size:15px;">Admin Panel</span></span>
+			<span id="logo" onclick="window.location='sec.html';">Payroll Manager&nbsp;<span style="font-size:15px;">Admin Panel</span></span>
 			<button type="button" style="width:100px;height:40px;margin-right:50px" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
-                    <span id="username">user</span> <span class="caret"></span>
+                    <span id="username">user</span> <span class="glyphicon glyphicon-menu-hamburger"></span>
                 </button>
                 <ul class="dropdown-menu menu" role="menu">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Edit Details</a></li>
                     <li id="signOut"><a href="#">Sign out</a></li>
                 </ul>
 		</div>
@@ -67,13 +65,13 @@
 								<div class="panel-heading">Personal Info</div>
 								<table class="table table-striped table-bordered" id="tablePersonal">
 									<tr class="inputGroupInfo">
-										<td> Employee Name:</td><td> <input type="text" class="form-control" name="name" id="pVal1"/>
+										<td> Employee Name</td><td> <input type="text" class="form-control" name="name" id="pVal1"/>
 											
-											</tr><tr><td>Employee ID: </td><td><input type="text" class="form-control" name="employeeId" id="pVal2"/>
+											</tr><tr><td>Employee ID </td><td><input type="text" class="form-control" name="employeeId" id="pVal2"/>
 											
-											</tr><tr><td>Date of Join:</td><td> <input type="text" class="form-control" name="date" id="pVal3"/>
+											</tr><tr><td>Date of Join</td><td> <input type="text" class="form-control" name="date" id="pVal3"/>
 											
-											</tr><tr><td>Password:</td><td> <input type="password" class="form-control" name="password" id="pVal4"/>
+											</tr><tr><td>Password</td><td> <input type="password" class="form-control" name="password" id="pVal4"/>
 											</tr><tr><td>Is this employee an admin? </td><td> <input type="checkbox"  name="isAdmin" id="pVal5"/>
 										</td></tr>
 								</table>
@@ -258,7 +256,7 @@
 			background-color:aqua;
 		}
 		#top{
-			height:100px;
+			height:80px;
 			background-color:#455a64;
 			padding-left:5%;
 			padding-top:15px;
@@ -395,6 +393,7 @@
 				$("#generalTable").html(s1);
 			}
 		}
+		
 		
 		function loadEmployees(a){
 			var p1 = JSON.parse(a);

@@ -13,22 +13,22 @@
 </head>
 <body>
     <div id="top">
-        <span id="logo">Payroll Manager</span>
+        <span id="logo" onclick="window.location='sec.html';">Payroll Manager&nbsp;<span style="font-size:15px;">Print Payroll Employee</span></span>
     </div>
     <div id="test"></div>
     <div class="container-fluid">
         <div class="row" id="start">
-            <div class="btn-group gobtn" style="margin-top:10px;">
+            <div class="btn-group btn" style="margin-top:10px;">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span id="cname">Select Company</span>
                     <span class="caret"></span>
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <ul class="dropdown-menu" id="listCompany" style="margin-top:36px;">
+                <ul class="dropdown-menu" id="listCompany" >
                     <button type="button" class="list-group-item disabled">loading</button>
                 </ul>
             </div><br/><br/>
-			<table class="table table-striped table-bordered">
+			<table class="table table-striped table-bordered" style="width:40%;margin-left:10px;">
 				<tr>
 					<td><label>Select month</label></td>
 					<td><input type="date" class="form-control" id="payrollDate"></td>
@@ -194,10 +194,9 @@
 
 	}
 	.gobtn{
-		margin-left:auto;
-		margin-right:auto;
+		margin-left:20%;
 		display:block;
-		width:30%;
+		width:10%;
 	}
 </style>
 <script>
