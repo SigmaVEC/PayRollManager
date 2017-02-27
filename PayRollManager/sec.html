@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<div id="top">
-			<span id="logo">Payroll Manager</span>
+			<span id="logo">Payroll Manager&nbsp;<span style="font-size:15px;">Admin Panel</span></span>
 			<button type="button" style="width:100px;height:40px;margin-right:50px" class="btn btn-primary dropdown-toggle menu" data-toggle="dropdown">
                     <span id="username">user</span> <span class="caret"></span>
                 </button>
@@ -48,21 +48,16 @@
 						<p>Date Of Next Payment : 1 Oct 2016</p-->
 						<table id="generalTable" class="table table-bordered">
 						</table>
-						<div>
-
-							<table class="table table-bordered table-striped">
-							<tr><td><a href="fromExcel.html">Add Employee list</a></td></tr>
-							<tr><td><a href="printPayroll.html">Print Payroll</a></td></tr>
-							<tr><td><a href="Remove.html">Remove</a></td></tr>
-							<tr><td><a href="EmployeeView.html">Employee View</a></td></tr>
-							<tr><td><a href="additionalSalary.html"> Additional Salary</a></td></tr>
-							<tr><td><a href="PayrollGenerate.html"> Generate Payroll</a></td></tr>
-							<tr><td><a href="printPayroll.html"> Print Payroll</a></td></tr>
-							<tr><td><a href="printPayrollEmp.html"> Print Payroll for Employee</a></td></tr>
-							<tr><td><a href="employeeList.html"> View Employees</a></td></tr>
-							<tr><td><a href="employeeUpdate.html"> Update Employees</a></td></tr>
-							</table>
-						</div>
+						<button class="btn btn-info lbtn" onclick='window.location="fromExcel.html"'>Add Employee list</button>
+						<button class="btn btn-info rbtn" onclick='window.location="printPayroll.html"'>Print Payroll</button><br>
+						<button class="btn btn-info lbtn" onclick='window.location="Remove.html"'>Remove</button>
+						<button class="btn btn-info rbtn" onclick='window.location="EmployeeView.html"'>Employee View</button><br>
+						<button class="btn btn-info lbtn" onclick='window.location="additionalSalary.html"'> Additional Salary</button>
+						<button class="btn btn-info rbtn" onclick='window.location="PayrollGenerate.html"'> Generate Payroll</button><br>
+						<button class="btn btn-info lbtn" onclick='window.location="printPayroll.html"'> Print Payroll</button>
+						<button class="btn btn-info rbtn" onclick='window.location="printPayrollEmp.html"'> Print Payroll for Employee</button><br>
+						<button class="btn btn-info lbtn" onclick='window.location="employeeList.html"'> View Employees</button>
+						<button class="btn btn-info rbtn" onclick='window.location="employeeUpdate.html"'> Update Employees</button>
 					</div>
 					<div id="EfieldSection" class="section">
 					<div>
@@ -263,7 +258,7 @@
 			background-color:aqua;
 		}
 		#top{
-			height:80px;
+			height:100px;
 			background-color:#455a64;
 			padding-left:5%;
 			padding-top:15px;
@@ -338,6 +333,16 @@
 		}
 		.add:hover{
 			color:#59F;
+		}
+		.rbtn{
+			width:30%;
+			margin-left:10%;
+			margin-top:3%;
+		}
+		.lbtn{
+			width:30%;
+			margin-left:5%;
+			margin-top:3%;
 		}
 		body{
 			font-family:'Segoe UI';
