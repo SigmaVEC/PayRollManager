@@ -18,7 +18,7 @@
     <div id="test"></div>
     <div class="container-fluid">
         <div class="row" id="start">
-            <div class="btn-group btn" style="margin-top:10px;">
+            <!--div class="btn-group btn" style="margin-top:10px;">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span id="cname">Select Company</span>
                     <span class="caret"></span>
@@ -27,15 +27,11 @@
                 <ul class="dropdown-menu" id="listCompany" >
                     <button type="button" class="list-group-item disabled">loading</button>
                 </ul>
-            </div><br/><br/>
+            </div--><br/><br/>
 			<table class="table table-striped table-bordered" style="width:40%;margin-left:10px;">
 				<tr>
 					<td><label>Select month</label></td>
 					<td><input type="date" class="form-control" id="payrollDate"></td>
-				</tr>
-				<tr>
-					<td><label>Employee id</label></td>
-					<td><input type="text" class="form-control" id="payrollEmployeeId"></td>
 				</tr>
 			</table>
 			<button class="btn btn-primary gobtn" onclick="displayPayroll()">Go</button>
@@ -44,106 +40,27 @@
 		<div id="printRootDiv">
 
 			<div id="toPrint">
-
+				<center>
 				<h3 id="printHead">ISEO SYSTEMS PVT. LTD<h4>ISO 9001:2000 Certified</h4></h3>
 				<p id="printSecHead">payslip for month <span id="payDate">Loading</span></p>
-
+				</center>
+				<div class="row">
+					<table class="table table-bordered table-striped" id="tablePer">
+						<tr><td>Name</td> <td id="tPerName"></td></tr>
+						<tr><td>Id</td> <td id="tperId"></td></tr>
+						<tr><td>D.O.J</td> <td id="tperDoj"></td></tr>
+						<tr><td>D.O.L</td> <td id="tperDol"></td></tr>
+					</table>
+				</div>
 				<div class="row">
 					<table class="col-md-6" id="tableInc"></table>
 					<table class="col-md-6" id="tableDud"></table>
 				</div>
-				<div id="totalDiv"></div>
+				<table class="table table-striped table-bordered" id="totalDiv">
+					<tr><td>Increment</td> <td>Decrement</td> <td>Total</td> </tr>
+					<tr id="totalValDisp"></tr>
+				</table>
 				
-				<table id="empTableSection1" class="table" style="font-size:9">
-					<tr>
-						<td> Employee id</td><td>P23</td>
-					</tr>
-					<tr>
-						<td> Employee name </td><td>name</td>
-					</tr>
-					<tr>
-						<td> Designation </td> <td> MMD </td>
-					</tr>
-					<tr>
-						<td> mandays </td> <td> 10 </td>
-					</tr>
-					<tr>
-						<td> present </td> <td> 10 </td>
-					</tr>
-				</table>
-
-				<table id="empTable" class="table" style="font-size:9">
-					<colgroup>
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-						<col width="10%">
-            </colgroup>
-			<thead>
-					<tr>
-						<th>sno</th>
-						<th>Name</th>
-						<th>Father Name</th>
-						<th>DOB</th>
-						<th>DOJ</th>
-						<th>Designation</th>
-						<th>Qualification</th>
-					</tr>
-			</thead>
-			<tbody>
-
-					<tr>
-						<td>1</td>
-						<td>Ram</td>
-						<td>Raj</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Assistant Director</td>
-						<td>BBA</td>
-					</tr>
-
-					<tr>
-						<td>2</td>
-						<td>Guna</td>
-						<td>Lokesh</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Director</td>
-						<td>MBA</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>Bharath</td>
-						<td>rehan</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Accountant</td>
-						<td>MCOM</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>RAM</td>
-						<td>RAJ</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Assistant Director</td>
-						<td>BBA</td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>bilal</td>
-						<td>rasique</td>
-						<td>DD-MM-YYYY</td>
-						<td>DD-MM-YYYY</td>
-						<td>Sales</td>
-						<td>BBA</td>
-					</tr>
-			</tbody>
-				</table>
-
 			</div>
 			<div align="center">
 			<button class="btn btn-primary" onclick="javascript:demoFromHTML()"><span class="glyphicon glyphicon-file"></span> PDF</button>
@@ -201,6 +118,7 @@
 </style>
 <script>
     var th = $("#test").height();
+	$("#toPrint").hide();
    // $("#top").hide();
     $("#test").hide();
 	$("#printRootDiv").hide();
@@ -235,6 +153,7 @@
 	function displayPayroll() {                            
 		var d = document.getElementById("payrollDate").value + "T00:00:00";//TODO::testDate
 		$("#payDate").html(d);
+		$("#toPrint").show();
 		$.get("/api/PayrollHistory", { token: getCookie("Token"), date: d,monthly:"y"}, function (result) {
 			notify(result.message);
 			if (result.message == "Success") {//TODO:test
@@ -283,8 +202,8 @@
 	]
 	`;
 	var testIntput = JSON.parse(inputO);
-	loadPayRoll(testIntput.data);
-	slabarr = JSON.parse(slabarr1);
+	//loadPayRoll(testIntput.data);
+	//slabarr = JSON.parse(slabarr1);
 	//testing end
 	
 	
@@ -300,13 +219,22 @@
         var add = [];
         var total=0,totalDud=0,totalAdd=0;
         emp.employeeId = data.id;
+		emp.personal = data.personal;
         salary = data.salary;
         s = "<tr><th>Increment name</td><th>Increment value</td></tr>";
         k = "<tr><th>Deduction name</td><th>Deduction value</td></tr>";
         console.log(salary);
+		$("#tablePer").show();
+		$("#tPerName").html(data.name);
+		$("#tperId").html(data.id);
+		$("#tperDoj").html(data.doj);
+		$("#tperDol").html(data.dol);
+		for( m in  emp.personal){
+			$("#tablePer").append('<tr><td>'+empList[i].personal[m].name+'</td><td>'+empList[i].personal[m].value+'</td></tr>');
+		}
 		for (j in salary){
 		
-            if (salary[j].type == '='){
+            if (salary[j].type == '-'){
                 dud.push(salary[j]);
                 totalDud = totalDud + salary[j].value; //TODO: percent calc
                 k  = k + '<tr><td>'+salary[j].name+'</td><td>'+salary[j].value+'</td></tr>';
@@ -314,7 +242,7 @@
                 add.push(salary[j]);
                 totalAdd = totalAdd + salary[j].value;
 
-                s  = s + '<tr><td>'+salary[j].name+'</td><td>'+salary[j].value+'</td></tr>';
+                s  = s + '<t><td>'+salary[j].name+'</td><td>'+salary[j].value+'</td></tr>';
             }
         }
         $("#tableInc").html(s);
@@ -339,8 +267,9 @@
         emp.totalAdd = totalAdd;
         emp.deduction = dud;
         emp.increment = add;
-		$("#totalDiv").html("Total Increments : "+ emp.totalAdd+"<br> Total Deductions : "+emp.totalDud+"<br> Total : "+emp.total);
-		$("#totalDiv").addClass("table");
+		//$("#totalDiv").html("Total Increments : "+ emp.totalAdd+"<br> Total Deductions : "+emp.totalDud+"<br> Total : "+emp.total);
+		 $("#totalValDisp").html("<td>"+ emp.totalAdd+"</td><td>"+emp.totalDud+"<td>"+emp.total+"</td>");
+		//$("#totalDiv").addClass("table");
 
 		
         //TODO:load to table -- > Done 2. testing to be done
