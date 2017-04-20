@@ -227,6 +227,7 @@
     <Compile Include="Models\Company_Info.cs">
       <DependentUpon>PayRollModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CSVparserModel.cs" />
     <Compile Include="Models\EmployeeListDataModel.cs" />
     <Compile Include="Models\Employee_Info.cs">
       <DependentUpon>PayRollModel.tt</DependentUpon>
