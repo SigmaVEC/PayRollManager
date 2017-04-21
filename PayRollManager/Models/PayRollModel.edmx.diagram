@@ -13,8 +13,8 @@
         <EntityTypeShape EntityType="PayRollManagerModel.Personal_Details" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PayRollManagerModel.Salary_Bonus" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PayRollManagerModel.Salary_Increments" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Slab" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Session_Tokens" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Slab" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Session_Tokens" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

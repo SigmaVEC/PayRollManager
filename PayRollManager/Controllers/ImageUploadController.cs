@@ -68,10 +68,8 @@ namespace PayRollManager.Controllers
                 return Request.CreateResponse(HttpStatusCode.NotFound, dict);  
             }  
             catch (Exception ex)  
-            {  
-                var res = string.Format("some Message");  
-                dict.Add("error", res);  
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, dict);  
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex);  
             }  
         }  
     }

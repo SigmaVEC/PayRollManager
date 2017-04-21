@@ -140,6 +140,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="additionalSalary.html" />
+    <Content Include="changePassword.html" />
     <Content Include="companyview.html" />
     <Content Include="css\bootstrap-dark.css" />
     <Content Include="css\bootstrap-theme.css" />
@@ -150,11 +152,12 @@
     <Content Include="css\style.css" />
     <Content Include="EfeildsAdd.html" />
     <Content Include="employee.html" />
+    <Content Include="employeeList.html" />
+    <Content Include="employeeUpdate.html" />
     <Content Include="EmployeeView.html" />
     <Content Include="first.html" />
     <Content Include="fromExcel.html" />
     <Content Include="Global.asax" />
-    <Content Include="Bonus.html" />
     <Content Include="index.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
@@ -172,7 +175,11 @@
       <LastGenOutput>PayRollModel.cs</LastGenOutput>
     </Content>
     <Content Include="newemp.html" />
+    <Content Include="PayrollGenerate.html" />
     <Content Include="printPayroll.html" />
+    <Content Include="printPayrollEmp.html" />
+    <Content Include="Remove.html" />
+    <Content Include="sample.html" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <EntityDeploy Include="Models\PayRollModel.edmx">
@@ -192,6 +199,7 @@
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="sec.html" />
     <Content Include="second.html" />
+    <Content Include="slabs.html" />
     <Content Include="tester.html" />
     <Content Include="Upload.html" />
     <Content Include="Web.config" />
@@ -205,6 +213,7 @@
     <Compile Include="Controllers\AdditionalSalaryController.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\EmployeeViewController.cs" />
+    <Compile Include="Controllers\ImageUploadController.cs" />
     <Compile Include="Controllers\ListCompaniesController.cs" />
     <Compile Include="Controllers\PayrollGenerateController.cs" />
     <Compile Include="Controllers\PayrollHistoryController.cs" />
