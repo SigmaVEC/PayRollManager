@@ -5,16 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="dff6f2bdd37c4bb1b2b9d946492155ab" Name="Diagram1">
-        <EntityTypeShape EntityType="PayRollManagerModel.Attendance_Details" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Company_Info" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Employee_Info" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Employee_Salary" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Payroll_History" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Personal_Details" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Bonus" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Increments" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Slab" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PayRollManagerModel.Session_Tokens" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Attendance_Details" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Company_Info" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Employee_Info" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Employee_Salary" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Payroll_History" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Personal_Details" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Bonus" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Increments" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Salary_Slab" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="PayRollManagerModel.Session_Tokens" Width="1.5" PointX="2.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
