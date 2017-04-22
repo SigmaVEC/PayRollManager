@@ -169,6 +169,7 @@
       <DependentUpon>PayRollModel.edmx</DependentUpon>
       <LastGenOutput>PayRollModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\PayRollModel.edmx.sql" />
     <Content Include="Models\PayRollModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PayRollModel.edmx</DependentUpon>
