@@ -1,4 +1,3 @@
-C:\Users\test\Source\Repos\PayrollManager\PayRollManager\obj\Debug\PayRollManager.csprojResolveAssemblyReference.cache
 C:\Users\test\Source\Repos\PayrollManager\PayRollManager\bin\ApplicationInsights.config
 C:\Users\test\Source\Repos\PayrollManager\PayRollManager\bin\roslyn\csc.exe
 C:\Users\test\Source\Repos\PayrollManager\PayRollManager\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -114,3 +113,4 @@ C:\Users\Gautham Leo\Downloads\PayRollManager\PayRollManager\bin\System.Web.Http
 C:\Users\Gautham Leo\Downloads\PayRollManager\PayRollManager\obj\Debug\PayRollManager.csprojResolveAssemblyReference.cache
 C:\Users\Gautham Leo\Downloads\PayRollManager\PayRollManager\obj\Debug\PayRollManager.dll
 C:\Users\Gautham Leo\Downloads\PayRollManager\PayRollManager\obj\Debug\PayRollManager.pdb
+C:\Users\test\Source\Repos\PayrollManager\PayRollManager\obj\Debug\PayRollManager.csprojResolveAssemblyReference.cache

@@ -46,11 +46,15 @@
 						<tr class="inputGroupSalary" >
 							<td><input type="text" class="form-control" readonly disabled placeholder="type 1" name="stype1" value="Basic"/></td>
 							<td><label class="control-label"><input readonly disabled type="checkbox" value="isPercent" name="ispercent" class="ispercent" /> ispercent</label> </td>
-							<td><label class="control-label"><input  type="radio" value="addition" name="adjustment1" required /> Addition </label></td> 
+							<td><label class="control-label"><input  type="radio" value="addition" name="adjustment0" required selected /> Addition </label></td> 
 							<td><label class="control-label"><input readonly disabled type="radio" value="redution" name="adjustment1"/> 	Reduction </label></td>
 						</tr>
 						<tr class="inputGroupSalary" >
-							<td><input type="text" class="form-control" readonly disabled placeholder="type 2" name="stype2" value="shifts"/></td>
+							<td><input type="text" class="form-control" readonly disabled placeholder="type 2" name="stype2" value="Shift 1"/></td>
+							<td><label class="control-label"><input readonly disabled type="checkbox" value="isPercent" name="ispercent" class="ispercent" /> ispercent</label> </td>
+							<td><label class="control-label"><input  type="radio" value="addition" name="adjustment1" required /> Addition </label></td> 
+							<td><label class="control-label"><input readonly disabled type="radio" value="redution" name="adjustment1"/> 	Reduction </label></td>
+						
 						</tr>
 					</table>
 				</div>
@@ -128,6 +132,7 @@
             companyList = companyList + ' <button type="button" cid="' + obj[a].CompanyId + '" class="list-group-item " onclick="companySelect(this)">' + obj[a].CompanyName + '</button> ';
         $("#listCompany").html(companyList);
     });
+	var cid=-1;
 	function companySelect(a){
 		var cname = a.innerHTML;
 		selectedCompanyId = a.getAttribute("cid");
@@ -142,10 +147,11 @@
 			s=`<tr class="inputGroupSalary" id="sal"`+count+`>
 							<td><input type="text" class="form-control" placeholder="type `+count+`" id="stype`+count+`" name="stype`+count+`"/></td>
 							<td><label class="control-label"><input checked type="checkbox" id="ispercent`+count+`" value="isPercent" name="ispercent`+count+`" class="ispercent"/> ispercent </label></td>
-							<td><label class="control-label"><input type="radio" id="adj`+count+`" value="" name="adjustment`+count+`" required /> Addition</label> </td> 
+							<td><label class="control-label"><input type="radio" id="adj`+count+`" value="" name="adjustment`+count+`" required selected/> Addition</label> </td> 
 							<td><label class="control-label"><input type="radio" id="adj`+count+`" value="-" name="adjustment`+count+`"/> 	Reduction </label></td>
 						</tr>`;
 			$("#tableSalary").append(s);
+			$("#ispercent"+count).removeAttr('checked');
 			count++;
 		});
 		$("#addPersonal").on("click", function () {
@@ -161,6 +167,10 @@
 	var types = [];
 	var types1 = [];
 	$("#submit").on("click",function(){
+		if(selectedCompanyId == -1){
+			alert("select company");
+			return;
+		}
 		for(i =1 ; i<cnt;i++){
 			type = $("#ptypenew"+i).val();
 			types1.push(type);
@@ -184,14 +194,20 @@
 	});
 	$("#upload").on("click",function(){
 		var finalExcelData =  dispData();
-		var jsonData = JSON.stringify(finalExcelData);
-		alert(jsonData);
+		//var jsonData = JSON.stringify(finalExcelData);
+		//console.log(jsonData);
 		if(selectedCompanyId == -1){
 			alert("select company");
 			return;
 		}
 		//TODO:CHANGE API URL and TEST
-		$.get("api/addEmployeeList", { token: getCookie("Token"),CompanyId: selectedCompanyId , data:jsonData}, function (result) {
+		var arremp = {};
+		arremp.employee = finalExcelData;
+		arremp.Message = "ok";
+		console.log(arremp);
+		dt = JSON.stringify(arremp);
+		
+		$.get("api/AddEmployeeList", { token: getCookie("Token"), employeeJson:dt	}, function (result) {
 			if (result.message != "Success") {
 				alert(result.message);
 				return;
@@ -281,7 +297,7 @@
 			obj["password"] = $("#pVal4").val();
 	*/
 	
-	var columnHeaders = ["name", "employeeId", "companyId", "date", "password", "shifts", "basicpay"]
+	var columnHeaders = ["name", "employeeId", "date", "password", "Basic", "Shift 1"]
 	var ddata = [];
 	
 	function createDummyData(){
@@ -309,6 +325,8 @@
 		var excelData = ht.getData();
 		for ( i in excelData){
 			var obj = {};
+			obj.companyId = selectedCompanyId;
+			obj.isAdmin = "n";
 			var objsalarr = [];
 			var objperarr = [];
 			var salval = [];
@@ -319,20 +337,27 @@
 			for (j in excelData[i]){
 				//get data upto shifts
 				
-				if (j < 6){
+				if (j < 4){
 					obj[columnHeaders[j]] = excelData[i][j];
-				} else if(j == 6) {
+				} else if(j == 4) {
 					var salobj = {};
-					salobj.name = "basicpay";
+					salobj.name = "Basic";
 					salobj.type = "#";
 					salobj.value = excelData[i][j];
 					objsalarr.push(salobj);
-				} else if(j <= 6 + cnt -1){
+				}else if(j == 5) {
+					var salobj = {};
+					salobj.name = "Shift 1";
+					salobj.type = "#";
+					salobj.value = excelData[i][j];
+					objsalarr.push(salobj);
+				} else if(j <= 5 + cnt -1){
 					//var perobj = {};
 					perval.push(excelData[i][j]);
 				}else{
 					salval.push(excelData[i][j]);
 				}
+				
 			}
 			for (k in types1){
 				var objper = {};
@@ -349,6 +374,7 @@
 			}
 			obj.salary = objsalarr;
 			obj.personal = objperarr;
+			console.log(obj);
 			finalExportData.push(obj);
 		}
 		console.log(obj);

@@ -19,7 +19,7 @@ namespace PayRollManager.Controllers
     {
         private PayRollManagerEntities db = new PayRollManagerEntities();
         string path = "";
-
+        /*
         [HttpPost]
         public async Task<HttpResponseMessage> PostFile(CSVparserModel data)
         {
@@ -143,7 +143,7 @@ namespace PayRollManager.Controllers
                return Request.CreateResponse(HttpStatusCode.OK, "Session Token is invalid");
          }
       }
-
+        */
         }
 
     }

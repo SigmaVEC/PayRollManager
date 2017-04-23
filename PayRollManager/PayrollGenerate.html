@@ -32,7 +32,7 @@
 				<tr>
 					<td><label>Select Date</label></td>
 					<td><input type="text" class="form-control" placeholder="YYYY-MM-DD" id="date"></td>
-					<td><button onclick="setDate()" class="btn btn-primary">set date</button></td>
+					<td><button onclick="setDate()" class="btn btn-primary" id="setdatebtn">set date</button></td>
 				</tr>
 				
 			</table>
@@ -112,11 +112,15 @@
 		colHeaders = ["empid"];
 		var ddata = [];
 		function setDate(){
+			if($("#setdatebtn").hasClass("disabled"))
+				return;		
+				
 			var d = new Date($("#date").val());
 			var d1 = new Date(d.getFullYear(),d.getMonth()+1,0);
 			days = d1.getDate(); //TODO:test
 			console.log(d.getMonth());
 			setColHeaders();
+			$("#setdatebtn").addClass("disabled");
 		}
 		function setColHeaders(){
 			obj = {};
@@ -158,7 +162,7 @@
 					}
 					arr.push(data[i][j]);
 				}
-				obj.shift = arr;
+				obj.shifts = arr;
 				att.push(obj);
 			}
 			root.attendance = att;
@@ -177,7 +181,7 @@
 			}
 			obj.attendance = arr;
 			jsonData = JSON.stringify(data);
-			console.log(data);
+			console.log(jsonData);
 			$.get("/api/PayrollGenerate",{attendanceJson:jsonData, token:getCookie("Token")}, function(result){
 				alert(result.message);
 			});

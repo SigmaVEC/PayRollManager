@@ -27,17 +27,16 @@
             </div>
 			<div class="row">
 				<div class="col-md-8">
-					<table class="table" id="empTable">
-						
+					<table class="table table-striped table-bordered" id="empTable">
 					</table>
 				</div>
 				<div class="col-md-4">
 					Personal Details::<br>
-					<table class="table" id="empPersonalTable">
+					<table class="table table-striped table-bordered" id="empPersonalTable">
 						
 					</table>
 					Salary Details::<br>
-					<table class="table" id="empSalaryTable">
+					<table class="table table-striped table-bordered" id="empSalaryTable">
 						
 					</table>
 					
@@ -91,41 +90,50 @@
 			cid = a.getAttribute("cid");
 			var cname = a.innerHTML;
 			$("#cname").html(cname);
+			loadDetails();
 		}
 		pDetails = [];
 		sDetails = [];
 		function loadDetails(){
-			$.get("/api/EmployeeView",{token:getCookie("Token"), companyId:cid},function(result){
+			$.get("/api/employeeview",{token:getCookie("Token"), companyId:cid},function(result){
 				if(result.message == "Success"){
 					var obj = result.data;
-					s = ""
+					s = "<tr><td> Employee Id </td><td> Name </td><td> DOJ </td><td> DOL </td><td> </td></tr>";
 					for(i in obj){
 						s = s + "<tr>";
-							for(j in obj[i]){
-								if (obj[i].j != "object"){
-									s = s + "<td>"+obj[i].j+"<td>";
-								};
-							}
+						console.log(obj);
+						var d = new Date(obj[i].doj);
+						var doj = d.getFullYear()+" / "+d.getMonth()+" / "+d.getDay();
+						var d = new Date(obj[i].dol);
+						var dol = d.getFullYear()+" / "+d.getMonth()+" / "+d.getDay();
+						if (obj[i].dol == null)
+							dol = "N/A"
+						s = s + '<td>'+obj[i].id+'</td><td>'+obj[i].name+'</td><td>'+doj+'</td><td>'+dol+'</td>';
 						s = s + '<td><button onclick="viewEmp('+i+')">view</button></td>';
 						sDetails.push(obj[i].salary);
 						pDetails.push(obj[i].personal);
 						s = s + "</tr>";
 					}
 					$("#empTable").html(s);
+					$("#empTable").addClass("table");
 				}
 			});
 		}
 		function viewEmp(index){
+			console.log(pDetails[index]);
 			s = "";
 			for( i in pDetails[index]){
 				s = s + "<tr><td>" + pDetails[index][i].name +"</td><td>" + pDetails[index][i].value +"</td></tr>";
 			}
-			$("empPersonalTable").html(s);
+			$("#empPersonalTable").html(s);
 			s = "";
 			for( i in sDetails[index]){
-				s = s + "<tr><td>" + sDetails[index][i].name +"</td><td>" + sDetails[index][i].value +"</td></tr>";
+				PER = "";
+				if( sDetails[index][i].type == "%")
+					PER = "%";
+				s = s + "<tr><td>" + sDetails[index][i].name +"</td><td>" + sDetails[index][i].value +PER+"</td></tr>";
 			}
-			$("empSalaryTable").html(s);
+			$("#empSalaryTable").html(s);
 		}
 	</script>
 </html>

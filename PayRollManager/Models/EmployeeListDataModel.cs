@@ -5,6 +5,7 @@ using System.Web;
 
 namespace PayRollManager.Models {
     public class EmployeeListDataModel {
+        public String Message { get; set; }
         public EmployeeDataModel[] employee { get; set; }
     }
 }
